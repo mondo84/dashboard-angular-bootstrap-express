@@ -1,0 +1,310 @@
+<div class="container-fluid p-0" >
+
+    <div id="content-wrapper" class="d-flex ">
+      <div id="sidebar-container" class="bg-light border-right"
+            [ngClass]="{'togg': toggle, 'cierra': !toggle}">
+        <div class="logo font-weight-bold mb-0">Logo</div>
+
+        <nav class="menu list-group-flush">
+          <a class="list-group-item list-group-item-action bg-light p-3 border-0" href="#">
+            Table</a>
+          <a class="list-group-item list-group-item-action bg-light p-3 border-0" href="#">
+            Users</a>
+          <a class="list-group-item list-group-item-action bg-light p-3 border-0" href="#">
+            Statics</a>
+          <a class="list-group-item list-group-item-action bg-light p-3 border-0" href="#">
+            Events</a>
+          <a class="list-group-item list-group-item-action bg-light p-3 border-0" href="#">
+            Profile</a>
+          <a class="list-group-item list-group-item-action bg-light p-3 border-0" href="#">
+            Config</a>
+        </nav>
+      </div>
+
+      <div id="page-container" class="w-100">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+          <button #menu_toogled class="btn btn-sm btn-primary" >
+            <span *ngIf="!toggle" >Abrir</span>
+            <span *ngIf="toggle" >Cerrar</span>
+          </button>
+          <button class="navbar-toggler" type="button" data-toggle="collapse"
+                  data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                  aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item"><a class="nav-link" href="#">Inicio</a> </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  yesid (mondo84)
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Mi Perfil</a>
+                  <a class="dropdown-item" href="#">Subscripciones</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Cerrar sesion</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </nav>
+
+        <div id="content" class="container-fluid py-4" >
+
+          <section class="py-3">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 border-bottom mb-3 pb-4">
+              <div class="col py-2" >
+                <div class="card border-0 shadow shadow-hover">
+                  <!--
+                    <ion-icon name="trending-up" class="text-primary lead"></ion-icon>
+                   -->
+                  <div class="card-body d-flex" >
+                    <div class="circle rounded-circle d-flex justify-content-center align-items-center mr-2" >
+                      <img class="img-fluid" src="../../assets/img/graphic.png" alt="">
+                    </div>
+                    <div class="pl-2">
+                      <h5 class="mb-0" >3200</h5>
+                      <small class="text-muted">Ventas totales</small>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="col py-2">
+                <div class="card border-0 shadow shadow-hover">
+
+                  <div class="card-body d-flex" >
+                    <!-- <ion-icon name="trending-up" class="text-primary lead"></ion-icon> -->
+                    <div class="circle rounded-circle d-flex justify-content-center align-items-center mr-2" >
+                      <img class="img-fluid" src="../../assets/img/money.png" alt="">
+                    </div>
+                    <div class="pl-2">
+                      <h5 class="mb-0" >3200</h5>
+                      <small class="text-muted">Ventas totales</small>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="col py-2" >
+                <div class="card border-0 shadow shadow-hover">
+
+                  <div class="card-body d-flex" >
+                    <!-- <ion-icon name="trending-up" class="text-primary lead"></ion-icon> -->
+                    <div class="circle rounded-circle d-flex justify-content-center align-items-center mr-2" >
+                      <img class="img-fluid" src="../../assets/img/agenda.png" alt="">
+                    </div>
+                    <div class="pl-2">
+                      <h5 class="mb-0" >3200</h5>
+                      <small class="text-muted">Ventas totales</small>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="col py-2" >
+                <div class="card border-0 shadow shadow-hover">
+
+                  <div class="card-body d-flex" >
+                    <!-- <ion-icon name="trending-up" class="text-primary lead"></ion-icon> -->
+                    <div class="circle rounded-circle d-flex justify-content-center align-items-center mr-2" >
+                      <img class="img-fluid" src="../../assets/img/interest.png" alt="">
+                    </div>
+                    <div class="pl-2">
+                      <h5 class="mb-0" >3200</h5>
+                      <small class="text-muted">Ventas totales</small>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3" style="background-color: transparent;" >
+
+              <div class="col-12  col-lg-5" >
+                <div class="table-responsive">
+
+                  <table class="table table-borderless" >
+                    <thead>
+                      <tr>
+                        <th class="text-left pl-4" colspan="2" ><small><strong>Usuario</strong></small></th>
+                        <th class="text-center"><small><strong>Estado</strong></small></th>
+                        <th class="text-center"><small><strong>Configuracion</strong></small></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="mb-2">
+                        <td class="p-3 align-middle" >
+                          <img class="img-fluid rounded-circle"
+                                src="../../assets/img/users/1-mujer.jpg" alt="Foto User"
+                                style="max-width: 35px;" ></td>
+                        <td>
+                            <span class="d-block">Yesid</span>
+                            <small class="text-muted" >elmondoles@gmail.com</small>
+                        </td>
+                        <td class="text-center align-middle ">
+                          <span class="badge badge-primary text-primary" >Activo</span>
+                        </td>
+                        <td class="text-center align-middle">
+                          <span class="badge badge-secondary text-secondary" >Editar</span>
+                        </td>
+                      </tr>
+                      <tr class="mb-2">
+                        <td class="p-3 align-middle">
+                          <img class="img-fluid rounded-circle"
+                                src="../../assets/img/users/2mujer.jpg" alt="Foto User"
+                                style="max-width: 35px;">
+                        </td>
+                        <td class="d-secondary">
+                          <span class="d-block">Liz</span>
+                          <small class="text-muted">lvlopez@gmail.com</small>
+                        </td>
+                        <td class="text-center align-middle">
+                          <span class="badge badge-primary text-primary" >Activo</span>
+                        </td>
+                        <td class="text-center align-middle">
+                          <span class="badge badge-secondary text-secondary" >Editar</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+              <!-- bg-danger -->
+              <div class="col-12 col-lg-7 d-flex py-2" >
+                <div class="card shadow-sm border-0 w-100" >
+                  <div class="card-header bg-light border-0 pt-3 pb-0" >
+                    <h6>Mensajes</h6>
+                  </div>
+
+                  <!-- Card body-->
+                  <div class="card-body" >
+
+                    <div class="d-flex border-bottom py-3">
+                      <div class="mr-3" >
+                        <img src="" alt="">
+                      </div>
+                      <div>
+                        <div class="d-flex">
+                          <p class="mb-0">Enrique</p>
+                          <small class="text-muted ml-auto">Hace 2 horas</small>
+                        </div>
+                        <small class="text-muted" >
+                          Hola como estas? me podrias enviar una cotizacion?
+                        </small>
+                      </div>
+                    </div>
+                    <div class="text-center pt-3" >
+                      <a href=""><small>Ver todos los mensajes</small></a>
+                    </div>
+                  </div> <!-- Fin card body-->
+
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+
+            <div class="col py-4 ">
+              <div class="card border-0 sombra w-100">
+                <div class="card-header border-0" >Proximo evento</div>
+                <div class="card-body" >
+                    <span class="d-inline-block">Presentacion de producto</span>
+                    <small class="d-inline-block text-muted">Miercoles 24 de Julio a las 14:25</small>
+                    <div class="mb-2">
+                      <span class="badge badge-primary text-primary mr-1" >Mercadotecnia</span>
+                      <span class="badge badge-primary text-primary" >Directivos</span>
+                    </div>
+                    <div class="d-flex" >
+                      <div>
+                        <img class="img-fluid rounded-circle" src="../../assets/img/users/1-mujer.jpg" alt=""
+                              style="max-width: 35px;">
+                        <img class="img-fluid rounded-circle" src="../../assets/img/users/3mujer.jpg" alt=""
+                              style="max-width: 35px;">
+                      </div>
+                      <div class="d-flex ml-auto" >
+                        <span class="badge badge-secondary text-secondary align-self-center">Asistir</span>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col py-4 ">
+              <div class="card border-0 sombra w-100">
+                <div class="card-header border-0" >Encabezado card</div>
+                <div class="card-body" >
+                  <span class="d-inline-block">Presentacion de producto</span>
+                  <small class="d-inline-block text-muted">Miercoles 24 de Julio a las 14:25</small>
+                  <div class="mb-2">
+                    <span class="badge badge-primary text-primary mr-1" >Mercadotecnia</span>
+                    <span class="badge badge-primary text-primary" >Directivos</span>
+                  </div>
+                  <div class="d-flex" >
+                    <div>
+                      <img class="img-fluid rounded-circle" src="../../assets/img/users/5mujer.jpg" alt=""
+                            style="max-width: 35px;">
+                      <img class="img-fluid rounded-circle" src="../../assets/img/users/2mujer.jpg" alt=""
+                            style="max-width: 35px;">
+                    </div>
+                    <div class="d-flex ml-auto" >
+                      <span class="badge badge-secondary text-secondary align-self-center">Asistir</span>
+                    </div>
+                  </div>
+              </div>
+              </div>
+            </div>
+
+            <div class="col py-4 ">
+              <div class="card border-0 sombra w-100">
+                <div class="card-header border-0" >Encabezado card</div>
+                <div class="card-body" >
+                  <span class="d-inline-block">Presentacion de producto</span>
+                  <small class="d-inline-block text-muted">Miercoles 24 de Julio a las 14:25</small>
+                  <div class="mb-2">
+                    <span class="badge badge-primary text-primary mr-1" >Mercadotecnia</span>
+                    <span class="badge badge-primary text-primary" >Directivos</span>
+                  </div>
+                  <div class="d-flex" >
+                    <div>
+                      <img class="img-fluid rounded-circle" src="../../assets/img/users/3mujer.jpg" alt=""
+                            style="max-width: 35px;">
+                      <img class="img-fluid rounded-circle" src="../../assets/img/users/4mujer.jpg" alt=""
+                            style="max-width: 35px;">
+                    </div>
+                    <div class="d-flex ml-auto" >
+                      <span class="badge badge-secondary text-secondary align-self-center">Asistir</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row bg-primary py-5">
+              <div class="col text-center text-white">
+                <span class="d-block">Version de prueba 2020</span>
+                <span class="d-block">Desarrollado por Yesid Davila</span>
+                <span class="d-block">youtube</span>
+                <span class="d-block">twitter</span>
+              </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+</div>

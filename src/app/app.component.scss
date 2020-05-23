@@ -1,0 +1,10 @@
+$ancho: 100%;
+$altoViewPort: 100vh;
+
+.container-main {
+  width: $ancho;
+  min-height: $altoViewPort;
+  padding: 0 0;
+  background-color: rgb(245, 245, 245);
+}
+
