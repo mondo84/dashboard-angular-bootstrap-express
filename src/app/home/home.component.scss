@@ -71,3 +71,13 @@ header {
   overflow: hidden;
 }
 
+// Navbar no pegajoso para resoluciones menores a 768px
+// Navbar ppal fijo o pegajoso para resolucion >= 768px
+@media (min-width: 768px) {
+  .bd-navbar {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 1071;
+  }
+}

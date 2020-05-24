@@ -62,10 +62,151 @@
     </nav>
 
     <!-- Grilla -->
-    <main class="col-md-9 col-xl-8 py-md-3 pl-md-2 bg-light-gray bd-content" >
-      contenido
+    <main class="col-md-9 col-xl-8 py-md-3 pl-md-2 bd-content" >
+      <div class="row row-cols-1 row-cols-lg-2 bg-light-gray">
+
+        <div class="col col-lg-6">
+          <div class="table-responsive">
+            <table class="table table-borderless" >
+              <caption class="p-0 pl-2">
+                <small>Listado de vehiculos en ruta</small>
+              </caption>
+              <tr><th>En ruta</th></tr>
+              <tbody>
+                <tr class=" p-0" *ngFor="let item of datos; index as i">
+                  <td class="p-2">
+                    <div class="card shadow-box" style="min-width: 350px;" >
+                      <div class="card-body p-2">
+                        <div class="d-flex align-items-center">
+                          <div class="p-3 mr-2">
+                            <img src="{{item.foto}}" alt=""
+                                  class="img-fluid rounded-circle"
+                                  style="max-width: 60px;">
+                          </div>
+                          <div class="flex-grow-1 pl-4 py-1 border-left">
+                            <div class="d-block" >
+                              <small class="text-muted">Viaje: {{i+1}}</small>
+                            </div>
+                            <div class="d-block">
+                              <small class="text-muted">Conductor: {{item.nombre}}</small>
+                            </div>
+                          </div>
+                          <div class="d-flex align-items-end px-2 pb-2 align-self-stretch">
+                            <!-- <button class="btn btn-sm btn-primary" >Detalle</button> -->
+                            <a href="#" data-toggle="modal" data-target="#staticBackdrop">
+                              Detalle</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="col col-lg-6">
+          <div class="table-responsive">
+            <table class="table table-borderless" >
+              <caption class="p-0 pl-2">
+                <small>Listado de vehiculos en muelle</small>
+              </caption>
+              <tr>
+                <th>En muelle</th>
+              </tr>
+              <tbody>
+                <tr class=" p-0">
+                  <td class="p-2">
+                    <div class="card shadow-box" style="min-width: 350px;" >
+
+                      <div class="card-body p-2">
+                        <div class="d-flex align-items-center">
+                          <div class="d-flex align-items-end px-2 pb-2 align-self-stretch">
+                            <a href="#" data-toggle="modal" data-target="#staticBackdrop">
+                              Detalle</a>
+                          </div>
+                          <div class="flex-grow-1 pr-4 py-1 border-right text-right">
+                            <div class="d-block" >
+                              <small class="text-muted">Viaje: 0001</small>
+                            </div>
+                            <div class="d-block">
+                              <small class="text-muted">Conductor: Ivana M.</small>
+                            </div>
+                          </div>
+                          <div class="p-3 ml-2">
+                            <img src="../../assets/img/users/3mujer.jpg" alt=""
+                                  class="img-fluid rounded-circle"
+                                  style="max-width: 60px;">
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </main>
 
   </div>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static"
+      data-keyboard="false" tabindex="-1" role="dialog"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true" style="z-index: 2000;">
+
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header py-1 pr-1" >
+            <div class="col d-flex justify-content-end p-0">
+              <button class="btn btn-sm btn-light" data-dismiss="modal">
+                <img class="img-fluid m-0 p-0" src="../../assets/img/cerrar.png"
+                  style="width: 15px;" alt="Cerrar modal">
+              </button>
+            </div>
+          </div>
+          <div class="modal-body pt-0" >
+            <div class="row">
+              <div class="col px-0">
+                <div class="px-0" >
+                  <img src="../../assets/img/camiones/camion1.jpg"
+                        alt="Foto camion"
+                        style="width: 100%; height: 200px; object-fit: cover;">
+                </div>
+                <div class="d-flex flex-column px-2">
+                  <small class="text-muted d-block">Datos del vehiculo:</small>
+
+                  <div class="py-1">
+                    <small class="text-muted mr-2">Origen:</small>
+                    <span class="text-muted">Origen: Mocarí / Monteria</span>
+                  </div>
+                  <div class="py-1">
+                    <small class="text-muted mr-2">Placa:</small>
+                    <span class="text-muted">cbx-12 de B/quilla</span>
+                  </div>
+                  <div class="py-1">
+                    <small class="text-muted mr-2">Destino:</small>
+                    <span class="text-muted">Planta Malambo / Barranquilla</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer py-2" >
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-sm btn-primary mr-1 shadow-box">Editar</button>
+              <button class="btn btn-sm btn-danger shadow-box">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 </div>

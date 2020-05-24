@@ -74,12 +74,25 @@
   display: block;
 }
 
+.card {
+  border-radius: 0;
+  border: 0;
+}
 
+.shadow-box { box-shadow: 0px 9px 5px -8px #d8d8d8; }
+.btn { border-radius: 0; }
+.modal-content { border-radius: 0; border: 0; }
+
+a { text-decoration: none; }
+
+
+// layout para resolucion >= a 768px
 @media (min-width: 768px) {
   .bd-sidebar {
     position: -webkit-sticky;
     position: sticky;
     top: 4rem;
+    // top: 3rem;
     z-index: 1000;
     border-right: 1px solid rgba(0,0,0,.1);
     height: calc(100vh - 4rem);
