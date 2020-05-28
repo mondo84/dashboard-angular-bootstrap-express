@@ -52,13 +52,11 @@
 .bd-toc {
   -ms-flex-order: 2;
   order: 2;
-
   position: -webkit-sticky;
   position: sticky;
   top: 4rem;
   height: calc(100vh - 4rem);
   overflow-y: auto;
-
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
   font-size: .875rem;
@@ -73,29 +71,12 @@
   display: block;
 }
 
-.card {
-  border-radius: 0;
-  border: 0;
-}
+// .card {
+//   border-radius: 0;
+//   border: 0;
+// }
 
-a { text-decoration: none; }
-.shadow-box { box-shadow: 0px 9px 5px -8px #d8d8d8; }
-.btn { border-radius: 0; }
-.modal-content { border-radius: 0; border: 0; }
-.form-control-input {
-  border: none;
-  border-radius: 0;
-  outline: none;
-  border-bottom: 1px #d8d8d8 solid;
-  color: #495057;
-  width: 100%;
-  display: block;
-  font-size: .8rem;
-  line-height: 0;
-  padding: .250rem .75rem;
-  background-color: transparent;
-}
-.modal-content { background-color: rgba(255, 255, 255, 0.842); }
+// a { text-decoration: none; }
 
 // layout para resolucion >= a 768px
 @media (min-width: 768px) {

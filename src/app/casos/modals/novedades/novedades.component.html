@@ -1,0 +1,43 @@
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-novedades" style="z-index: 2000;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Reportar Novedad</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-md-4" >
+            <div class="col px-0" >
+              <input type="checkbox" name="motor" id="motor">
+              <label class="form-check-label ml-2" for="motor">Motor</label>
+            </div>
+            <div class="col px-0" >
+              <input type="checkbox" name="llanta" id="llanta">
+              <label class="form-check-label ml-2" for="llanta">Llanta</label>
+            </div>
+            <div class="col px-0" >
+              <input type="checkbox" name="combustible" id="combustible">
+              <label class="form-check-label ml-2" for="combustible">ACPM</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 px-0 pt-3">
+              <label for="descripcion">Descripcion</label>
+              <textarea class="form-control" name="descripcion" id="descripcion"
+                        cols="30" rows="10" ></textarea>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button class="btn btn-sm btn-primary mr-1">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

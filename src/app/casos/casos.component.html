@@ -1,7 +1,6 @@
 <div class="container-fluid alto-viewport bg-light-gray" >
 
   <div class="row">
-
     <!-- Sidebar ppal izquierdo -->
     <div class="col-md-3 col-xl-2 bd-sidebar" >
       <div class="d-flex d-md-none py-2 justify-content-end" >
@@ -15,8 +14,19 @@
       <nav id="collapseExample" class="collapse bd-links bg-light-gray" >
         <div>
           <a class="bd-toc-link" href="#"
-          data-toggle="modal" data-target="#modalSave">Nuevo caso</a>
+              data-toggle="modal" data-target="#modalAdd"
+              (click)="addReg()">Nuevo caso</a>
+
         </div>
+        <div>
+          <a class="bd-toc-link" href="#"
+              data-toggle="collapse" data-target="#sub-menu-nov">Reportar</a>
+          <ul id="sub-menu-nov" class="collapse bd-sidenav">
+            <li><a href="#" data-toggle="modal" data-target="#modal-novedades">Novedades</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#modal-llegada">Llegada(lista en muelle)</a></li>
+          </ul>
+        </div>
+
         <div>
           <a class="bd-toc-link" href="#"
               data-toggle="collapse" data-target="#sub-menu" >Facturas</a>
@@ -45,6 +55,7 @@
             <li><a href="">Culminados</a></li>
           </ul>
         </div>
+
       </nav>
     </div>
 
@@ -83,309 +94,18 @@
 
     <!-- Grilla -->
     <main class="col-md-9 col-xl-8 py-md-3 pl-md-2 bd-content" >
-      <div class="row row-cols-1 row-cols-lg-2 bg-light-gray">
-
-        <div class="col col-lg-6">
-          <div class="table-responsive">
-            <table class="table table-borderless" >
-              <caption class="p-0 pl-2">
-                <small>Listado de vehiculos en ruta</small>
-              </caption>
-              <tr class="shadow-box">
-                <th class="text-muted pl-3">En ruta</th>
-              </tr>
-              <tbody>
-                <tr class=" p-0" *ngFor="let item of datos; index as i">
-                  <td class="p-2">
-                    <div class="card shadow-box" style="min-width: 350px;" >
-                      <div class="card-body py-0">
-                        <div class="d-flex align-items-center">
-                          <div class="py-2 mr-2">
-                            <img src="{{item.foto}}" alt=""
-                                  class="img-fluid rounded-circle"
-                                  style="max-width: 35px;">
-                          </div>
-                          <div class="flex-grow-1 pl-2 py-1">
-                            <div class="d-block" >
-                              <small class="text-muted">Viaje: {{i+1}}</small>
-                            </div>
-                            <div class="d-block">
-                              <small class="text-muted">Conductor: {{item.nombre}}</small>
-                            </div>
-                          </div>
-                          <div class="d-flex align-items-end px-2 pb-2 align-self-stretch">
-                            <a href="#" class="mr-2"
-                                data-toggle="modal" data-target="#modal-delete">
-                              <small class="text-danger">Eliminar</small></a>
-                            <a href="#" data-toggle="modal" data-target="#modalSave">
-                              <small>Ver</small></a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="col col-lg-6">
-          <div class="table-responsive">
-            <table class="table table-borderless" >
-              <caption class="p-0 pl-2">
-                <small>Listado de vehiculos en muelle</small>
-              </caption>
-              <tr class="shadow-box" >
-                <th class="text-muted pl-3">En muelle</th>
-              </tr>
-              <tbody>
-                <tr class=" p-0">
-                  <td class="p-2">
-                    <div class="card shadow-box" style="min-width: 350px;" >
-
-                      <div class="card-body py-0">
-                        <div class="d-flex align-items-center">
-                          <div class="d-flex align-items-end px-2 pb-2 align-self-stretch">
-                            <a href="#" data-toggle="modal" data-target="#modalSave">
-                              <small>Ver</small></a>
-                            <a href="#" class="ml-2"
-                              data-toggle="modal" data-target="#modal-delete">
-                            <small class="text-danger">Eliminar</small></a>
-                          </div>
-                          <div class="flex-grow-1 pr-4 py-1 text-right">
-                            <div class="d-block" >
-                              <small class="text-muted">Viaje: 0001</small>
-                            </div>
-                            <div class="d-block">
-                              <small class="text-muted">Conductor: Ivana M.</small>
-                            </div>
-                          </div>
-                          <div class="py-2 ml-2">
-                            <img src="../../assets/img/users/3mujer.jpg" alt=""
-                                  class="img-fluid rounded-circle"
-                                  style="max-width: 35px;">
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </td>
-                </tr>
-
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-      </div>
+        <router-outlet></router-outlet>
     </main>
+  </div>  <!-- #row -->
 
-  </div>
+</div>  <!-- #Container -->
 
-</div>
+<!-- Modal add registro -->
+<app-modal-add [numRandom]="numAleatorio"></app-modal-add>
 
+<!-- Modal reporte llegada -->
+<app-modal-llegada></app-modal-llegada>
 
-<!-- Modal -->
-<div class="modal fade" id="modalSave" data-backdrop="static"
-      data-keyboard="false" tabindex="-1" role="dialog"
-      aria-labelledby="staticBackdropLabel" aria-hidden="true" style="z-index: 2000;">
+<!-- Modal novedades -->
+<app-novedades></app-novedades>
 
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <div class="modal-header py-1 pr-1" >
-            <div class="col d-flex justify-content-end p-0">
-              <button class="btn btn-sm btn-light" data-dismiss="modal">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          </div>
-          <div class="modal-body pt-0 pb-0" >
-            <div class="container-fluid px-0">
-
-              <div class="row">
-                <div class="col-12 col-lg-4 px-0">
-                  <img src="../../assets/img/camiones/camion1.jpg"
-                          alt="Foto camion"
-                          style="width: 100%; height: 180px; object-fit: cover;">
-                </div>
-                <div class="col-12 col-lg-8">
-                  <form novalidate [formGroup]="objFormC" (ngSubmit)="onSubmit()">
-                    <div class="row" >
-                      <input type="hidden" formControlName="id" name="id" id="id"
-                              placeholder="ID" autocomplete="off" required>
-                      <div class="col-12 col-lg-6 d-flex my-1">
-                        <div style="width: 80px;" >
-                          <small class="text-muted mr-2" >Nombre:</small>
-                        </div>
-                        <div class="flex-grow-1" >
-                          <input type="text" formControlName="conductor"
-                            name="conductor" id="conductor" class="form-control-input pl-3 ml-auto mr-3"
-                            autocomplete="off" [readOnly]="objCheck" required>
-                        </div>
-                        <div style="width: auto;">
-                          <img *ngIf="objCheck" src="../../assets/img/password.png"
-                            alt="lock" style="width: 20px; height: 20px;">
-                          <img *ngIf="!objCheck"  class="img-fluid" src="../../assets/img/write.png"
-                            alt="unlock" style="width: 20px; height: 20px;">
-                        </div>
-                      </div>
-                      <div class="col-12 col-lg-6 d-flex my-1">
-                        <div style="width: 80px;" >
-                          <small class="text-muted mr-2" >Cedula:</small>
-                        </div>
-                        <div class="flex-grow-1" >
-                          <input type="text" formControlName="cedula"
-                            name="cedula" id="cedula" class="form-control-input pl-3 ml-auto mr-3"
-                            autocomplete="off" [readOnly]="objCheck" required>
-                        </div>
-                        <div style="width: auto;">
-                          <img *ngIf="objCheck" src="../../assets/img/password.png"
-                            alt="lock" style="width: 20px; height: 20px;">
-                          <img *ngIf="!objCheck"  class="img-fluid" src="../../assets/img/write.png"
-                            alt="unlock" style="width: 20px; height: 20px;">
-                        </div>
-                      </div>
-                      <div class="col-12 col-lg-6 d-flex my-1">
-                        <div style="width: 80px;" >
-                          <small class="text-muted mr-2" >Celular:</small>
-                        </div>
-                        <div class="flex-grow-1" >
-                          <input type="text" formControlName="celular"
-                            name="celular" id="celular" class="form-control-input pl-3 ml-auto mr-3"
-                            autocomplete="off" [readOnly]="objCheck" required>
-                        </div>
-                        <div style="width: auto;">
-                          <img *ngIf="objCheck" src="../../assets/img/password.png"
-                            alt="lock" style="width: 20px; height: 20px;">
-                          <img *ngIf="!objCheck"  class="img-fluid" src="../../assets/img/write.png"
-                            alt="unlock" style="width: 20px; height: 20px;">
-                        </div>
-                      </div>
-                      <div class="col-12 col-lg-6 d-flex my-1 ">
-                        <div style="width: 80px;" >
-                          <small class="text-muted mr-2" >Placa:</small>
-                        </div>
-                        <div class="flex-grow-1" >
-                          <input type="text" formControlName="placa"
-                            name="placa" id="placa" class="form-control-input pl-3 ml-auto mr-3"
-                            autocomplete="off" [readOnly]="objCheck" required>
-                        </div>
-                        <div style="width: auto;">
-                          <img *ngIf="objCheck" src="../../assets/img/password.png"
-                            alt="lock" style="width: 20px; height: 20px;">
-                          <img *ngIf="!objCheck"  class="img-fluid" src="../../assets/img/write.png"
-                            alt="unlock" style="width: 20px; height: 20px;">
-                        </div>
-                      </div>
-                      <div class="col-12 col-lg-6 d-flex my-1 ">
-                        <div style="width: 80px;" >
-                          <small class="text-muted mr-2" >Trailer:</small>
-                        </div>
-                        <div class="flex-grow-1" >
-                          <input type="text" formControlName="trailer"
-                            name="trailer" id="trailer" class="form-control-input pl-3 ml-auto mr-3"
-                            autocomplete="off" [readOnly]="objCheck" required>
-                        </div>
-                        <div style="width: auto;">
-                          <img *ngIf="objCheck" src="../../assets/img/password.png"
-                            alt="lock" style="width: 20px; height: 20px;">
-                          <img *ngIf="!objCheck"  class="img-fluid" src="../../assets/img/write.png"
-                            alt="unlock" style="width: 20px; height: 20px;">
-                        </div>
-                      </div>
-                      <div class="col-12 col-lg-6 d-flex my-1 ">
-                        <div style="width: 80px;" >
-                          <small class="text-muted mr-2" >Origen:</small>
-                        </div>
-                        <div class="flex-grow-1" >
-                          <input type="text" formControlName="origen"
-                            name="origen" id="origen" class="form-control-input pl-3 ml-auto mr-3"
-                            autocomplete="off" [readOnly]="objCheck" required>
-                        </div>
-                        <div style="width: auto;">
-                          <img *ngIf="objCheck" src="../../assets/img/password.png"
-                              alt="lock" style="width: 20px; height: 20px;">
-                          <img *ngIf="!objCheck"  class="img-fluid" src="../../assets/img/write.png"
-                              alt="unlock" style="width: 20px; height: 20px;">
-                        </div>
-                      </div>
-                      <div class="col-12 col-lg-6 d-flex my-1">
-                        <div style="width: 80px;" >
-                          <small class="text-muted" >Destino:</small>
-                        </div>
-                        <div class="flex-grow-1" >
-                          <input type="text" formControlName="destino"
-                            name="destino" id="destino" class="form-control-input pl-3 ml-auto mr-3"
-                            autocomplete="off" [readOnly]="objCheck" required>
-                        </div>
-                        <div style="width: auto;">
-                          <img *ngIf="objCheck" src="../../assets/img/password.png"
-                            alt="lock" style="width: 20px; height: 20px;">
-                          <img *ngIf="!objCheck"  class="img-fluid" src="../../assets/img/write.png"
-                            alt="unlock" style="width: 20px; height: 20px;">
-                        </div>
-                      </div>
-                      <div class="col-12 d-flex pt-4 pb-2">
-                          <div class="custom-control custom-switch ml-2">
-                            <input type="checkbox" class="custom-control-input"
-                                    id="customSwitch"
-                                    name="check" formControlName="check" [checked]='false'
-                                    (change)='isChecked()'>
-                            <label class="custom-control-label" for="customSwitch">
-                              <small>
-                                <span *ngIf="!objCheck">Edicion habilitada</span>
-                                <span *ngIf="objCheck">Solo lectura</span>
-                              </small>
-                            </label>
-                          </div>
-
-                        <button class="btn btn-sm btn-primary ml-auto"
-                              [disabled]="!objFormC.valid">
-                          Enviar
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                </div> <!-- #Cierra col -->
-              </div> <!-- #cierra row -->
-
-            </div>
-          </div>  <!-- #cierra body modal -->
-
-          <div class="modal-footer py-2" >
-            <div class="d-flex justify-content-end">
-              <small class="text-muted">elmondoles@gmail.com @2020</small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-</div>
-
-<!--Modal eliminar -->
-<div class="modal fade" id="modal-delete" data-backdrop="static"
-      data-keyboard="false" tabindex="-1" role="dialog"
-      aria-labelledby="staticBackdropLabel" aria-hidden="true" style="z-index: 2000;">
-
-      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header py-1 pr-1" >
-            <div class="col d-flex justify-content-start">
-              Confirmacion
-            </div>
-          </div>
-          <div class="modal-body py-5 text-center" >
-            <span class="d-block pb-2">
-              Estas seguro de eliminar este registro?
-            </span>
-
-            <button class="btn btn-sm btn-primary mr-1">Aceptar</button>
-            <button class="btn btn-sm btn-secondary"
-                    data-dismiss="modal">Cancelar</button>
-          </div>
-
-        </div>
-      </div>
-
-</div>

@@ -1,0 +1,32 @@
+* {
+  font-size: 12px;
+}
+.field-invalid {
+  border-color: #dc3545;
+  padding-right: calc(1.5em + .75rem);
+  background-image: url('../../.././../assets/img/warning.png');
+  background-repeat: no-repeat;
+  background-position: right calc(.375em + .1875rem) center;
+  background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+
+  &:focus {
+    box-shadow: 0px 0px 2px 2px #dc354688;
+    background-color: #dc35461f;
+    // color: white;
+  }
+}
+
+.field-validated {
+  border-color: #28a745;
+  padding-right: calc(1.5em + .75rem);
+  background-image: url('../../.././../assets/img/check.png');
+  background-repeat: no-repeat;
+  background-position: right calc(.375em + .1875rem) center;
+  background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+
+  &:focus {
+    box-shadow: 0px 0px 2px 2px #28a74588;
+    background-color: #28a7451f;
+    // color: white;
+  }
+}

@@ -1,4 +1,3 @@
-import { async } from '@angular/core/testing';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 

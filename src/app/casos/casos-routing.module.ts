@@ -4,7 +4,16 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
-  { path: '', component: CasosComponent }
+  {
+    path: '', component: CasosComponent,
+    children: [
+      { path: '', redirectTo: 'listado', pathMatch: 'full' },
+      { path: 'listado', loadChildren: async () => {
+        const objML = await import('./listados/listados.module');
+        return objML.ListadosModule;
+      } }
+    ]
+  }
 ];
 
 @NgModule({

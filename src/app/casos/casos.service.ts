@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { UserI } from './../interfaces/user-i';
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +8,14 @@ export class CasosService {
 
   constructor() { }
 
-  saveCasos(objJson: any) {
-    console.log('Conexion con el API');
-    console.log(objJson);
+  saveOrUpdateCasos(objJson: UserI) {
+    if ( objJson.id ) {
+      console.log(`(servicio) Modifica este ID: ${objJson.id}`);
+      console.log(objJson);
+    } else {
+      console.log(`(servicio) Guarda este registro. ID: ${objJson.id}`);
+      console.log(objJson);
+    }
   }
+
 }

@@ -1,0 +1,55 @@
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-llegada" style="z-index: 2000;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Reportar Llegada</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row row-cols-1" >
+            <div class="col pt-0 pb-2 px-0" >
+              <span>Indicar la hora de llegada.</span>
+            </div>
+
+            <div class="col px-0" >
+              <div class="row">
+                <div class="col d-flex" >
+                  <!-- <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label> -->
+                  <select class="custom-select mr-sm-2" style="width: 100px;">
+                    <option selected>HH</option>
+                    <option value="1">01</option>
+                    <option value="2">02</option>
+                    <option value="3">03</option>
+                  </select>
+                  <!-- <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label> -->
+                  <select class="custom-select mr-sm-2" style="width: 100px;">
+                    <option selected>MM</option>
+                    <option value="1">01</option>
+                    <option value="2">02</option>
+                    <option value="3">03</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 px-0 pt-3">
+              <label for="descripcion">Descripcion</label>
+              <textarea class="form-control" name="descripcion" id="descripcion"
+                        cols="30" rows="10" ></textarea>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button class="btn btn-sm btn-primary mr-1">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';  // Modulo de rutas.
 // import { ReactiveFormsModule } from '@angular/forms';     // Modulo de formulario.
 import { AppComponent } from './app.component';           // Componente principal.
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { AppComponent } from './app.component';           // Componente principa
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

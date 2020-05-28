@@ -1,5 +1,14 @@
 export interface UserI {
   id?: number;
-  email: string;
-  password: string;
+  foto?: string;
+  nombre: string;
+  cedula: string;
+  celular: string;
+  origen: string;
+  destino: string;
+  placa: string;
+  trailer: string;
+  email?: string;
+  password?: string;
+
 }

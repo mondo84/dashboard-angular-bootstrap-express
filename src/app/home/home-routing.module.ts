@@ -1,5 +1,3 @@
-import { CasosComponent } from './../casos/casos.component';
-import { async } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';

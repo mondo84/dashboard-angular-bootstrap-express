@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
 
   private formLogin() {
     this.objFormLogin = this.fb.group({
-      email: [
+      cedula: [
               { value: '', disabled: false },
               { validators: [
                   Validators.required,

@@ -1,9 +1,9 @@
 
 <div class="container container-login d-flex flex-column justify-content-center ">
 
-  <div class="row" style="background: chocolate;" style="height: 70px;">
-    <div class="col d-flex justify-content-center align-items-center header-login" >
-      Inicio de Sesion
+  <div class="row header-login">
+    <div class="col d-flex justify-content-center align-items-center" >
+      <span class="text-muted">Inicio de Sesion</span>
     </div>
   </div>
 
@@ -11,9 +11,9 @@
     <div class="row justify-content-center align-items-center">
 
       <div class="col col-10 col-sm-8 col-md-6 col-lg-4 d-flex flex-column justify-content-center py-2">
-        <input type="email" formControlName="email" class="form-control mb-2"
-                name="email" autocomplete="off">
-        <input type="password" formControlName="password" class="form-control mb-2"
+        <input type="text" formControlName="cedula" class="form-control form-control-sm mb-2"
+                name="cedula" autocomplete="off">
+        <input type="password" formControlName="password" class="form-control form-control-sm mb-2"
                 name="password" >
         <!-- <input type="checkbox" name="" id="check" > -->
         <button #btnInicio class="btn btn-sm btn-primary "
