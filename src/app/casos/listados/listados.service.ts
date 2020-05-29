@@ -9,6 +9,7 @@ import { UserI } from './../../interfaces/user-i';
 })
 export class ListadosService {
 
+  // Variables de entorno.
   URL = 'http://localhost:3000/casos';
   URL_MUELLE = 'http://localhost:3000/casos/muelle';
 
