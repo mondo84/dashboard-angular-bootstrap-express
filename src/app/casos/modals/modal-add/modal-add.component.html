@@ -6,7 +6,7 @@
         <div class="modal-content">
           <!-- {{ objJson | json }} -->
           <div class="modal-header py-1 pr-1" >
-            ADD
+            {{  birthday | date:"fullDate" | uppercase }}
             <div class="col d-flex justify-content-end p-0">
               <button class="btn btn-sm btn-light" data-dismiss="modal">
                   <span aria-hidden="true">&times;</span>
@@ -17,33 +17,29 @@
             <div class="container-fluid px-0">
 
               <div class="row">
-                <div class="col-12 col-lg-4 px-0 px-lg-2 pb-2 pb-lg-0">
-                  <img src="../../assets/img/camiones/camion1.jpg" alt="Foto camion"
-                        style="width: 100%; height: 180px; object-fit: cover;">
-                </div>
-                <div class="col-12 col-lg-8">
+                <div class="col-12">
                   <form [formGroup]="objFormC" (ngSubmit)="onSubmit()" novalidate>
-                    <div class="row" >
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" >
                       <input type="hidden" formControlName="id" name="id" id="idd"
                               placeholder="ID" autocomplete="off">
-                      <div class="col-12 col-lg-6 d-flex my-1">
+                      <div class="col d-flex my-1">
                         <div style="width: 80px;" >
                           <small class="text-muted mr-2" >Nombre:</small>
                         </div>
                         <div class="flex-grow-1" >
-                          <input type="text" formControlName="conductor"
-                            name="conductor" id="conductorr"
+                          <input type="text" formControlName="nombre"
+                            name="nombre" id="nombrer"
                             class="form-control form-control-sm pl-3 ml-auto mr-3"
-                            [ngClass]="{'field-invalid': getError('conductor'),
-                                        'field-validated': getValid('conductor')}"
+                            [ngClass]="{'field-invalid': getError('nombre'),
+                                        'field-validated': getValid('nombre')}"
                             autocomplete="off" required>
-                            <div [ngClass]="{'d-block': getError('conductor')}"
+                            <div [ngClass]="{'d-block': getError('nombre')}"
                                   class="invalid-feedback">
-                                  {{getError('conductor')}}
+                                  {{getError('nombre')}}
                             </div>
                         </div>
                       </div>
-                      <div class="col-12 col-lg-6 d-flex my-1">
+                      <div class="col d-flex my-1">
                         <div style="width: 80px;" >
                           <small class="text-muted mr-2" >Cedula:</small>
                         </div>
@@ -60,7 +56,7 @@
                             </div>
                         </div>
                       </div>
-                      <div class="col-12 col-lg-6 d-flex my-1">
+                      <div class="col d-flex my-1">
                         <div style="width: 80px;" >
                           <small class="text-muted mr-2" >Celular:</small>
                         </div>
@@ -77,7 +73,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-12 col-lg-6 d-flex my-1 ">
+                      <div class="col d-flex my-1 ">
                         <div style="width: 80px;" >
                           <small class="text-muted mr-2" >Placa:</small>
                         </div>
@@ -94,7 +90,7 @@
                             </div>
                         </div>
                       </div>
-                      <div class="col-12 col-lg-6 d-flex my-1 ">
+                      <div class="col d-flex my-1 ">
                         <div style="width: 80px;" >
                           <small class="text-muted mr-2" >Trailer:</small>
                         </div>
@@ -111,7 +107,7 @@
                             </div>
                         </div>
                       </div>
-                      <div class="col-12 col-lg-6 d-flex my-1 ">
+                      <div class="col d-flex my-1 ">
                         <div style="width: 80px;" >
                           <small class="text-muted mr-2" >Origen:</small>
                         </div>
@@ -128,7 +124,7 @@
                             </div>
                         </div>
                       </div>
-                      <div class="col-12 col-lg-6 d-flex my-1">
+                      <div class="col d-flex my-1">
                         <div style="width: 80px;" >
                           <small class="text-muted" >Destino:</small>
                         </div>
@@ -145,7 +141,9 @@
                             </div>
                         </div>
                       </div>
-                      <div class="d-flex justify-content-end col-12 d-flex pt-4 pb-2">
+                    </div>
+                    <div class="row">
+                      <div class="col-12 d-flex justify-content-end pt-3 pb-2">
                         <button type="submit" class="btn btn-sm btn-primary"
                               [disabled]="!objFormC.valid">Enviar</button>
                       </div>

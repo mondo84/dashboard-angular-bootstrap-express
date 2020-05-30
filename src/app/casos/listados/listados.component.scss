@@ -4,3 +4,24 @@
 }
 
 a { text-decoration: none; }
+
+.texto-card {
+  font-size: 13px;
+  word-break: break-all;
+}
+
+.card-header {
+  background-color: rgba(226, 226, 226, 0.575);
+  border-radius: 0;
+}
+
+.header-accordion {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding-left: 21px;
+  padding-right: 21px;
+  border-radius: 0;
+  background-color: rgba(82, 151, 255, 0.534);
+}
+

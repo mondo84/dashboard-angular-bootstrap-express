@@ -13,23 +13,20 @@
       </div>
       <nav id="collapseExample" class="collapse bd-links bg-light-gray" >
         <div>
-          <a class="bd-toc-link" href="#"
-              data-toggle="modal" data-target="#modalAdd"
-              (click)="addReg()">Nuevo caso</a>
-
+          <a class="bd-toc-link" href="javascript:void(0)">Nuevo caso (conductores)</a>
         </div>
         <div>
           <a class="bd-toc-link" href="#"
               data-toggle="collapse" data-target="#sub-menu-nov">Reportar</a>
           <ul id="sub-menu-nov" class="collapse bd-sidenav">
-            <li><a href="#" data-toggle="modal" data-target="#modal-novedades">Novedades</a></li>
-            <li><a href="#" data-toggle="modal" data-target="#modal-llegada">Llegada(lista en muelle)</a></li>
+            <li><a href="javascript:void(0)">Novedades</a></li>
+            <li><a href="javascript:void(0)">Llegada(lista en muelle)</a></li>
           </ul>
         </div>
 
         <div>
           <a class="bd-toc-link" href="#"
-              data-toggle="collapse" data-target="#sub-menu" >Facturas</a>
+              data-toggle="collapse" data-target="#sub-menu" >Facturas (admin)</a>
           <ul id="sub-menu" class="collapse bd-sidenav">
             <li><a href="">Local</a></li>
             <li><a href="">Nacional</a></li>
@@ -38,7 +35,7 @@
         </div>
         <div>
           <a class="bd-toc-link" href="#"
-          data-toggle="collapse" data-target="#sub-menu-inv">Inventario</a>
+          data-toggle="collapse" data-target="#sub-menu-inv">Inventario (admin)</a>
           <ul id="sub-menu-inv" class="collapse bd-sidenav">
             <li><a href="">Repuestos</a></li>
             <li><a href="">Estibas</a></li>
@@ -49,7 +46,7 @@
         </div>
         <div>
           <a class="bd-toc-link" href="#"
-          data-toggle="collapse" data-target="#sub-menu-ev">Eventos</a>
+          data-toggle="collapse" data-target="#sub-menu-ev">Eventos (publico)</a>
           <ul id="sub-menu-ev" class="collapse bd-sidenav">
             <li><a href="">Proximos</a></li>
             <li><a href="">Culminados</a></li>
@@ -99,13 +96,4 @@
   </div>  <!-- #row -->
 
 </div>  <!-- #Container -->
-
-<!-- Modal add registro -->
-<app-modal-add [numRandom]="numAleatorio"></app-modal-add>
-
-<!-- Modal reporte llegada -->
-<app-modal-llegada></app-modal-llegada>
-
-<!-- Modal novedades -->
-<app-novedades></app-novedades>
 

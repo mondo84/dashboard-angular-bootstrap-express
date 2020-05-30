@@ -6,17 +6,10 @@ import { CasosRoutingModule } from './casos-routing.module';  // Modulo de rutas
 
 // Componentes
 import { CasosComponent } from './casos.component';
-import { ModalLlegadaComponent } from './modals/modal-llegada/modal-llegada.component';
-import { NovedadesComponent } from './modals/novedades/novedades.component';
-import { ModalAddComponent } from './modals/modal-add/modal-add.component';
-
 
 @NgModule({
   declarations: [
-    CasosComponent,
-    ModalLlegadaComponent,
-    NovedadesComponent,
-    ModalAddComponent
+    CasosComponent
   ],
   imports: [
     CommonModule,

@@ -13,6 +13,7 @@ export class ListadosComponent implements OnInit {
   isDeleted: number;
   numRandom1: number;
   numRandom2: number;
+  numRandom3: number;
   objAddReg: number;
 
   constructor(private argList: ListadosService) { }
@@ -44,19 +45,21 @@ export class ListadosComponent implements OnInit {
     });
   }
 
+  // Selecciona registro para ver y modificar.
   getRow(objJson: UserI) {
     this.numRandom1 = this.getNumeroAleatorio();
     this.getSelectedRow = objJson;
-    // this.addReg(2);
   }
 
+  // Selecciona registro para eliminar.
   getId(objJson: UserI) {
     this.numRandom2 = this.getNumeroAleatorio();
     this.isDeleted = objJson.id;
   }
 
-  addReg(arg: number) {
-    this.objAddReg = arg;
+  // Selecciona registro para agregar.
+  addReg() {
+    this.numRandom3 = this.getNumeroAleatorio();
   }
 
   getNumeroAleatorio(): number {

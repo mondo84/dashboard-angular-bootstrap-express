@@ -10,6 +10,8 @@ import { UserI } from 'src/app/interfaces/user-i';
 })
 export class ModalAddComponent implements OnInit, OnChanges {
 
+  birthday = new Date(); // April 15, 1988
+  tituloModal = 'Registrar nuevo caso';
   objFormC: FormGroup;
   @Input() numRandom: number; // Numero random en el input para que ejecute el ngOnChanges().
 
@@ -30,7 +32,7 @@ export class ModalAddComponent implements OnInit, OnChanges {
       id: [
             { value: '', disabled: false }
           ],
-      conductor: [
+      nombre: [
                   { value: '', disabled: false },
                   { validators: [ Validators.required, Validators.minLength(2) ] }
                 ],
@@ -57,8 +59,7 @@ export class ModalAddComponent implements OnInit, OnChanges {
       destino: [
                 { value: '', disabled: false },
                 { validators: [ Validators.required, Validators.minLength(2)] }
-              ],
-      check: [{ value: '', checked: true }]
+              ]
     });
   }
 
@@ -82,7 +83,7 @@ export class ModalAddComponent implements OnInit, OnChanges {
     let error = '';
 
     switch (controlName) {
-      case 'conductor':
+      case 'nombre':
           if (objControl.invalid && ( objControl.touched || objControl.dirty )) {
             if (objControl.errors.required) {
               error = 'El nombre es requerido.';

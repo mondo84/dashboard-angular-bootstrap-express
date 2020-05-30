@@ -14,15 +14,4 @@ export class CasosComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addReg() {
-    this.numAleatorio = this.getNumeroAleatorio();
-  }
-
-  getNumeroAleatorio(): number {
-    const momentoActual = new Date();
-    const random = Math.floor(Math.random() * 100);
-    const contador: number = momentoActual.getTime() + random;
-    return contador;
-  }
-
 }
