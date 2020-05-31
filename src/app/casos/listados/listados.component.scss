@@ -1,12 +1,4 @@
-.card {
-  border-radius: 0;
-  border: 0;
-}
-
-a { text-decoration: none; }
-
 .texto-card {
-  font-size: 13px;
   word-break: break-all;
 }
 
@@ -16,12 +8,14 @@ a { text-decoration: none; }
 }
 
 .header-accordion {
-  height: 50px;
+  height: 30px;
   display: flex;
   align-items: center;
   padding-left: 21px;
   padding-right: 21px;
   border-radius: 0;
   background-color: rgba(82, 151, 255, 0.534);
+
+  a { text-decoration: none; }
 }
 

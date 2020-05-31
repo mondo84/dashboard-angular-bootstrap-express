@@ -1,6 +1,7 @@
 *, ::after,
 ::before {
   box-sizing: border-box;
+  font-size: 12px;
 }
 /* Estilos globales e importaciones de otros archivos de estilo */
 $grey: #a0a0a0;
@@ -23,4 +24,9 @@ $grey: #a0a0a0;
 
 .btn-success {
   background-color: #218838d5;
+}
+
+.card {
+  border-radius: 0;
+  border: 0;
 }
