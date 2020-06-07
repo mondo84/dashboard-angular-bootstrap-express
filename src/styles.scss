@@ -1,32 +1,29 @@
 *, ::after,
 ::before {
-  box-sizing: border-box;
-  font-size: 12px;
+   // box-sizing: border-box;
+   font-size: 12px;
 }
 /* Estilos globales e importaciones de otros archivos de estilo */
 $grey: #a0a0a0;
 
+
+
+.shadow-box { box-shadow: 0px 9px 5px -8px #d8d8d8; }
+
+// ======= Sobreescritura estilo boton bootstrapt
 .btn { border-radius: 0; }
+.btn-primary { background-color: #0069d9d5; }
+.btn-danger { background-color: #c82333d5; }
+.btn-success { background-color: #218838d5; }
+
+// ======= Sobreescritura estilo card bootstrapt
+.card {
+  border-radius: 0;
+  border: 0;
+}
+
 .modal-content {
   border-radius: 0;
   border: 0;
   background-color: rgba(255, 255, 255, 0.842);
-}
-.shadow-box { box-shadow: 0px 9px 5px -8px #d8d8d8; }
-
-.btn-primary {
-  background-color: #0069d9d5;
-}
-
-.btn-danger {
-  background-color: #c82333d5;
-}
-
-.btn-success {
-  background-color: #218838d5;
-}
-
-.card {
-  border-radius: 0;
-  border: 0;
 }

@@ -1,27 +1,28 @@
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserI } from './../interfaces/user-i';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class CasosService {
+
+  private URL_CASO = 'http://localhost:3000/casos';
+  private URL_VALID_CASO = 'http://localhost:3000/casos/validCaso';
 
   constructor(private _HTTP: HttpClient) { }
 
-  saveOrUpdateCasos(objJson: UserI) {
-    const URL = 'http://localhost:3000/casos';
-
+  saveOrUpdateCasos(objJson: UserI): Observable<any> {
     if ( objJson.id ) {
       console.log(`(servicio) Modifica este registro. ID: ${objJson.id}`);
-      console.log(objJson);
+      // return this._HTTP.post(this.URL_VALID_CASO, objJson);
     } else {
-      this._HTTP.post(URL, objJson)
-      .subscribe({
-        next: (datos) => console.log('Datos almacenados', datos)
-      });  // El objeto con el encabezado se envia en el interceptor.
+      console.log('Valida caso..');
+      return this._HTTP.get(this.URL_VALID_CASO);
     }
-
   }
 
+  addCaso(objJson: UserI): Observable<any> {
+    console.log('Agrega caso..');
+    return this._HTTP.post(this.URL_CASO, objJson);
+  }
 }

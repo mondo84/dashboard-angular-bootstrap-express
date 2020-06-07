@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
 import { CasosService } from '../../casos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserI } from 'src/app/interfaces/user-i';
@@ -14,6 +14,10 @@ export class ModalAddComponent implements OnInit, OnChanges {
   tituloModal = 'Registrar nuevo caso';
   objFormC: FormGroup;
   @Input() numRandom: number; // Numero random en el input para que ejecute el ngOnChanges().
+  @Output()eventoActualizaTabla = new EventEmitter<any>();
+  toogleMsg = false;
+  insertedId: string;
+  affectedRows: string;
 
   constructor(private fb: FormBuilder, private sC: CasosService) { }
 
@@ -29,21 +33,6 @@ export class ModalAddComponent implements OnInit, OnChanges {
 
   formCasos() {
     this.objFormC = this.fb.group({
-      id: [
-            { value: '', disabled: false }
-          ],
-      nombre: [
-                  { value: '', disabled: false },
-                  { validators: [ Validators.required, Validators.minLength(2) ] }
-                ],
-      cedula: [
-                { value: '', disabled: false },
-                { validators: [ Validators.required, Validators.minLength(2) ] }
-              ],
-      celular: [
-                { value: '', disabled: false },
-                { validators: [ Validators.required, Validators.minLength(2) ] }
-              ],
       placa:  [
                 { value: '', disabled: false },
                 { validators: [ Validators.required, Validators.minLength(2)] }
@@ -63,11 +52,42 @@ export class ModalAddComponent implements OnInit, OnChanges {
     });
   }
 
+  eventoActualizaTablaPadre() {
+    this.eventoActualizaTabla.emit({ msj: 'Evento enviado desde el hijo.' });
+  }
+
   // Envia formulario
   onSubmit() {
     // Devuelve todos los campos. Incluyendo los deshabilitados.
     const jsonDatos: UserI = this.objFormC.getRawValue();
-    this.sC.saveOrUpdateCasos(jsonDatos);
+    const obs$ = this.sC.saveOrUpdateCasos(jsonDatos)
+    .subscribe({
+      next: (x) => {
+        // console.log('servicio caso: ', x[`msg`]);
+        if (x[`hasCaso`]) {
+          alert(`${x[`msg`]}`);
+          this.resetForm();
+        } else {
+          const obs2$ = this.sC.addCaso(jsonDatos).subscribe({
+            next: async (datos) => {
+              this.toogleMsg = true;
+              this.insertedId = await datos[`result`][0].insertId;
+              this.affectedRows = await datos[`result`][0].affectedRows;
+
+              this.eventoActualizaTablaPadre(); // Actualiza la tabla en el padre.
+
+              setTimeout( () => {
+                this.toogleMsg = false; // Oculta mensaje en la plantilla.
+              }, 3000);
+            },
+            error: (er) => console.log(er.error),
+            complete: () => { console.log(`completado 2`); obs2$.unsubscribe(); }
+          });
+        }
+      },
+      error: (er) => { console.log(er.error); },
+      complete: () => { console.log('completado 1'); obs$.unsubscribe(); }
+    });
   }
 
   resetForm() {
@@ -83,35 +103,6 @@ export class ModalAddComponent implements OnInit, OnChanges {
     let error = '';
 
     switch (controlName) {
-      case 'nombre':
-          if (objControl.invalid && ( objControl.touched || objControl.dirty )) {
-            if (objControl.errors.required) {
-              error = 'El nombre es requerido.';
-            } else if (objControl.errors.minlength) {
-              error += 'El nombre debe tener minimo 2 caracteres.';
-            } // else if (objControl.errors.maxlength) {
-            //   error += 'El nombre puede tener maximo 30 caracteres.';
-            // }
-          }
-          break;
-      case 'cedula':
-        if (objControl.invalid && ( objControl.touched || objControl.dirty )) {
-          if (objControl.errors.required) {
-            error = 'La cedula es requerida.';
-          } else if (objControl.errors.minlength) {
-            error += 'La cedula debe tener minimo 2 caracteres.';
-          }
-        }
-        break;
-      case 'celular':
-        if (objControl.invalid && ( objControl.touched || objControl.dirty )) {
-          if (objControl.errors.required) {
-            error = 'El celular es requerido.';
-          } else if (objControl.errors.minlength) {
-            error += 'El celular debe tener minimo 2 caracteres.';
-          }
-        }
-        break;
       case 'placa':
         if (objControl.invalid && ( objControl.touched || objControl.dirty )) {
           if (objControl.errors.required) {

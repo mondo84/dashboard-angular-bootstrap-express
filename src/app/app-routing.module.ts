@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+
+import { AuthGuard } from './guards/auth.guard';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
@@ -14,6 +16,7 @@ const routes: Routes = [
       const hM = await import ('./home/home.module');
       return hM.HomeModule;
     }
+    , canActivate: [AuthGuard]  // Guard que protege la ruta si no hay token.
   },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];

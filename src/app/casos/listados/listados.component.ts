@@ -1,6 +1,8 @@
 import { ListadosService } from './listados.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UserI } from 'src/app/interfaces/user-i';
+import { map } from 'rxjs/operators';
+import { CasoI } from 'src/app/interfaces/caso-i';
 
 @Component({
   selector: 'app-listados',
@@ -11,10 +13,14 @@ export class ListadosComponent implements OnInit {
 
   getSelectedRow: UserI;
   isDeleted: number;
+  isClose: number;
   numRandom1: number;
   numRandom2: number;
   numRandom3: number;
+  numRandom4: number;
   objAddReg: number;
+
+  miCaso: CasoI;
 
   constructor(private argList: ListadosService) { }
 
@@ -22,8 +28,24 @@ export class ListadosComponent implements OnInit {
   datosMuelle: UserI;
 
   ngOnInit(): void {
+    this.getActiveCaso();
     this.getAllDatos();
     this.getCasoMuelle();
+  }
+
+  getActiveCaso(event?) {
+    console.log(event);
+    // filtrado de consulta por ID almacenado en el token.
+    const obs$ = this.argList.getCasoActive()
+    .pipe( map((data) => data[`x`][0]) )
+    .subscribe({
+      next: (x: CasoI) => {
+        // console.log(x);
+        this.miCaso = x;
+      },
+      error: (e) => { console.log(e.error); },
+      complete: () => { console.log(`Completado`); obs$.unsubscribe(); }
+    });
   }
 
   getAllDatos() {
@@ -62,10 +84,18 @@ export class ListadosComponent implements OnInit {
     this.numRandom3 = this.getNumeroAleatorio();
   }
 
+  getSelectedMyCaso(arg: any) {
+    console.log(arg.id);
+    this.numRandom4 = this.getNumeroAleatorio();
+    this.isClose = arg.id;
+    // this.argList.closeCaso(arg);
+  }
+
   getNumeroAleatorio(): number {
     const momentoActual = new Date();
     const random = Math.floor(Math.random() * 100);
     const contador: number = momentoActual.getTime() + random;
     return contador;
   }
+
 }

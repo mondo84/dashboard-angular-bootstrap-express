@@ -13,25 +13,17 @@ export class AuthGuard implements CanActivate {
   }
 
   // Devuelve boolean para dar acceso a la ruta o no.
-  canActivate( next: ActivatedRouteSnapshot, state: RouterStateSnapshot
-    ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate( next: ActivatedRouteSnapshot,
+               state: RouterStateSnapshot ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     console.log('Paso por el gurard');
+    // Desde el interceptor, debemos enviar el token para comparar con el back.
 
-    /* observable con un map.
-    observable.pipe(
-      if (noValid) {
-        this.router.navigate(['login']);
-        return false;
-      } else {
-        return true;
-      }
-    );*/
     const hasToken = this.argLogin.getToken();
-    if (!hasToken) {
+    if (hasToken) {
+      return true;
+    } else {
       this.router.navigate(['login']);
       return false;
-    } else {
-      return true;
     }
   }
 

@@ -1,3 +1,4 @@
+import { UserI } from './../interfaces/user-i';
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
@@ -29,14 +30,23 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     // console.log(this.objFormLogin.value);
-    const isValid = this.objFormLogin.valid;
     const objJson = this.objFormLogin.getRawValue();  // Devuelve campos disabled y enabled.
 
-    const isValidated = this.argSL.validaUser( objJson, isValid );
-
-    if (isValidated) {
-      this.objRoute.navigate(['home']);
-    }
+    const isValidated = this.argSL.validaUser( objJson )
+    .subscribe({
+      next: (res) => {
+        // console.log(res);
+        if (res[`auth`] && res[`cod`] === 200) {
+          localStorage.setItem('token', res[`token`]);
+          this.objRoute.navigate(['home']);
+        } else {
+          console.log(res[`auth`]);
+          console.log(res[`msg`]);
+        }
+      },
+      error: (e) => { console.error(e.error); },
+      complete: () => { console.log(`Completado`); isValidated.unsubscribe(); }
+    });
   }
 
   private formLogin() {
