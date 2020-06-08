@@ -24,13 +24,15 @@ export class ModalLlegadaComponent implements OnInit, OnChanges {
 
   // Se ejecuta cuando hay cambios en la propiedad @Input.
   ngOnChanges(): void {
-    console.log(this.numeroRandom);
-    this.cargaDatosForm();
+    // console.log(this.numeroRandom);
+    if ( this.formllegada !== undefined) {
+      this.cargaDatosForm();
+    }
     this.toggBtnSubmit = false;
   }
 
   actualizaTabla() {
-    console.log(`genera evento`);
+    // console.log(`genera evento`);
     this.eventoActualizaTabla.emit({ elemento: 'dato enviado desde el hijo' });
   }
 
@@ -48,12 +50,10 @@ export class ModalLlegadaComponent implements OnInit, OnChanges {
   }
 
   cargaDatosForm() {
-    if ( this.formllegada !== undefined) {
-      this.formllegada.patchValue({
-        id: this.casoClose,
-        confirm: false
-      });
-    }
+    this.formllegada.patchValue({
+      id: this.casoClose,
+      confirm: false
+    });
   }
 
   onSubmit() {

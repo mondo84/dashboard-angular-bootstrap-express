@@ -15,7 +15,7 @@ export class InterceptorService implements HttpInterceptor {
     const token = this.argLs.getToken();  // Recupera token.
     let objHeaders = req.headers;         // Recupera encabezado de la peticion.
 
-    console.log('Paso por el interceptor');
+    // console.log('Paso por el interceptor');
     // Anexa los encabezados solo si existe un token.
     if (token) {
       objHeaders = objHeaders.append('Authorization', `Bearer ${token}`); // Agrega encabezado con el token.

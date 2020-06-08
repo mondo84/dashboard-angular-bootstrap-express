@@ -27,8 +27,10 @@ export class ModalAddComponent implements OnInit, OnChanges {
 
   // Se ejecuta cuando hay cambios en la propiedad @Input.
   ngOnChanges(): void {
-    console.log(this.numRandom);
-    this.resetForm();
+    // console.log(this.numRandom);
+    if (this.objFormC !== undefined) {
+      this.resetForm();
+    }
   }
 
   formCasos() {
@@ -91,11 +93,7 @@ export class ModalAddComponent implements OnInit, OnChanges {
   }
 
   resetForm() {
-    try {
-      // console.log('Formulario reseteado add');
-      this.objFormC.reset();
-    } catch (error) {
-    }
+    this.objFormC.reset();
   }
 
   getError(controlName: string) {

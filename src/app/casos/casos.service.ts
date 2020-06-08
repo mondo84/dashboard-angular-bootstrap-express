@@ -8,6 +8,7 @@ export class CasosService {
 
   private URL_CASO = 'http://localhost:3000/casos';
   private URL_VALID_CASO = 'http://localhost:3000/casos/validCaso';
+  private URL_ADD_NOVEDAD = 'http://localhost:3000/casos/addNovedad';
 
   constructor(private _HTTP: HttpClient) { }
 
@@ -24,5 +25,10 @@ export class CasosService {
   addCaso(objJson: UserI): Observable<any> {
     console.log('Agrega caso..');
     return this._HTTP.post(this.URL_CASO, objJson);
+  }
+
+  addNovedad(objJson: UserI): Observable<any> {
+    console.log(objJson);
+    return this._HTTP.post(this.URL_ADD_NOVEDAD, objJson);
   }
 }

@@ -18,6 +18,7 @@ export class ListadosComponent implements OnInit {
   numRandom2: number;
   numRandom3: number;
   numRandom4: number;
+  numRandom5: number;
   objAddReg: number;
 
   miCaso: CasoI;
@@ -34,7 +35,7 @@ export class ListadosComponent implements OnInit {
   }
 
   getActiveCaso(event?) {
-    console.log(event);
+    // console.log(event);
     // filtrado de consulta por ID almacenado en el token.
     const obs$ = this.argList.getCasoActive()
     .pipe( map((data) => data[`x`][0]) )
@@ -44,26 +45,29 @@ export class ListadosComponent implements OnInit {
         this.miCaso = x;
       },
       error: (e) => { console.log(e.error); },
-      complete: () => { console.log(`Completado`); obs$.unsubscribe(); }
+      complete: () => { obs$.unsubscribe(); }
     });
   }
 
   getAllDatos() {
-    this.argList.getCasosRutaS()
+    const obs$ = this.argList.getCasosRutaS()
     .subscribe({
       next: (datos$: any) => {
         this.datos = datos$.datos[0];
-        // console.log(datos$);
-      }
+      },
+      error: (e) => { console.log(e.error); },
+      complete: () => { obs$.unsubscribe(); }
     });
   }
 
   getCasoMuelle() {
-    this.argList.getCasoMuelleS()
+    const obs$ = this.argList.getCasoMuelleS()
     .subscribe({
       next: (datos$: any) => {
         this.datosMuelle = datos$.datos[0];
-      }
+      },
+      error: (e) => { console.log(e.error); },
+      complete: () => { obs$.unsubscribe(); }
     });
   }
 
@@ -89,6 +93,10 @@ export class ListadosComponent implements OnInit {
     this.numRandom4 = this.getNumeroAleatorio();
     this.isClose = arg.id;
     // this.argList.closeCaso(arg);
+  }
+
+  inputNovedad() {
+    this.numRandom5 = this.getNumeroAleatorio();
   }
 
   getNumeroAleatorio(): number {

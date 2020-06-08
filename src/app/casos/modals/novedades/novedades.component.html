@@ -24,9 +24,9 @@
                 <label class="form-check-label ml-2" for="llanta">Llanta</label>
               </div>
               <div class="col px-0" >
-                <input type="checkbox" name="acp" id="combustible"
-                      formControlName="acp" required>
-                <label class="form-check-label ml-2" for="combustible">ACPM</label>
+                <input type="checkbox" name="acpm" id="acpm"
+                      formControlName="acpm" required>
+                <label class="form-check-label ml-2" for="acpm">ACPM</label>
               </div>
             </div>
 
@@ -39,70 +39,76 @@
               </div>
             </div>
 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-sm btn-primary mr-1">Guardar</button>
+            <div class="row" >
+              <div class="col-12 px-0 pt-3 d-flex justify-content-end align-items-center">
+                <span *ngIf="toggleMsg" class="ml-1 mr-auto text-success" >
+                  El registro fue creado. ID: {{ insertedId }}
+                </span>
+                <button type="button" class="btn btn-sm btn-secondary mr-1" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-sm btn-primary mr-1">Guardar</button>
+              </div>
             </div>
+
           </form>
-        </div>
+
+          <!-- Acordion o toggle -->
+          <div class="row" >
+            <div class="col-12 px-0">
+              <div class="table-responsive">
+                <table class="table table-borderless" >
+                  <thead class="shadow-box">
+                    <tr>
+                      <th>Mis reportes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="pt-0 pb-1 px-1">
+                        <div class="card shadow-box">
+                          <div class="card-body py-0 px-0" >
+
+                            <div class="px-2 py-1" >
+                              <span class="text-justify p-0 m-0" >Detalle la novedad Lorem, ipsum dolor sit amet quis.</span>
+                            </div>
+
+                            <div class="footer-card-btn" >
+
+                              <div class="row p-0 m-0">
+                                <div class="col-12 col-sm-6 pl-1">
+                                  <div class="px-2" >
+                                    <span class="text-muted" >A las 13:00 (Motor)</span>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-sm-6 pl-1">
+                                  <div class="d-flex justify-content-start justify-content-sm-end px-2">
+                                    <a class="mr-2" href="javascript:void(0)">Modificar</a>
+                                    <a href="javascript:void(0)">Eliminar</a>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+
+                          </div>
+                        </div>
+                      </td>
+
+                      <td *ngIf="false" class="pt-0 pb-1 px-1" >
+                        <div class="text-center py-2" >
+                          <span class="text-muted" >Sin novedad</span>
+                        </div>
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>  <!-- # Container fluid-->
 
       </div>  <!-- #Cuerpo del modal -->
 
-      <!-- Acordion o toggle -->
-      <div class="row" >
-        <div class="col-12 px-0">
-          <div class="table-responsive">
-            <table class="table table-borderless" >
-              <thead class="shadow-box">
-                <tr>
-                  <th>Mis reportes</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-
-                  <td *ngIf="true"  class="pt-0 pb-1 px-1">
-                    <div class="card shadow-box">
-                      <div class="card-body py-0 px-0" >
-
-                        <div class="px-2 py-1" >
-                          <span class="text-justify p-0 m-0" >Detalle la novedad Lorem, ipsum dolor sit amet quis.</span>
-                        </div>
-
-                        <div class="footer-card-btn" >
-
-                          <div class="row p-0 m-0">
-                            <div class="col-12 col-sm-6 pl-1">
-                              <div class="px-2" >
-                                <span class="text-muted" >A las 13:00 (Motor)</span>
-                              </div>
-                            </div>
-                            <div class="col-12 col-sm-6 pl-1">
-                              <div class="d-flex justify-content-start justify-content-sm-end px-2">
-                                <a class="mr-2" href="javascript:void(0)">Modificar</a>
-                                <a href="javascript:void(0)">Eliminar</a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-
-                      </div>
-                    </div>
-                  </td>
-
-                  <td *ngIf="false" class="pt-0 pb-1 px-1" >
-                    <div class="text-center py-2" >
-                      <span class="text-muted" >Sin novedad</span>
-                    </div>
-                  </td>
-
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+    </div>  <!-- #Content modal -->
   </div>
 </div>

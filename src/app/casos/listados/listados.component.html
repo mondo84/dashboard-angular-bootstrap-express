@@ -25,7 +25,7 @@
           <td class="px-0 pb-0">
             <div class="card shadow-box">
               <div class="d-flex card-header text-muted">
-                Caso: {{ item.id }}, Estado: {{ item.estado }}
+                Caso: {{ item.id }}, Estado: {{ item.estado }}, {{ item.create_at }}
               </div>
 
               <div class="col-12 pb-2">
@@ -57,7 +57,8 @@
                   </div>
                   <div class="col-12 col-sm-auto px-0 px-sm-1 pb-1 pb-sm-0">
                     <button class="btn btn-sm btn-primary btn-block"
-                            data-toggle="modal" data-target="#modal-novedades">Novedad</button>
+                            data-toggle="modal" data-target="#modal-novedades"
+                            (click)="inputNovedad()">Novedad</button>
                   </div>
                   <div class="col-12 col-sm-auto px-0 pl-sm-0 pr-sm-2 pb-sm-0">
                     <button class="btn btn-sm btn-secondary btn-block"
@@ -192,7 +193,8 @@
 
 
 <app-modal-add [numRandom]="numRandom3"
-(eventoActualizaTabla)="getActiveCaso($event)"></app-modal-add>
+(eventoActualizaTabla)="getActiveCaso($event)">
+</app-modal-add>
 
 <!-- Modal save/update (input binding = enlace de entrada) -->
 <app-modal-save-update [numeroRandom]="numRandom1"
@@ -209,5 +211,5 @@
 </app-modal-llegada>
 
 <!-- Modal novedades -->
-<app-novedades></app-novedades>
+<app-novedades [numeroRandom]="numRandom5"></app-novedades>
 
