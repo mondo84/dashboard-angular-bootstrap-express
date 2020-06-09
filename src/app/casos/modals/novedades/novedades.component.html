@@ -15,17 +15,17 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-md-4" >
               <div class="col px-0" >
                 <input type="checkbox" name="motor" id="motor"
-                      formControlName="motor" required>
+                      formControlName="motor">
                 <label class="form-check-label ml-2" for="motor">Motor</label>
               </div>
               <div class="col px-0" >
                 <input type="checkbox" name="llanta" id="llanta"
-                      formControlName="llanta" required>
+                      formControlName="llanta">
                 <label class="form-check-label ml-2" for="llanta">Llanta</label>
               </div>
               <div class="col px-0" >
                 <input type="checkbox" name="acpm" id="acpm"
-                      formControlName="acpm" required>
+                      formControlName="acpm">
                 <label class="form-check-label ml-2" for="acpm">ACPM</label>
               </div>
             </div>
@@ -35,17 +35,20 @@
                 <label for="descripcion">Descripcion</label>
                 <textarea class="form-control" name="descripcion" id="descripcion"
                           cols="30" rows="3"
-                          formControlName="descripcion" required></textarea>
+                          formControlName="descripcion"
+                          placeholder="Ingrese descripcion" required></textarea>
               </div>
             </div>
 
             <div class="row" >
               <div class="col-12 px-0 pt-3 d-flex justify-content-end align-items-center">
-                <span *ngIf="toggleMsg" class="ml-1 mr-auto text-success" >
+                <input type="hidden" formControlName="idCaso" name="idCaso" id="idCaso" readonly required>
+                <span *ngIf="toggleMsg" class="ml-1 mr-auto text-success">
                   El registro fue creado. ID: {{ insertedId }}
                 </span>
+                ACTUALIZAR EL LISTADO DE MIS REGISTROS AL CREAR.
                 <button type="button" class="btn btn-sm btn-secondary mr-1" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-sm btn-primary mr-1">Guardar</button>
+                <button type="submit" class="btn btn-sm btn-primary mr-1" [disabled]="!objFormNov.valid" >Guardar</button>
               </div>
             </div>
 
@@ -58,17 +61,19 @@
                 <table class="table table-borderless" >
                   <thead class="shadow-box">
                     <tr>
-                      <th>Mis reportes</th>
+                      <th>Mis reportes {{idCasoNov}} </th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr *ngFor="let item of datos" >  <!-- iterador de coleccion JSON -->
                       <td class="pt-0 pb-1 px-1">
                         <div class="card shadow-box">
                           <div class="card-body py-0 px-0" >
 
                             <div class="px-2 py-1" >
-                              <span class="text-justify p-0 m-0" >Detalle la novedad Lorem, ipsum dolor sit amet quis.</span>
+                              <span class="text-justify p-0 m-0" >
+                                {{ item.descripcion }}
+                              </span>
                             </div>
 
                             <div class="footer-card-btn" >
@@ -76,7 +81,9 @@
                               <div class="row p-0 m-0">
                                 <div class="col-12 col-sm-6 pl-1">
                                   <div class="px-2" >
-                                    <span class="text-muted" >A las 13:00 (Motor)</span>
+                                    <span class="text-muted" >
+                                      El {{ item.created_at | date: 'dd-MM-yyyy HH:mm:ss' }} (Motor debe ser dinamico)
+                                    </span>
                                   </div>
                                 </div>
                                 <div class="col-12 col-sm-6 pl-1">

@@ -22,6 +22,7 @@ export class ListadosComponent implements OnInit {
   objAddReg: number;
 
   miCaso: CasoI;
+  idCaso: number | string;
 
   constructor(private argList: ListadosService) { }
 
@@ -95,8 +96,9 @@ export class ListadosComponent implements OnInit {
     // this.argList.closeCaso(arg);
   }
 
-  inputNovedad() {
+  inputNovedad(objCaso: CasoI) {
     this.numRandom5 = this.getNumeroAleatorio();
+    this.idCaso = objCaso.id;
   }
 
   getNumeroAleatorio(): number {

@@ -58,7 +58,7 @@
                   <div class="col-12 col-sm-auto px-0 px-sm-1 pb-1 pb-sm-0">
                     <button class="btn btn-sm btn-primary btn-block"
                             data-toggle="modal" data-target="#modal-novedades"
-                            (click)="inputNovedad()">Novedad</button>
+                            (click)="inputNovedad(item)">Novedad</button>
                   </div>
                   <div class="col-12 col-sm-auto px-0 pl-sm-0 pr-sm-2 pb-sm-0">
                     <button class="btn btn-sm btn-secondary btn-block"
@@ -72,7 +72,7 @@
           </td>
 
           <td *ngIf="false">No hay casos abiertos</td>
-        </tr>
+        </tr> <!-- # Cierre *ngFor -->
       </tbody>
     </table>
   </div>
@@ -211,5 +211,6 @@
 </app-modal-llegada>
 
 <!-- Modal novedades -->
-<app-novedades [numeroRandom]="numRandom5"></app-novedades>
+<app-novedades [numeroRandom]="numRandom5"
+[idCasoNov]="idCaso"></app-novedades>
 
