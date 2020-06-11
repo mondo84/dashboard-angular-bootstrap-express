@@ -1,5 +1,6 @@
+import { Component, OnInit, Input, OnChanges, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { CasosService } from '../../casos.service';
 import { map } from 'rxjs/operators';
 
@@ -10,14 +11,20 @@ import { map } from 'rxjs/operators';
 })
 export class NovedadesComponent implements OnInit, OnChanges {
 
+  @ViewChild('modalnovedades', {static: true}) modalnovedades: ElementRef;
+  @ViewChild('btncancel', {static: true}) btncancel: ElementRef;
   @Input() idCasoNov: number | string;
   @Input() numeroRandom: number;
   toggleMsg = false;
   insertedId: number;
   objFormNov: FormGroup;
   datos = [];
+  pagina = 1;
 
-  constructor(private fb: FormBuilder, private cS: CasosService) { }
+  constructor(private fb: FormBuilder,
+              private cS: CasosService,
+              private rt: Router,
+              private r2: Renderer2) { }
 
   ngOnInit(): void {
     this.formNovedades();
@@ -64,6 +71,7 @@ export class NovedadesComponent implements OnInit, OnChanges {
         const statusServer = x[`serverStatus`];
         const afectedRows = x[`affectedRows`];
         if ( statusServer === 2 && afectedRows === 1 ) {
+          this.loadList();
 
           this.toggleMsg = true;
           this.insertedId = x[`insertId`];
@@ -88,16 +96,34 @@ export class NovedadesComponent implements OnInit, OnChanges {
       .subscribe({
         next: (x) => {
           console.log(x);
-          // pendiente filtrar consulta por caso abierto en el back
           this.datos = x;
         },
-        error: (e) => {
+        error: async (e) => {
           console.error(e.error);
+          // console.error(e.error.msj);
+          switch ( e.error.msj ) {
+            case 'Forbidden':
+              localStorage.clear();  // Eliminamos todos los datos del local storage.
+              // (pendiente por instrucciones) Cerrar el modal.
+              await this.rt.navigate(['login', 84]);  // Redireccionamos al login.
+              break;
+            default:
+              // redireccionamiento al login.
+              this.rt.navigate(['login', 100]);
+              break;
+          }
         },
         complete: () => { console.log(`Completado`); obs$.unsubscribe(); }
       });
     }
 
+  }
+
+  closeModal() {
+    console.log(`Cierra y despues redirecciona`);
+    // this.modalnovedades.nativeElement;
+    /* this.r2.removeStyle(this.modalnovedades.nativeElement, 'display');/*
+    this.r2.setStyle(this.modalnovedades.nativeElement, 'background-color', 'red');*/
   }
 
 }

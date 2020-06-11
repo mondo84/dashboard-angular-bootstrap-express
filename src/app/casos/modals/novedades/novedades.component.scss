@@ -1,3 +1,21 @@
 .footer-card-btn {
-  background-color: rgba(106, 176, 255, 0.438);
+  background-color: rgba(218, 218, 218, 0.438);
+}
+
+.bg-section-check {
+  background-color: rgba(218, 218, 218, 0.438);
+}
+
+.bg-section-description {
+  background-color: rgba(58, 58, 58, 0.144);
+}
+
+.custom-pagination ::ng-deep .ngx-pagination .current {
+  background-color: #7952b3af;
+  color: #ffffff;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination {
+    padding-left: 0;
+    color: #555555;
 }

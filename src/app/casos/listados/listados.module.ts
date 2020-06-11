@@ -11,6 +11,9 @@ import { ModalAddComponent } from '../modals/modal-add/modal-add.component';
 import { ModalLlegadaComponent } from '../modals/modal-llegada/modal-llegada.component';
 import { NovedadesComponent } from '../modals/novedades/novedades.component';
 
+// External...
+// ngSpinner
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,8 @@ import { NovedadesComponent } from '../modals/novedades/novedades.component';
   imports: [
     CommonModule,
     ListadosRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ]
 })
 export class ListadosModule { }

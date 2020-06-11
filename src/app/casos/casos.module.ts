@@ -7,6 +7,7 @@ import { CasosRoutingModule } from './casos-routing.module';  // Modulo de rutas
 // Componentes
 import { CasosComponent } from './casos.component';
 
+
 @NgModule({
   declarations: [
     CasosComponent

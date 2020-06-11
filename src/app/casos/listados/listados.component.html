@@ -88,6 +88,7 @@
   <div id="listado-transporte" class="collapse show" data-parent="#listados">
     <div class="row row-cols-1 row-cols-lg-2 bg-light-gray">
 
+      <!-- Tabla 1 -->
       <div class="col col-lg-6">
         <div class="table-responsive">
           <table class="table table-borderless" >
@@ -100,7 +101,10 @@
             <tbody>
               <!-- {{datos | json}} -->
               <!-- Iteracion -->
-              <tr class=" p-0" *ngFor="let item of datos">
+              <tr class=" p-0" *ngFor="let item of datos | paginate: { id: 'ctrltab1',
+                                                                        itemsPerPage: 2,
+                                                                        currentPage: pag
+                                                                      }">
                 <td class="p-2">
                   <div class="card shadow-box" style="min-width: 350px;" >
                     <div class="card-body py-0">
@@ -133,8 +137,25 @@
             </tbody>
           </table>
         </div>
+        <!-- Control paginacion tabla 1 -->
+        <div class="row" >
+          <div class="col-12 px-0 text-center">
+            <pagination-controls class="custom-pagination"
+                id="ctrltab1"
+                (pageChange)="pag = $event"
+                maxSize="3"
+                autoHide="true"
+                responsive="true"
+                previousLabel="Ant."
+                nextLabel="Sig."
+                screenReaderPaginationLabel="Pagination"
+                screenReaderPageLabel="page"
+                screenReaderCurrentLabel="You're on page"></pagination-controls>
+          </div>
+        </div>
       </div>
 
+        <!-- Tabla 2 -->
       <div class="col col-lg-6">
         <div class="table-responsive">
           <table class="table table-borderless" >
@@ -146,7 +167,10 @@
             </tr>
             <tbody>
               <!-- Iteracion -->
-              <tr class=" p-0" *ngFor="let item2 of datosMuelle"  >
+              <tr class=" p-0" *ngFor="let item2 of datosMuelle | paginate: { id: 'ctrltab2',
+                                                                              itemsPerPage: 2,
+                                                                              currentPage: pag2
+                                                                              }">
                 <td class="p-2">
                   <div class="card shadow-box" style="min-width: 350px;" >
 
@@ -184,9 +208,26 @@
             </tbody>
           </table>
         </div>
+        <!-- Control paginacion tabla 2 -->
+        <div class="row" >
+          <div class="col-12 px-0 text-center">
+            <pagination-controls class="custom-pagination"
+                id="ctrltab2"
+                (pageChange)="pag2 = $event"
+                maxSize="3"
+                autoHide="true"
+                responsive="true"
+                previousLabel="Ant."
+                nextLabel="Sig."
+                screenReaderPaginationLabel="Pagination"
+                screenReaderPageLabel="page"
+                screenReaderCurrentLabel="You're on page"></pagination-controls>
+          </div>
+        </div>
       </div>
 
     </div>
+
   </div>
 </div>
 

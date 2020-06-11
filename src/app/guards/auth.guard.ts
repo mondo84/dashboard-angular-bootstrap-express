@@ -20,10 +20,10 @@ export class AuthGuard implements CanActivate {
 
     const hasToken = this.argLogin.getToken();
     if (hasToken) {
-      return true;
+      return true;  // Concede acceso a la ruta.
     } else {
       this.router.navigate(['login']);
-      return false;
+      return false; // Denega acceso a la ruta.
     }
   }
 

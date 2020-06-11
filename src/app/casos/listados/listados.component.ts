@@ -26,8 +26,12 @@ export class ListadosComponent implements OnInit {
 
   constructor(private argList: ListadosService) { }
 
-  datos: UserI;
-  datosMuelle: UserI;
+  datos: UserI [];
+  datosMuelle: UserI [];
+  // datos = [];
+  // datosMuelle = [];
+  pag = 1;
+  pag2 = 1;
 
   ngOnInit(): void {
     this.getActiveCaso();

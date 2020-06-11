@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';           // Componente principa
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './interceptor/interceptor.service';
 
-
 @NgModule({
   declarations: [
     AppComponent
@@ -15,7 +14,7 @@ import { InterceptorService } from './interceptor/interceptor.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     {
