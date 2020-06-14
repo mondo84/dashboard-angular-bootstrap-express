@@ -11,6 +11,9 @@ import { ModalAddComponent } from '../modals/modal-add/modal-add.component';
 import { ModalLlegadaComponent } from '../modals/modal-llegada/modal-llegada.component';
 import { NovedadesComponent } from '../modals/novedades/novedades.component';
 
+// Importa el modulo de la libreria spinner.
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 // External...
 // ngSpinner
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -28,7 +31,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CommonModule,
     ListadosRoutingModule,
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxSpinnerModule
   ]
 })
 export class ListadosModule { }

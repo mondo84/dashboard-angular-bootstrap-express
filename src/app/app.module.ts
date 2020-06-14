@@ -7,14 +7,24 @@ import { AppComponent } from './app.component';           // Componente principa
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './interceptor/interceptor.service';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { NgxSpinnerModule } from 'ngx-spinner';         // Importa el modulo de la libreria spinner.
+
+// Bootstrap optimizado para angular (no requiere jquery, ni popper).
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
     BrowserModule,
+    NgbModule,
+    NgxSpinnerModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

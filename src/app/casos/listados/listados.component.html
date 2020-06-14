@@ -15,7 +15,6 @@
 
     <div class="ml-auto">
       <!-- <small>29/05/2020</small> -->
-      fecha de apertura dinamica
     </div>
   </div>
   <div id="overview" class="collapse show" data-parent="#overviewCaso">
@@ -25,7 +24,7 @@
           <td class="px-0 pb-0">
             <div class="card shadow-box">
               <div class="d-flex card-header text-muted">
-                Caso: {{ item.id }}, Estado: {{ item.estado }}, {{ item.create_at }}
+                Estado: ({{ item.estado }}), Creado el: {{ item.create_at | date: 'dd-MM-yyyy HH:mm:ss' }}
               </div>
 
               <div class="col-12 pb-2">
@@ -57,8 +56,8 @@
                   </div>
                   <div class="col-12 col-sm-auto px-0 px-sm-1 pb-1 pb-sm-0">
                     <button class="btn btn-sm btn-primary btn-block"
-                            data-toggle="modal" data-target="#modal-novedades"
-                            (click)="inputNovedad(item)">Novedad</button>
+                            (click)="openModalSm(contenidoM, item)">Novedad</button>
+                            <!-- (click)="inputNovedad(item)" -->
                   </div>
                   <div class="col-12 col-sm-auto px-0 pl-sm-0 pr-sm-2 pb-sm-0">
                     <button class="btn btn-sm btn-secondary btn-block"
@@ -84,6 +83,7 @@
     <a href="#" data-toggle="collapse" data-target="#listado-transporte"
               aria-expanded="true" aria-controls="listado-transporte">
             Listado de transporte.</a>
+      {{closeResult}}
   </div>
   <div id="listado-transporte" class="collapse show" data-parent="#listados">
     <div class="row row-cols-1 row-cols-lg-2 bg-light-gray">
@@ -251,7 +251,12 @@
 [casoClose]="isClose" (eventoActualizaTabla)="getActiveCaso($event)">
 </app-modal-llegada>
 
-<!-- Modal novedades -->
-<app-novedades [numeroRandom]="numRandom5"
-[idCasoNov]="idCaso"></app-novedades>
+<ng-template #contenidoM let-modal>
+  <!-- Modal novedades let-modal = variable con el modal -->
+  <app-novedades
+    [numeroRandom]="numRandom5"
+    [idCasoNov]="idCaso"
+    [objModa]="modal">
+  </app-novedades>
+</ng-template>
 

@@ -4,6 +4,9 @@ import { UserI } from 'src/app/interfaces/user-i';
 import { map } from 'rxjs/operators';
 import { CasoI } from 'src/app/interfaces/caso-i';
 
+// ==== modal ng-bootstrap
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-listados',
   templateUrl: './listados.component.html',
@@ -21,10 +24,13 @@ export class ListadosComponent implements OnInit {
   numRandom5: number;
   objAddReg: number;
 
+  closeResult = ''; // Causa del cierre del modal.
+
   miCaso: CasoI;
   idCaso: number | string;
+  objModal: any;
 
-  constructor(private argList: ListadosService) { }
+  constructor(private argList: ListadosService, private modalService: NgbModal) { }
 
   datos: UserI [];
   datosMuelle: UserI [];
@@ -112,4 +118,26 @@ export class ListadosComponent implements OnInit {
     return contador;
   }
 
+  openModalSm(contenido: any, objCaso: CasoI) { // Abre el modal
+    this.numRandom5 = this.getNumeroAleatorio();
+    this.idCaso = objCaso.id;
+    this.objModal = contenido;
+    this.modalService.open(contenido, { size: 'lg', centered: true, scrollable: true }) // sm, lg, xl
+    .result.then( (res) => {
+      this.closeResult = `Cerrado con: ${res}`;
+    }, (causa) => {
+      this.closeResult = `Despedida ${this.getDismissReason(causa)}`;
+    });
+  }
+
+  // Devuelve mensaje
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'Por presionar tecla ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'Por presionar en el fondo del modal';
+    } else {
+      return `con : ${reason}`;
+    }
+  }
 }

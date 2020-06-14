@@ -9,8 +9,9 @@ export class CasosService {
 
   private URL_CASO = 'http://localhost:3000/casos';
   private URL_VALID_CASO = 'http://localhost:3000/casos/validCaso';
-  private URL_ADD_NOVEDAD = 'http://localhost:3000/casos/addNovedad';
   private URL_GET_MY_NOVEDAD = 'http://localhost:3000/casos/getMyNovedad';
+  private URL_ADD_NOVEDAD = 'http://localhost:3000/casos/addNovedad';
+  private URL_DELETE_NOVEDAD = 'http://localhost:3000/casos/deleteNovedad';
 
   constructor(private _HTTP: HttpClient) { }
 
@@ -38,5 +39,16 @@ export class CasosService {
     // console.log(`${this.URL_GET_MY_NOVEDAD}/${idNovedad}`);
     const URL_NOV = `${this.URL_GET_MY_NOVEDAD}/${idNovedad}`;
     return this._HTTP.get(URL_NOV);
+  }
+
+  updateNovS(arg: any): Observable<any> {
+    console.log(arg);
+    return null;
+  }
+
+  deleteNovS(argId: any): Observable<any> {
+    const URL = `${this.URL_DELETE_NOVEDAD}/${argId}`;
+    console.log(URL);
+    return this._HTTP.delete(URL);
   }
 }

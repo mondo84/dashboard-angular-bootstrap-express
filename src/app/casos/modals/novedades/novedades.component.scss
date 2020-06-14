@@ -7,7 +7,7 @@
 }
 
 .bg-section-description {
-  background-color: rgba(58, 58, 58, 0.144);
+  background-color: rgba(92, 92, 92, 0.144);
 }
 
 .custom-pagination ::ng-deep .ngx-pagination .current {
@@ -18,4 +18,8 @@
 .custom-pagination ::ng-deep .ngx-pagination {
     padding-left: 0;
     color: #555555;
+}
+
+::ng-deep.swal2-container {
+  z-index: 5000;
 }

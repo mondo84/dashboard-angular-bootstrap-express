@@ -2,7 +2,16 @@ import { Component, OnInit, Input, OnChanges, ViewChild, ElementRef, Renderer2 }
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CasosService } from '../../casos.service';
-import { map } from 'rxjs/operators';
+import { map, delay, finalize } from 'rxjs/operators';
+
+// Librerias externas.
+import Swal from 'sweetalert2';                   // Alerts.
+import { NgxSpinnerService } from 'ngx-spinner';  // Spinner.
+
+// ==== modal ng-bootstrap
+import { NgbModal, NgbPopoverConfig } from '@ng-bootstrap/ng-bootstrap';
+
+
 
 @Component({
   selector: 'app-novedades',
@@ -11,30 +20,40 @@ import { map } from 'rxjs/operators';
 })
 export class NovedadesComponent implements OnInit, OnChanges {
 
-  @ViewChild('modalnovedades', {static: true}) modalnovedades: ElementRef;
-  @ViewChild('btncancel', {static: true}) btncancel: ElementRef;
   @Input() idCasoNov: number | string;
   @Input() numeroRandom: number;
+  @Input() objModa: any;  // Objeto del modal del padre.
   toggleMsg = false;
+
   insertedId: number;
   objFormNov: FormGroup;
+  affectedRows: number;
+  serverStatus: number;
   datos = [];
   pagina = 1;
 
   constructor(private fb: FormBuilder,
               private cS: CasosService,
               private rt: Router,
-              private r2: Renderer2) { }
+              private spinner: NgxSpinnerService,
+              public modalService: NgbModal) {
+
+  }
 
   ngOnInit(): void {
     this.formNovedades();
     this.loadList();
+    this.cargaForm();
   }
 
   ngOnChanges(): void {
-    if (this.objFormNov !== undefined) {
+    console.log(this.objFormNov);
+    this.spinner.show();
+
+    /*
+    if ( this.objFormNov !== undefined ) {
       this.resetForm();
-    }
+    }*/
     this.loadList();
   }
 
@@ -51,7 +70,19 @@ export class NovedadesComponent implements OnInit, OnChanges {
     });
   }
 
+  cargaForm() {
+    this.objFormNov.patchValue({
+      idCaso: this.idCasoNov,
+      motor: false,
+      llanta: false,
+      acpm: false,
+      descripcion: ''
+    });
+  }
+
   resetForm(): void {
+    console.log(`reset...`);
+    console.log(this.idCasoNov);
     // Resetea el formulario y asigna valores.
     this.objFormNov.reset({
       idCaso: this.idCasoNov,
@@ -73,12 +104,9 @@ export class NovedadesComponent implements OnInit, OnChanges {
         if ( statusServer === 2 && afectedRows === 1 ) {
           this.loadList();
 
-          this.toggleMsg = true;
-          this.insertedId = x[`insertId`];
-          setTimeout(() => {
-            this.toggleMsg = false;
-            this.insertedId = 0;
-          }, 3000);
+          const insertedId = x[`insertId`];
+          this.switAlertSave(insertedId);
+
         }
       },
       error: (e) => e.error,
@@ -92,38 +120,123 @@ export class NovedadesComponent implements OnInit, OnChanges {
     if ( this.idCasoNov !== undefined ) {
       // Llamado al service
       const obs$ = this.cS.getMyNovedad(this.idCasoNov)
-      .pipe( map(x => x[`datos`][0]) )
+      .pipe(
+        map( (x) => x[`datos`][0]),
+      )
       .subscribe({
-        next: (x) => {
-          console.log(x);
-          this.datos = x;
+        next: async (x) => {
+          // Si hay datos en la coleccion entonces oculta el spinner.
+          if ( x[`length`] > 0 ) {      // if ( x ) {
+            this.datos = x;             // Setea el array con los datos.
+            await this.spinner.hide();  // Oculta el spinner.
+          } else {
+            this.datos = [];            // Devuelve array vacio
+            await this.spinner.hide();  // Oculta el spinner.
+          }
         },
         error: async (e) => {
-          console.error(e.error);
-          // console.error(e.error.msj);
           switch ( e.error.msj ) {
             case 'Forbidden':
-              localStorage.clear();  // Eliminamos todos los datos del local storage.
-              // (pendiente por instrucciones) Cerrar el modal.
+              await localStorage.clear();   // Eliminamos todos los datos del local storage.
+              await this.closeModal();      // Cerrar el modal.
               await this.rt.navigate(['login', 84]);  // Redireccionamos al login.
               break;
             default:
-              // redireccionamiento al login.
-              this.rt.navigate(['login', 100]);
+              await localStorage.clear();   // Eliminamos todos los datos del local storage.
+              await this.closeModal();      // Cerrar el modal.
+              await this.rt.navigate(['login', 100]);   // redireccionamiento al login.
               break;
           }
         },
-        complete: () => { console.log(`Completado`); obs$.unsubscribe(); }
+        complete: () => { /* console.log(`Completado 1`); */ obs$.unsubscribe(); }
       });
     }
 
   }
 
+  closeModalDismiss() {
+    this.objModa.dismiss(`click en boton X`);
+  }
+
   closeModal() {
     console.log(`Cierra y despues redirecciona`);
-    // this.modalnovedades.nativeElement;
-    /* this.r2.removeStyle(this.modalnovedades.nativeElement, 'display');/*
-    this.r2.setStyle(this.modalnovedades.nativeElement, 'background-color', 'red');*/
+    this.objModa.close(`click en cancelar`);
   }
+
+  updateNov(arg: any) {
+    // console.log(arg);
+    this.cS.updateNovS(arg);
+  }
+
+  deleteNov(arg: any) {
+    // console.log(arg.id);
+    const obs$ = this.cS.deleteNovS(arg.id)
+    .pipe( map( (x) => x[`result`][0]  ) )
+    .subscribe({
+      next: async (x) => {
+        console.log(x);
+        const afectedRows = x[`affectedRows`];
+        const statusServer = x[`serverStatus`];
+
+        if ( statusServer === 2 ) {
+          this.loadList();
+          this.switAlertTimer();
+        }
+      },
+      error: (e) => {
+        console.log(e.message);
+      },
+      complete: () => { console.log(`Completado...`); obs$.unsubscribe(); }
+    });
+  }
+
+  switAlertTimer() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'bottom-end',
+      width: '280px',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      onOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+      }
+    });
+
+    Toast.fire({
+      icon: 'success',
+      title: 'Registro borrado!'
+    });
+  }
+
+  switAlertSave( argId: number | string ) {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Operacion exitosa!',
+      text: `Novedad N°: ${argId}`,
+      showConfirmButton: false,
+      timer: 2500
+    });
+  }
+
+  sweetAlertConfirm(argItem: any) {
+    Swal.fire({
+      title: 'Estas seguro?',
+      text: `Esta operacion no se podra revertir! ID ${argItem.id}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, borrar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        this.deleteNov(argItem);
+      }
+    });
+  }
+
 
 }

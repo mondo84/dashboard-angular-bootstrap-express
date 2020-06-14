@@ -32,4 +32,5 @@ export class ListadosService {
     // console.log('cierra este caso service', arg);
     return this._HTTP.post<any>(this.URL_CLOSE_CASO, arg);
   }
+
 }

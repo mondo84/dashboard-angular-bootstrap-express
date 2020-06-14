@@ -1,17 +1,16 @@
-<div class="modal fade" tabindex="-1" role="dialog" id="modal-novedades" #modalnovedades
-    style="z-index: 2000;">
-  <div class="modal-dialog">
-    <div class="modal-content">
+  <!-- <div class="modal-dialog"> -->
+    <!-- <div class="modal-content"> -->
 
       <div class="modal-header">
         <span class="modal-title">Reportar Novedad</span>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" (click)="closeModalDismiss()" >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">  <!-- Cuerpo del modal -->
 
         <div class="container-fluid"> <!-- Contnedor ppal del contenido del modal -->
+          {{ idCasoNov }}
           <form [formGroup]="objFormNov" (ngSubmit)="onSubmit()" novalidate>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-md-4" >
               <div class="col px-0" >
@@ -43,86 +42,98 @@
 
             <div class="row" >
               <div class="col-12 px-0 pt-3 d-flex justify-content-end align-items-center">
-                <input type="hidden" formControlName="idCaso" name="idCaso" id="idCaso" readonly required>
-                <span *ngIf="toggleMsg" class="ml-1 mr-auto text-success">
-                  El registro fue creado. ID: {{ insertedId }}
-                </span>
-                <button type="button" class="btn btn-sm btn-secondary mr-1"
-                        data-dismiss="modal" #btncancel>Cancelar</button>
-                <button type="submit" class="btn btn-sm btn-primary mr-1" [disabled]="!objFormNov.valid" >Guardar</button>
+                <input type="text" formControlName="idCaso" name="idCaso" id="idCaso" readonly required>
+                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                  <button type="button" class="btn btn-sm btn-secondary"
+                          (click)="closeModal()"
+                          ngbPopover="Cierra la ventana!"
+                          popoverTitle="Personalizado">Cancelar</button>
+
+                  <button type="submit" class="btn btn-sm btn-primary"
+                          [disabled]="!objFormNov.valid">Guardar</button>
+                </div>
               </div>
             </div>
           </form>
 
           <!-- Acordion o toggle -->
           <div class="row" >
-            <div class="col-12 px-0">
-              <div class="table-responsive">
-                <table class="table table-borderless" >
-                  <thead class="shadow-box">
-                    <tr>
-                      <th>Mis reportes (Caso N°: {{idCasoNov}}) </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let item of datos | paginate: { itemsPerPage: 2, currentPage: pagina }" >  <!-- iterador de coleccion JSON -->
-                      <td class="pt-0 pb-3 px-1">
-                        <div class="card shadow-box">
-                          <div class="card-body py-0 px-0" >
+            <div class="col-12 px-0 mt-2">
 
-                            <div class="px-2 py-1 d-flex bg-section-check text-primary">
-                              <small class="d-none mr-1" [ngClass]="{'d-block': item.llanta === 1}" >(LLanta)</small>
-                              <small class="d-none mr-1" [ngClass]="{'d-block': item.motor === 1}">(Motor)</small>
-                              <small class="d-none " [ngClass]="{'d-block': item.acpm === 1}">(ACPM)</small>
-                            </div>
+              <ng-container *ngIf="datos.length > 0; else nodatos">
 
-                            <div class="px-2 py-1 bg-section-description" >
-                              <span class="text-justify p-0 m-0" >
-                                {{ item.descripcion }}
-                              </span>
-                            </div>
+                <div class="table-responsive">
+                  <table class="table table-borderless" >
+                    <thead class="shadow-box">
+                      <tr>
+                        <th>Mis reportes (Caso N°: {{idCasoNov}}) </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of datos | paginate: { itemsPerPage: 2, currentPage: pagina }" >  <!-- iterador de coleccion JSON -->
+                        <td class="pt-0 pb-3 px-1">
+                          <ngx-spinner bdColor = "rgba(0,0,0,0.7)" size = "small" color = "#fff"
+                                        type = "square-jelly-box" [fullScreen] = "false" >
+                          <p style="color: white; margin-top: 20px;" > Cargando... </p>
+                          </ngx-spinner>
+                          <div class="card shadow-box">
+                            <div class="card-body py-0 px-0" >
 
-                            <div class="footer-card-btn border-top" >
+                              <div class="px-2 py-1 d-flex bg-section-check text-primary border-bottom">
+                                <small class="d-none mr-1" [ngClass]="{'d-block': item.llanta === 1}" >(LLanta)</small>
+                                <small class="d-none mr-1" [ngClass]="{'d-block': item.motor === 1}">(Motor)</small>
+                                <small class="d-none " [ngClass]="{'d-block': item.acpm === 1}">(ACPM)</small>
+                              </div>
 
-                              <div class="row p-0 m-0">
-                                <div class="col-12 col-sm-6 pl-1">
-                                  <div class="px-2" >
-                                    <span class="text-muted" >
-                                      Registrado el: {{ item.created_at | date: 'dd-MM-yyyy HH:mm:ss' }}
-                                    </span>
+                              <div class="px-2 py-1 bg-section-description" >
+                                <span class="text-justify p-0 m-0" >
+                                  {{ item.descripcion }}
+                                </span>
+                              </div>
+
+                              <div class="footer-card-btn">
+
+                                <div class="row py-1 m-0">
+                                  <div class="col-12 col-sm-6 d-flex justify-content-center
+                                              justify-content-sm-start align-items-center px-1">
+                                    <div class="px-0 m-0" >
+                                      <span class="text-muted">
+                                        Registrado el: {{ item.created_at | date: 'dd-MM-yyyy HH:mm:ss' }}
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div class="col-12 col-sm-6 pl-1 pr-1 d-flex justify-content-center
+                                              justify-content-sm-end align-items-center">
+                                    <div class="pl-2">
+                                      <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                        <!-- (click)="updateNov(item)" -->
+                                        <button class="btn btn-info"
+                                                (click)="modalService.open(contenido)" >Modificar</button>
+                                        <button class="btn btn-danger"
+                                                (click)="sweetAlertConfirm(item)" >Eliminar</button>
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
-                                <div class="col-12 col-sm-6 pl-1">
-                                  <div class="d-flex justify-content-start justify-content-sm-end px-2">
-                                    <a class="mr-2" href="javascript:void(0)">Modificar</a>
-                                    <a href="javascript:void(0)">Eliminar</a>
-                                  </div>
-                                </div>
+
                               </div>
 
                             </div>
-
                           </div>
-                        </div>
 
-                        <!-- Al devolver forbbiden eliminar el local storage y redireccionar al login -->
-                      </td>
-                    </tr>
+                          <!-- Al devolver forbbiden eliminar el local storage y redireccionar al login -->
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Registros: {{ datos.length }}</td>
+                      </tr>
 
-                    <!-- <tr> Implementar ngTemplate
-                      <!-- <td *ngIf="false" class="pt-0 pb-1 px-1" > --
-                      <td class="pt-0 pb-1 px-1" >
-                        Length: {{ datos.length }}
+                    </tbody>
+                  </table>
+                </div>
 
-                        <div *ngIf="datos.length === 0 else noDatos"></div>
-                        <ng-template #noDatos>
-                            <div class="text-muted" >Sin novedad</div>
-                        </ng-template>
-                      </td>
-                    </tr> -->
-                  </tbody>
-                </table>
-              </div>
+              </ng-container>
+
             </div>
           </div>
           <div class="row" >
@@ -139,10 +150,47 @@
                   screenReaderCurrentLabel="You're on page"></pagination-controls>
             </div>
           </div>
+
         </div>  <!-- # Container fluid-->
 
       </div>  <!-- #Cuerpo del modal -->
 
-    </div>  <!-- #Content modal -->
+    <!-- </div>   #Content modal -->
+  <!-- </div> -->
+
+
+<!-- Templates -->
+<ng-template #nodatos>
+  <div class="text-muted text-center py-3" >Sin novedad</div>
+</ng-template>
+
+
+<ng-template #contenido let-modal >
+  <!-- Modal -->
+  <div #modalUpdate id="modalUpdate" class="modal fade" tabindex="-1"
+      role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true" style="z-index: 2500;" >
+
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close"
+                  aria-label="Close" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <button (click)="closeModal()" >Cierra modal</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"
+                  (click)="modal.close()">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+
   </div>
-</div>
+</ng-template>
+
