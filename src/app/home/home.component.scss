@@ -1,29 +1,3 @@
-// @import './../../styles.scss';
-/*
-.menu {
-  // background: $black;
-
-  li {
-    &:hover {
-      // @include hover-style
-    }
-    a {
-      // color: $white;
-    }
-
-    .menu {
-      li {
-        .menu{
-          li {
-            // &:hover { @include hover-style }
-          }
-        }
-      }
-    }
-  }
-}
-*/
-
 header {
   a {
     .y {
@@ -78,6 +52,7 @@ header {
       position: -webkit-sticky;
       position: sticky;
       top: 0;
-      z-index: 1071;
+      // z-index: 1071; (capa original)
+      z-index: 1040;
   }
 }

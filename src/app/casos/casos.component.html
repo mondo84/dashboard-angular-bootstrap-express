@@ -3,15 +3,14 @@
   <div class="row">
     <!-- Sidebar ppal izquierdo -->
     <div class="col-md-3 col-xl-2 bd-sidebar" >
-      <div class="d-flex d-md-none py-2 justify-content-end" >
-        <button class="btn btn-sm btn-primary"
-                type="button"
-                data-toggle="collapse" data-target="#collapseExample"
-                aria-expanded="false" aria-controls="collapseExample">
-          toggle
-        </button>
+      <div class="d-flex d-md-none py-2 justify-content-end">
+        <button class="btn btn-sm btn-primary" type="button"
+                (click)="isCollapsed = !isCollapsed"
+                aria-expanded="false"
+                aria-controls="collapseNavbar">toggle</button>
       </div>
-      <nav id="collapseExample" class="collapse bd-links bg-light-gray" >
+
+      <nav id="collapseNavbar" class="bd-links bg-light-gray" [ngbCollapse]="isCollapsed" >
         <div>
           <a class="bd-toc-link" href="javascript:void(0)">Nuevo caso (conductores)</a>
         </div>

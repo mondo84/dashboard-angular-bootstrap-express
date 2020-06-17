@@ -10,11 +10,12 @@ import { UserI } from 'src/app/interfaces/user-i';
 })
 export class ModalAddComponent implements OnInit, OnChanges {
 
+  @Input() objModal: any;
+  @Input() numRandom: number; // Numero random en el input para que ejecute el ngOnChanges().
+  @Output()eventoActualizaTabla = new EventEmitter<any>();
   birthday = new Date(); // April 15, 1988
   tituloModal = 'Registrar nuevo caso';
   objFormC: FormGroup;
-  @Input() numRandom: number; // Numero random en el input para que ejecute el ngOnChanges().
-  @Output()eventoActualizaTabla = new EventEmitter<any>();
   toogleMsg = false;
   insertedId: string;
   affectedRows: string;
@@ -67,8 +68,11 @@ export class ModalAddComponent implements OnInit, OnChanges {
       next: (x) => {
         // console.log('servicio caso: ', x[`msg`]);
         if (x[`hasCaso`]) {
-          alert(`${x[`msg`]}`);
+          alert(`${x[`msg`]}`); // temporal.alert-danger.
+          // pendiente colocar sweet alert
+
           this.resetForm();
+          this.closeModal();
         } else {
           const obs2$ = this.sC.addCaso(jsonDatos).subscribe({
             next: async (datos) => {
@@ -77,8 +81,10 @@ export class ModalAddComponent implements OnInit, OnChanges {
               this.affectedRows = await datos[`result`][0].affectedRows;
 
               this.eventoActualizaTablaPadre(); // Actualiza la tabla en el padre.
-
-              setTimeout( () => {
+              this.resetForm();
+              this.closeModal();
+              // pendiente colocar sweet alert
+              setTimeout( () => {       // Temporal.
                 this.toogleMsg = false; // Oculta mensaje en la plantilla.
               }, 3000);
             },
@@ -148,6 +154,16 @@ export class ModalAddComponent implements OnInit, OnChanges {
     if (objControl.valid && ( objControl.touched || objControl.dirty )) {
       return 'Campo validado';
     }
+  }
+
+  closeModal() {
+    console.log(`Cierra y despues redirecciona`);
+    this.objModal.close(`click en cancelar`);
+  }
+
+  closeModalX() {
+    console.log(`Cierra y despues redirecciona`);
+    this.objModal.dismiss(`click en X`);
   }
 
 }

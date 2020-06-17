@@ -1,163 +1,158 @@
-  <!-- <div class="modal-dialog"> -->
-    <!-- <div class="modal-content"> -->
 
-      <div class="modal-header">
-        <span class="modal-title">Reportar Novedad</span>
-        <button type="button" class="close" (click)="closeModalDismiss()" >
-          <span aria-hidden="true">&times;</span>
-        </button>
+<div class="modal-header">
+  <span class="modal-title">Reportar Novedad</span>
+  <button type="button" class="close" (click)="closeModalDismiss()" >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">  <!-- Cuerpo del modal -->
+  <div class="container-fluid"> <!-- Contnedor ppal del contenido del modal -->
+    <!-- {{ idCasoNov }} -->
+    <form [formGroup]="objFormNov" (ngSubmit)="onSubmit()" novalidate>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-md-4" >
+        <div class="col-12" >
+          <input type="checkbox" name="motor" id="motor" class="form-check-input"
+                formControlName="motor">
+          <label class="form-check-label ml-2" for="motor">Motor</label>
+        </div>
+        <div class="col-12" >
+          <input type="checkbox" name="llanta" id="llanta" class="form-check-input"
+                formControlName="llanta">
+          <label class="form-check-label ml-2" for="llanta">Llanta</label>
+        </div>
+        <div class="col-12" >
+          <input type="checkbox" name="acpm" id="acpm" class="form-check-input"
+                formControlName="acpm">
+          <label class="form-check-label ml-2" for="acpm">ACPM</label>
+        </div>
       </div>
-      <div class="modal-body">  <!-- Cuerpo del modal -->
 
-        <div class="container-fluid"> <!-- Contnedor ppal del contenido del modal -->
-          {{ idCasoNov }}
-          <form [formGroup]="objFormNov" (ngSubmit)="onSubmit()" novalidate>
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-md-4" >
-              <div class="col px-0" >
-                <input type="checkbox" name="motor" id="motor"
-                      formControlName="motor">
-                <label class="form-check-label ml-2" for="motor">Motor</label>
-              </div>
-              <div class="col px-0" >
-                <input type="checkbox" name="llanta" id="llanta"
-                      formControlName="llanta">
-                <label class="form-check-label ml-2" for="llanta">Llanta</label>
-              </div>
-              <div class="col px-0" >
-                <input type="checkbox" name="acpm" id="acpm"
-                      formControlName="acpm">
-                <label class="form-check-label ml-2" for="acpm">ACPM</label>
-              </div>
-            </div>
+      <div class="row">
+        <div class="col-12 px-0 pt-3">
+          <label for="descripcion">Descripcion</label>
+          <textarea class="form-control" name="descripcion" id="descripcion"
+                    cols="30" rows="3"
+                    formControlName="descripcion"
+                    placeholder="Ingrese descripcion" required></textarea>
+        </div>
+      </div>
 
-            <div class="row">
-              <div class="col-12 px-0 pt-3">
-                <label for="descripcion">Descripcion</label>
-                <textarea class="form-control" name="descripcion" id="descripcion"
-                          cols="30" rows="3"
-                          formControlName="descripcion"
-                          placeholder="Ingrese descripcion" required></textarea>
-              </div>
-            </div>
+      <div class="row" >
+        <div class="col-12 px-0 pt-3 d-flex justify-content-end align-items-center">
+          <input type="hidden" formControlName="idCaso" name="idCaso" id="idCaso" readonly required>
+          <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-sm btn-secondary"
+                    (click)="closeModalNovedades()"
+                    ngbPopover="Cierra la ventana!"
+                    popoverTitle="Personalizado">Cancelar</button>
 
-            <div class="row" >
-              <div class="col-12 px-0 pt-3 d-flex justify-content-end align-items-center">
-                <input type="text" formControlName="idCaso" name="idCaso" id="idCaso" readonly required>
-                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                  <button type="button" class="btn btn-sm btn-secondary"
-                          (click)="closeModal()"
-                          ngbPopover="Cierra la ventana!"
-                          popoverTitle="Personalizado">Cancelar</button>
+            <button type="submit" class="btn btn-sm btn-primary"
+                    [disabled]="!objFormNov.valid">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </form>
 
-                  <button type="submit" class="btn btn-sm btn-primary"
-                          [disabled]="!objFormNov.valid">Guardar</button>
-                </div>
-              </div>
-            </div>
-          </form>
+    <!-- Acordion o toggle -->
+    <div class="row" >
+      <div class="col-12 px-0 mt-2">
+        <ng-container *ngIf="datos.length > 0; else nodatos">
+          <div class="table-responsive">
+            <table class="table table-borderless" >
+              <thead class="shadow-box">
+                <tr>
+                  <th>Mis reportes (Caso N°: {{idCasoNov}}) </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of datos | paginate: { itemsPerPage: 2, currentPage: pagina }" >  <!-- iterador de coleccion JSON -->
+                  <td class="pt-0 pb-3 px-1">
+                    <ngx-spinner bdColor = "rgba(0,0,0,0.7)" size = "small" color = "#fff"
+                                  type = "square-jelly-box" [fullScreen] = "false" >
+                    <p style="color: white; margin-top: 20px;" > Cargando... </p>
+                    </ngx-spinner>
+                    <div class="card shadow-box">
+                      <div class="card-body py-0 px-0" >
 
-          <!-- Acordion o toggle -->
-          <div class="row" >
-            <div class="col-12 px-0 mt-2">
+                        <div class="px-2 py-1 d-flex bg-section-check text-primary border-bottom">
+                          <small class="d-none mr-1" [ngClass]="{'d-block': item.llanta === 1}" >(LLanta)</small>
+                          <small class="d-none mr-1" [ngClass]="{'d-block': item.motor === 1}">(Motor)</small>
+                          <small class="d-none " [ngClass]="{'d-block': item.acpm === 1}">(ACPM)</small>
+                        </div>
 
-              <ng-container *ngIf="datos.length > 0; else nodatos">
+                        <div class="px-2 py-1 bg-section-description" >
+                          <span class="text-justify p-0 m-0" >
+                            {{ item.descripcion }}
+                          </span>
+                        </div>
 
-                <div class="table-responsive">
-                  <table class="table table-borderless" >
-                    <thead class="shadow-box">
-                      <tr>
-                        <th>Mis reportes (Caso N°: {{idCasoNov}}) </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let item of datos | paginate: { itemsPerPage: 2, currentPage: pagina }" >  <!-- iterador de coleccion JSON -->
-                        <td class="pt-0 pb-3 px-1">
-                          <ngx-spinner bdColor = "rgba(0,0,0,0.7)" size = "small" color = "#fff"
-                                        type = "square-jelly-box" [fullScreen] = "false" >
-                          <p style="color: white; margin-top: 20px;" > Cargando... </p>
-                          </ngx-spinner>
-                          <div class="card shadow-box">
-                            <div class="card-body py-0 px-0" >
+                        <div class="footer-card-btn">
 
-                              <div class="px-2 py-1 d-flex bg-section-check text-primary border-bottom">
-                                <small class="d-none mr-1" [ngClass]="{'d-block': item.llanta === 1}" >(LLanta)</small>
-                                <small class="d-none mr-1" [ngClass]="{'d-block': item.motor === 1}">(Motor)</small>
-                                <small class="d-none " [ngClass]="{'d-block': item.acpm === 1}">(ACPM)</small>
-                              </div>
-
-                              <div class="px-2 py-1 bg-section-description" >
-                                <span class="text-justify p-0 m-0" >
-                                  {{ item.descripcion }}
+                          <div class="row py-1 m-0">
+                            <div class="col-12 col-sm-6 d-flex justify-content-center
+                                        justify-content-sm-start align-items-center px-1">
+                              <div class="px-0 m-0" >
+                                <span class="text-muted">
+                                  Registrado el: {{ item.created_at | date: 'dd-MM-yyyy HH:mm:ss' }}
                                 </span>
                               </div>
-
-                              <div class="footer-card-btn">
-
-                                <div class="row py-1 m-0">
-                                  <div class="col-12 col-sm-6 d-flex justify-content-center
-                                              justify-content-sm-start align-items-center px-1">
-                                    <div class="px-0 m-0" >
-                                      <span class="text-muted">
-                                        Registrado el: {{ item.created_at | date: 'dd-MM-yyyy HH:mm:ss' }}
-                                      </span>
-                                    </div>
-                                  </div>
-                                  <div class="col-12 col-sm-6 pl-1 pr-1 d-flex justify-content-center
-                                              justify-content-sm-end align-items-center">
-                                    <div class="pl-2">
-                                      <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                                        <!-- (click)="updateNov(item)" -->
-                                        <button class="btn btn-info"
-                                                (click)="modalService.open(contenido)" >Modificar</button>
-                                        <button class="btn btn-danger"
-                                                (click)="sweetAlertConfirm(item)" >Eliminar</button>
-                                      </div>
-                                    </div>
-                                  </div>
+                            </div>
+                            <div class="col-12 col-sm-6 pl-1 pr-1 d-flex justify-content-center
+                                        justify-content-sm-end align-items-center">
+                              <div class="pl-2">
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                  <!-- (click)="updateNov(item)" -->
+                                  <button class="btn btn-info"
+                                          (click)="openModUpdate(modalUpdate, item)" >Modificar</button>
+                                  <button class="btn btn-danger"
+                                          (click)="sweetAlertConfirm(item)" >Eliminar</button>
                                 </div>
-
                               </div>
-
                             </div>
                           </div>
 
-                          <!-- Al devolver forbbiden eliminar el local storage y redireccionar al login -->
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Registros: {{ datos.length }}</td>
-                      </tr>
+                        </div>
 
-                    </tbody>
-                  </table>
-                </div>
+                      </div>
+                    </div>
 
-              </ng-container>
+                    <!-- Al devolver forbbiden eliminar el local storage y redireccionar al login -->
+                  </td>
+                </tr>
+                <tr>
+                  <td>Registros: {{ datos.length }}</td>
+                </tr>
 
-            </div>
+              </tbody>
+            </table>
           </div>
-          <div class="row" >
-            <div class="col-12 px-0 text-center">
-              <pagination-controls class="custom-pagination"
-                  (pageChange)="pagina = $event"
-                  maxSize="3"
-                  autoHide="true"
-                  responsive="true"
-                  previousLabel="Ant."
-                  nextLabel="Sig."
-                  screenReaderPaginationLabel="Pagination"
-                  screenReaderPageLabel="page"
-                  screenReaderCurrentLabel="You're on page"></pagination-controls>
-            </div>
-          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="row" >
+      <div class="col-12 px-0 text-center">
+        <pagination-controls class="custom-pagination"
+            (pageChange)="pagina = $event"
+            maxSize="3"
+            autoHide="true"
+            responsive="true"
+            previousLabel="Ant."
+            nextLabel="Sig."
+            screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page"></pagination-controls>
+      </div>
+    </div>
 
-        </div>  <!-- # Container fluid-->
+  </div>  <!-- # Container fluid-->
+</div>  <!-- #Cuerpo del modal -->
 
-      </div>  <!-- #Cuerpo del modal -->
-
-    <!-- </div>   #Content modal -->
-  <!-- </div> -->
-
+<div class="modal-footer py-2" >
+  <div class="d-flex justify-content-end">
+    <small class="text-muted">elmondoles@gmail.com @2020</small>
+  </div>
+</div>
 
 <!-- Templates -->
 <ng-template #nodatos>
@@ -165,32 +160,70 @@
 </ng-template>
 
 
-<ng-template #contenido let-modal >
-  <!-- Modal -->
-  <div #modalUpdate id="modalUpdate" class="modal fade" tabindex="-1"
-      role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true" style="z-index: 2500;" >
+<ng-template #modalUpdate let-modalUpdate >
+  <!-- Modal modificar -->
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+    <button type="button" class="close"
+            aria-label="Close" (click)="modalUpdate.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
 
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="close"
-                  aria-label="Close" (click)="modal.dismiss()">
-            <span aria-hidden="true">&times;</span>
-          </button>
+    <div class="container-fluid">
+      <form [formGroup]="objFormNovMod" (ngSubmit)="saveMod()" novalidate>
+        <input type="hidden" name="idCaso" formControlName="idCaso" required readonly>
+        <div class="row">
+          <div class="col-12">
+            <input type="checkbox" name="motor" id="motor1" class="form-check-input"
+                    formControlName="motor">
+            <label class="form-check-label ml-2" for="motor1">Motor</label>
+          </div>
+          <div class="col-12">
+            <input type="checkbox" name="llanta" id="llanta1" class="form-check-input"
+                  formControlName="llanta">
+            <label class="form-check-label ml-2" for="llanta1">Llanta</label>
+          </div>
+          <div class="col-12">
+            <input type="checkbox" name="acpm" id="acpm1" class="form-check-input"
+                  formControlName="acpm">
+            <label class="form-check-label ml-2" for="acpm1">ACPM</label>
+          </div>
         </div>
-        <div class="modal-body">
-          <button (click)="closeModal()" >Cierra modal</button>
+
+        <div class="row">
+          <div class="col-12 px-0 pt-3">
+            <label for="descrip">Descripcion</label>
+            <textarea name="descripcion" id="descrip" class="form-control"
+                      cols="30" rows="3" formControlName="descripcion"
+                      placeholder="Ingrese descripcion" required>
+            </textarea>
+          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary"
-                  (click)="modal.close()">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+
+        <div class="row">
+          <div class="col px-1 py-2 d-flex">
+            <button type="button" class="btn btn-sm btn-secondary ml-auto mr-1"
+                    (click)="closeModalUpdate(modalUpdate)">Cancelar</button>
+            <button type="submit" class="btn btn-sm btn-primary"
+                    [disabled]="!objFormNovMod.valid">Guardar</button>
+          </div>
         </div>
-      </div>
+
+      </form>
     </div>
 
+    {{ objModUpdate | json }}
+    <!-- {{ objModUpdate.created_at }}
+    {{ objModUpdate.updated_at }}
+    {{ objModUpdate.created_at }} -->
+
+  </div>
+  <div class="modal-footer py-2">
+    <div class="d-flex justify-content-end">
+      <small class="text-muted">elmondoles@gmail.com @2020</small>
+    </div>
   </div>
 </ng-template>
 

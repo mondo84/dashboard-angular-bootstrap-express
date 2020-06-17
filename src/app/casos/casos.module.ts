@@ -6,7 +6,7 @@ import { CasosRoutingModule } from './casos-routing.module';  // Modulo de rutas
 
 // Componentes
 import { CasosComponent } from './casos.component';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,8 @@ import { CasosComponent } from './casos.component';
   imports: [
     CommonModule,
     CasosRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ]
 })
 export class CasosModule { }

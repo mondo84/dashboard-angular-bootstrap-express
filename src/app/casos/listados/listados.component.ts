@@ -95,8 +95,9 @@ export class ListadosComponent implements OnInit {
   }
 
   // Selecciona registro para agregar.
-  addReg() {
+  addReg(argContModalAdd: any) {
     this.numRandom3 = this.getNumeroAleatorio();
+    this.modalService.open(argContModalAdd, { size: 'lg', scrollable: false } );  // sm, lg, xl
   }
 
   getSelectedMyCaso(arg: any) {
@@ -122,7 +123,7 @@ export class ListadosComponent implements OnInit {
     this.numRandom5 = this.getNumeroAleatorio();
     this.idCaso = objCaso.id;
     this.objModal = contenido;
-    this.modalService.open(contenido, { size: 'lg', centered: true, scrollable: true }) // sm, lg, xl
+    this.modalService.open(contenido, { size: 'lg', scrollable: false }) // sm, lg, xl
     .result.then( (res) => {
       this.closeResult = `Cerrado con: ${res}`;
     }, (causa) => {

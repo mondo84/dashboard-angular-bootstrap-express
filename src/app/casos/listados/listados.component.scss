@@ -1,10 +1,22 @@
-.texto-card {
-  word-break: break-all;
+ngb-accordion ::ng-deep .card {
+
+  ::ng-deep .card-header {
+    border-radius: 0;
+    background-color: rgba(82, 151, 255, 0.534);
+    padding-top:  2px;
+    padding-bottom: 2px;
+  }
+  ::ng-deep [role=tabpanel] {
+
+    .card-body {
+      padding: 2px 0;
+      background-color: rgba(207, 207, 207, 0.233);
+    }
+  }
 }
 
-.card-header {
-  background-color: rgba(226, 226, 226, 0.575);
-  border-radius: 0;
+.texto-card {
+  word-break: break-all;
 }
 
 .header-accordion {

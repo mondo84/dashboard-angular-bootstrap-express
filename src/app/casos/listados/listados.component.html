@@ -1,241 +1,256 @@
 <div class="row" >
   <div class="col py-2 pt-md-0">
-    <button class="btn btn-sm btn-primary" (click)="addReg()"
-            data-toggle="modal" data-target="#modalAdd">Nuevo caso</button>
+    <button class="btn btn-sm btn-primary"
+            (click)="addReg(contenidoModAdd)">Nuevo caso</button>
   </div>
 </div>
 
-<div class="accordion pb-2" id="overviewCaso" > <!-- Abre accordion -->
-  <div class="d-flex shadow-box header-accordion">
-    <!-- {{ miCaso | json }} -->
-    <div *ngFor="let item of miCaso" >
-      <a href="#" data-toggle="collapse" data-target="#overview"
-          aria-expanded="true" aria-controls="overview">Caso N°: {{ item.id }}</a>
-    </div>
+<div class="row mb-2">
+  <div class="col">
+  <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" > <!-- Abre accordion -->
+    <ngb-panel id="static-1" [disabled]="false" >  <!-- class="d-flex shadow-box header-accordion" -->
+      <!-- {{ miCaso | json }} -->
+      <ng-template ngbPanelTitle>
+        <div *ngFor="let item of miCaso" class="d-flex shadow-box" >
+            <a href="javascript:void(0)">Caso N°: {{ item.id }}</a>
+        </div>
+      </ng-template>
 
-    <div class="ml-auto">
-      <!-- <small>29/05/2020</small> -->
-    </div>
+      <ng-template ngbPanelContent>
+        <table class="table table-borderless mb-0">
+          <tbody>
+            <tr *ngFor="let item of miCaso" > <!-- *ngFor de la coleccion -->
+              <td class="px-0 pt-0 pb-1">
+                <div class="card shadow-box">
+                  <div class="d-flex text-muted py-2 pl-3">
+                    Estado: ({{ item.estado }}), Creado el: {{ item.create_at | date: 'dd-MM-yyyy HH:mm:ss' }}
+                  </div>
+
+                  <div class="col-12 pb-1">
+                    <div class="row">
+                      <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted">Nombre:</span></div>
+                      <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.nombre }}</div>
+
+                      <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted">Cedula:</span></div>
+                      <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.cedula }}</div>
+
+                      <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted">Placa:</span></div>
+                      <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.placa }}</div>
+
+                      <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted">Trailer:</span></div>
+                      <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.trailer }}</div>
+
+                      <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted">Origen:</span></div>
+                      <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.origen }}</div>
+
+                      <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted mr-3">Destino:</span></div>
+                      <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.destino }}</div>
+                    </div>
+                    <div class="row mt-4 justify-content-sm-end" >
+                      <div class="col-12 col-sm-auto px-0 px-sm-1 pb-1 pb-sm-0">
+                        <button class="btn btn-sm btn-success btn-block" >Excel</button>
+                      </div>
+                      <div class="col-12 col-sm-auto px-0 px-sm-0 pb-1 pb-sm-0">
+                        <button class="btn btn-sm btn-danger btn-block" >PDF</button>
+                      </div>
+                      <div class="col-12 col-sm-auto px-0 px-sm-1 pb-1 pb-sm-0">
+                        <button class="btn btn-sm btn-primary btn-block"
+                                (click)="openModalSm(contenidoM, item)">Novedad</button>
+                                <!-- (click)="inputNovedad(item)" -->
+                      </div>
+                      <div class="col-12 col-sm-auto px-0 pl-sm-0 pr-sm-2 pb-sm-0">
+                        <button class="btn btn-sm btn-secondary btn-block"
+                                data-toggle="modal" data-target="#modal-llegada"
+                                (click)="getSelectedMyCaso(item)">
+                                Completado</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+
+              <td *ngIf="false">No hay casos abiertos</td>
+            </tr> <!-- # Cierre *ngFor -->
+          </tbody>
+        </table>
+      </ng-template>
+
+    </ngb-panel>
+  </ngb-accordion>  <!--# cierra accordion -->
   </div>
-  <div id="overview" class="collapse show" data-parent="#overviewCaso">
-    <table class="table mb-0">
-      <tbody>
-        <tr *ngFor="let item of miCaso"> <!-- *ngFor de la coleccion -->
-          <td class="px-0 pb-0">
-            <div class="card shadow-box">
-              <div class="d-flex card-header text-muted">
-                Estado: ({{ item.estado }}), Creado el: {{ item.create_at | date: 'dd-MM-yyyy HH:mm:ss' }}
-              </div>
+</div>
 
-              <div class="col-12 pb-2">
-                <div class="row">
-                  <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted">Nombre:</span></div>
-                  <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.nombre }}</div>
+<div class="row mb-2">
+  <div class="col">
+    <ngb-accordion #acc1="ngbAccordion" activeIds="ngb-panel-0">
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          En ruta
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <!-- Tabla 1 -->
+          <div class="">
+            <div class="table-responsive">
+              <table class="table table-borderless" >
+                <caption class="p-0 pl-2">
+                  <small>Listado de vehiculos en ruta</small>
+                </caption>
+                <tr class="shadow-box">
+                  <th class="text-muted pl-3">Detalle del listado</th>
+                </tr>
+                <tbody>
+                  <!-- {{datos | json}} -->
+                  <!-- Iteracion -->
+                  <tr class=" p-0" *ngFor="let item of datos | paginate: { id: 'ctrltab1',
+                                                                            itemsPerPage: 2,
+                                                                            currentPage: pag
+                                                                          }">
+                    <td class="p-2">
+                      <div class="card shadow-box" style="min-width: 350px;" >
+                        <div class="card-body py-0">
+                          <div class="d-flex align-items-center">
+                            <div class="py-2 mr-2">
+                              <img src="{{item.foto}}" alt="Foto"
+                                    class="img-fluid rounded-circle"
+                                    style="max-width: 35px;">
+                            </div>
+                            <div class="flex-grow-1 pl-2 py-1">
+                              <div class="d-block" >
+                                <small class="text-muted">Viaje: {{item.id}}</small>
+                              </div>
+                              <div class="d-block">
+                                <small class="text-muted">Conductor: {{item.nombre}}</small>
+                              </div>
+                            </div>
+                            <div class="d-flex align-items-end px-2 pb-2 align-self-stretch">
+                              <a href="#" class="mr-2" data-toggle="modal" data-target="#modal-delete"
+                                (click)="getId(item)"><small class="text-danger">Eliminar</small></a>
 
-                  <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted">Cedula:</span></div>
-                  <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.cedula }}</div>
-
-                  <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted">Placa:</span></div>
-                  <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.placa }}</div>
-
-                  <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted">Trailer:</span></div>
-                  <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.trailer }}</div>
-
-                  <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted">Origen:</span></div>
-                  <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.origen }}</div>
-
-                  <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted mr-3">Destino:</span></div>
-                  <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.destino }}</div>
-                </div>
-                <div class="row mt-4 justify-content-sm-end" >
-                  <div class="col-12 col-sm-auto px-0 px-sm-1 pb-1 pb-sm-0">
-                    <button class="btn btn-sm btn-success btn-block" >Excel</button>
-                  </div>
-                  <div class="col-12 col-sm-auto px-0 px-sm-0 pb-1 pb-sm-0">
-                    <button class="btn btn-sm btn-danger btn-block" >PDF</button>
-                  </div>
-                  <div class="col-12 col-sm-auto px-0 px-sm-1 pb-1 pb-sm-0">
-                    <button class="btn btn-sm btn-primary btn-block"
-                            (click)="openModalSm(contenidoM, item)">Novedad</button>
-                            <!-- (click)="inputNovedad(item)" -->
-                  </div>
-                  <div class="col-12 col-sm-auto px-0 pl-sm-0 pr-sm-2 pb-sm-0">
-                    <button class="btn btn-sm btn-secondary btn-block"
-                            data-toggle="modal" data-target="#modal-llegada"
-                            (click)="getSelectedMyCaso(item)">
-                            Completado</button>
-                  </div>
-                </div>
+                              <a href="#" data-toggle="modal" data-target="#modalSave"
+                                (click)="getRow(item)"><small>Ver</small></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Control paginacion tabla 1 -->
+            <div class="row" >
+              <div class="col-12 px-0 text-center">
+                <pagination-controls class="custom-pagination"
+                    id="ctrltab1"
+                    (pageChange)="pag = $event"
+                    maxSize="3"
+                    autoHide="true"
+                    responsive="true"
+                    previousLabel="Ant."
+                    nextLabel="Sig."
+                    screenReaderPaginationLabel="Pagination"
+                    screenReaderPageLabel="page"
+                    screenReaderCurrentLabel="You're on page"></pagination-controls>
               </div>
             </div>
-          </td>
-
-          <td *ngIf="false">No hay casos abiertos</td>
-        </tr> <!-- # Cierre *ngFor -->
-      </tbody>
-    </table>
-  </div>
-</div>  <!--# cierra accordion -->
-
-
-<div class="accordion mb-3" id="listados">
-  <div class="shadow-box header-accordion">
-    <a href="#" data-toggle="collapse" data-target="#listado-transporte"
-              aria-expanded="true" aria-controls="listado-transporte">
-            Listado de transporte.</a>
-      {{closeResult}}
-  </div>
-  <div id="listado-transporte" class="collapse show" data-parent="#listados">
-    <div class="row row-cols-1 row-cols-lg-2 bg-light-gray">
-
-      <!-- Tabla 1 -->
-      <div class="col col-lg-6">
-        <div class="table-responsive">
-          <table class="table table-borderless" >
-            <caption class="p-0 pl-2">
-              <small>Listado de vehiculos en ruta</small>
-            </caption>
-            <tr class="shadow-box">
-              <th class="text-muted pl-3">En ruta</th>
-            </tr>
-            <tbody>
-              <!-- {{datos | json}} -->
-              <!-- Iteracion -->
-              <tr class=" p-0" *ngFor="let item of datos | paginate: { id: 'ctrltab1',
-                                                                        itemsPerPage: 2,
-                                                                        currentPage: pag
-                                                                      }">
-                <td class="p-2">
-                  <div class="card shadow-box" style="min-width: 350px;" >
-                    <div class="card-body py-0">
-                      <div class="d-flex align-items-center">
-                        <div class="py-2 mr-2">
-                          <img src="{{item.foto}}" alt="Foto"
-                                class="img-fluid rounded-circle"
-                                style="max-width: 35px;">
-                        </div>
-                        <div class="flex-grow-1 pl-2 py-1">
-                          <div class="d-block" >
-                            <small class="text-muted">Viaje: {{item.id}}</small>
-                          </div>
-                          <div class="d-block">
-                            <small class="text-muted">Conductor: {{item.nombre}}</small>
-                          </div>
-                        </div>
-                        <div class="d-flex align-items-end px-2 pb-2 align-self-stretch">
-                          <a href="#" class="mr-2" data-toggle="modal" data-target="#modal-delete"
-                            (click)="getId(item)"><small class="text-danger">Eliminar</small></a>
-
-                          <a href="#" data-toggle="modal" data-target="#modalSave"
-                            (click)="getRow(item)"><small>Ver</small></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- Control paginacion tabla 1 -->
-        <div class="row" >
-          <div class="col-12 px-0 text-center">
-            <pagination-controls class="custom-pagination"
-                id="ctrltab1"
-                (pageChange)="pag = $event"
-                maxSize="3"
-                autoHide="true"
-                responsive="true"
-                previousLabel="Ant."
-                nextLabel="Sig."
-                screenReaderPaginationLabel="Pagination"
-                screenReaderPageLabel="page"
-                screenReaderCurrentLabel="You're on page"></pagination-controls>
           </div>
-        </div>
-      </div>
-
-        <!-- Tabla 2 -->
-      <div class="col col-lg-6">
-        <div class="table-responsive">
-          <table class="table table-borderless" >
-            <caption class="p-0 pl-2">
-              <small>Listado de vehiculos en muelle</small>
-            </caption>
-            <tr class="shadow-box" >
-              <th class="text-muted pl-3">En muelle</th>
-            </tr>
-            <tbody>
-              <!-- Iteracion -->
-              <tr class=" p-0" *ngFor="let item2 of datosMuelle | paginate: { id: 'ctrltab2',
-                                                                              itemsPerPage: 2,
-                                                                              currentPage: pag2
-                                                                              }">
-                <td class="p-2">
-                  <div class="card shadow-box" style="min-width: 350px;" >
-
-                    <div class="card-body py-0">
-                      <div class="d-flex align-items-center">
-                        <div class="d-flex align-items-end px-2 pb-2 align-self-stretch">
-                          <a href="#" data-toggle="modal" data-target="#modalSave"
-                          (click)="getRow(item2)">
-                            <small>Ver</small></a>
-                          <a href="#" class="ml-2"
-                            data-toggle="modal" data-target="#modal-delete"
-                            (click)="getId(item2)">
-                          <small class="text-danger">Eliminar</small></a>
-                        </div>
-                        <div class="flex-grow-1 pr-4 py-1 text-right">
-                          <div class="d-block" >
-                            <small class="text-muted">Viaje: {{item2.id}}</small>
-                          </div>
-                          <div class="d-block">
-                            <small class="text-muted">Conductor: {{item2.nombre}}.</small>
-                          </div>
-                        </div>
-                        <div class="py-2 ml-2">
-                          <img src="{{item2.foto}}" alt="Foto"
-                                class="img-fluid rounded-circle"
-                                style="max-width: 35px;">
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                </td>
-              </tr>
-
-            </tbody>
-          </table>
-        </div>
-        <!-- Control paginacion tabla 2 -->
-        <div class="row" >
-          <div class="col-12 px-0 text-center">
-            <pagination-controls class="custom-pagination"
-                id="ctrltab2"
-                (pageChange)="pag2 = $event"
-                maxSize="3"
-                autoHide="true"
-                responsive="true"
-                previousLabel="Ant."
-                nextLabel="Sig."
-                screenReaderPaginationLabel="Pagination"
-                screenReaderPageLabel="page"
-                screenReaderCurrentLabel="You're on page"></pagination-controls>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
   </div>
 </div>
 
+<div class="row mb-2">
+  <div class="col">
+    <ngb-accordion #acc1="ngbAccordion" activeIds="ngb-panel-0">
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          En muelle
+        </ng-template>
+        <ng-template ngbPanelContent>
+           <!-- Tabla 2 -->
+           <div class="">
+            <div class="table-responsive">
+              <table class="table table-borderless" >
+                <caption class="p-0 pl-2">
+                  <small>Listado de vehiculos en muelle</small>
+                </caption>
+                <tr class="shadow-box" >
+                  <th class="text-muted pl-3">Detalle del listado</th>
+                </tr>
+                <tbody>
+                  <!-- Iteracion -->
+                  <tr class=" p-0" *ngFor="let item2 of datosMuelle | paginate: { id: 'ctrltab2',
+                                                                                  itemsPerPage: 2,
+                                                                                  currentPage: pag2
+                                                                                  }">
+                    <td class="p-2">
+                      <div class="card shadow-box" style="min-width: 350px;" >
 
+                        <div class="card-body py-0">
+                          <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-end px-2 pb-2 align-self-stretch">
+                              <a href="#" data-toggle="modal" data-target="#modalSave"
+                              (click)="getRow(item2)">
+                                <small>Ver</small></a>
+                              <a href="#" class="ml-2"
+                                data-toggle="modal" data-target="#modal-delete"
+                                (click)="getId(item2)">
+                              <small class="text-danger">Eliminar</small></a>
+                            </div>
+                            <div class="flex-grow-1 pr-4 py-1 text-right">
+                              <div class="d-block" >
+                                <small class="text-muted">Viaje: {{item2.id}}</small>
+                              </div>
+                              <div class="d-block">
+                                <small class="text-muted">Conductor: {{item2.nombre}}.</small>
+                              </div>
+                            </div>
+                            <div class="py-2 ml-2">
+                              <img src="{{item2.foto}}" alt="Foto"
+                                    class="img-fluid rounded-circle"
+                                    style="max-width: 35px;">
+                            </div>
+                          </div>
+                        </div>
 
-<app-modal-add [numRandom]="numRandom3"
-(eventoActualizaTabla)="getActiveCaso($event)">
-</app-modal-add>
+                      </div>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+            <!-- Control paginacion tabla 2 -->
+            <div class="row" >
+              <div class="col-12 px-0 text-center">
+                <pagination-controls class="custom-pagination"
+                    id="ctrltab2"
+                    (pageChange)="pag2 = $event"
+                    maxSize="3"
+                    autoHide="true"
+                    responsive="true"
+                    previousLabel="Ant."
+                    nextLabel="Sig."
+                    screenReaderPaginationLabel="Pagination"
+                    screenReaderPageLabel="page"
+                    screenReaderCurrentLabel="You're on page"></pagination-controls>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </div>
+</div>
+
+<ng-template #contenidoModAdd let-modal2>
+  <app-modal-add
+    [numRandom]="numRandom3"
+    (eventoActualizaTabla)="getActiveCaso($event)"
+    [objModal]="modal2">
+  </app-modal-add>
+</ng-template>
 
 <!-- Modal save/update (input binding = enlace de entrada) -->
 <app-modal-save-update [numeroRandom]="numRandom1"

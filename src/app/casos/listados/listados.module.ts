@@ -14,6 +14,8 @@ import { NovedadesComponent } from '../modals/novedades/novedades.component';
 // Importa el modulo de la libreria spinner.
 import { NgxSpinnerModule } from 'ngx-spinner';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 // External...
 // ngSpinner
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -32,7 +34,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ListadosRoutingModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgbModule
   ]
 })
 export class ListadosModule { }

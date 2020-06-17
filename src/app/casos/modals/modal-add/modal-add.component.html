@@ -1,114 +1,109 @@
-<div #btnClose class="modal fade" id="modalAdd" data-backdrop="static"
-      data-keyboard="false" tabindex="-1" role="dialog"
-      aria-labelledby="staticBackdropLabel" aria-hidden="true" style="z-index: 2000;">
+<!-- {{ objJson | json }} -->
+<div class="modal-header" >
+  {{  birthday | date:"fullDate" | uppercase }}
+  <div class="col d-flex justify-content-end p-0">
+    <button class="btn btn-sm btn-light" (click)="closeModalX()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<div class="modal-body" >
+  <div class="container-fluid px-0">
 
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <!-- {{ objJson | json }} -->
-          <div class="modal-header py-1 pr-1" >
-            {{  birthday | date:"fullDate" | uppercase }}
-            <div class="col d-flex justify-content-end p-0">
-              <button class="btn btn-sm btn-light" data-dismiss="modal">
-                  <span aria-hidden="true">&times;</span>
-              </button>
+    <div class="row">
+      <div class="col-12">
+        <form [formGroup]="objFormC" (ngSubmit)="onSubmit()" novalidate>
+          <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" >
+            <div class="col d-flex my-1 ">
+              <div style="width: 80px;" >
+                <small class="text-muted mr-2" >Placa:</small>
+              </div>
+              <div class="flex-grow-1" >
+                <input type="text" formControlName="placa"
+                  name="placa" id="placaa"
+                  class="form-control form-control-sm pl-3 ml-auto mr-3"
+                  [ngClass]="{'field-invalid': getError('placa'),
+                              'field-validated': getValid('placa')}"
+                  autocomplete="off" required autofocus="autofocus" >
+                  <div [ngClass]="{'d-block': getError('placa')}"
+                        class="invalid-feedback">
+                        <span>{{getError('placa')}}</span>
+                  </div>
+              </div>
+            </div>
+            <div class="col d-flex my-1 ">
+              <div style="width: 80px;" >
+                <small class="text-muted mr-2" >Trailer:</small>
+              </div>
+              <div class="flex-grow-1" >
+                <input type="text" formControlName="trailer"
+                  name="trailer" id="trailerr"
+                  class="form-control form-control-sm pl-3 ml-auto mr-3"
+                  [ngClass]="{'field-invalid': getError('trailer'),
+                              'field-validated': getValid('trailer')}"
+                  autocomplete="off" required>
+                  <div [ngClass]="{'d-block': getError('trailer')}"
+                        class="invalid-feedback">
+                        <span>{{getError('trailer')}}</span>
+                  </div>
+              </div>
+            </div>
+            <div class="col d-flex my-1 ">
+              <div style="width: 80px;" >
+                <small class="text-muted mr-2" >Origen:</small>
+              </div>
+              <div class="flex-grow-1" >
+                <input type="text" formControlName="origen"
+                  name="origen" id="origenn"
+                  class="form-control form-control-sm pl-3 ml-auto mr-3"
+                  [ngClass]="{'field-invalid': getError('origen'),
+                              'field-validated': getValid('origen')}"
+                  autocomplete="off" required>
+                  <div [ngClass]="{'d-block': getError('origen')}"
+                        class="invalid-feedback">
+                        <span>{{getError('origen')}}</span>
+                  </div>
+              </div>
+            </div>
+            <div class="col d-flex my-1">
+              <div style="width: 80px;" >
+                <small class="text-muted" >Destino:</small>
+              </div>
+              <div class="flex-grow-1" >
+                <input type="text" formControlName="destino"
+                  name="destino" id="destinoo"
+                  class="form-control form-control-sm pl-3 ml-auto mr-3"
+                  [ngClass]="{'field-invalid': getError('destino'),
+                              'field-validated': getValid('destino')}"
+                  autocomplete="off" required>
+                  <div [ngClass]="{'d-block': getError('destino')}"
+                        class="invalid-feedback">
+                        <span>{{getError('destino')}}</span>
+                  </div>
+              </div>
             </div>
           </div>
-          <div class="modal-body pt-0 pb-0" >
-            <div class="container-fluid px-0">
+          <div class="row">
+            <div class="col-12 d-flex justify-content-end align-items-center pt-3 pb-2">
+              <!-- Borrar esta linea para mostrar un sweet alert -->
+              <span class="mr-auto " *ngIf="toogleMsg"  >Caso {{insertedId}} creado</span>
 
-              <div class="row">
-                <div class="col-12">
-                  <form [formGroup]="objFormC" (ngSubmit)="onSubmit()" novalidate>
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" >
-                      <div class="col d-flex my-1 ">
-                        <div style="width: 80px;" >
-                          <small class="text-muted mr-2" >Placa:</small>
-                        </div>
-                        <div class="flex-grow-1" >
-                          <input type="text" formControlName="placa"
-                            name="placa" id="placaa"
-                            class="form-control form-control-sm pl-3 ml-auto mr-3"
-                            [ngClass]="{'field-invalid': getError('placa'),
-                                        'field-validated': getValid('placa')}"
-                            autocomplete="off" required autofocus="autofocus" >
-                            <div [ngClass]="{'d-block': getError('placa')}"
-                                  class="invalid-feedback">
-                                  <span>{{getError('placa')}}</span>
-                            </div>
-                        </div>
-                      </div>
-                      <div class="col d-flex my-1 ">
-                        <div style="width: 80px;" >
-                          <small class="text-muted mr-2" >Trailer:</small>
-                        </div>
-                        <div class="flex-grow-1" >
-                          <input type="text" formControlName="trailer"
-                            name="trailer" id="trailerr"
-                            class="form-control form-control-sm pl-3 ml-auto mr-3"
-                            [ngClass]="{'field-invalid': getError('trailer'),
-                                        'field-validated': getValid('trailer')}"
-                            autocomplete="off" required>
-                            <div [ngClass]="{'d-block': getError('trailer')}"
-                                  class="invalid-feedback">
-                                  <span>{{getError('trailer')}}</span>
-                            </div>
-                        </div>
-                      </div>
-                      <div class="col d-flex my-1 ">
-                        <div style="width: 80px;" >
-                          <small class="text-muted mr-2" >Origen:</small>
-                        </div>
-                        <div class="flex-grow-1" >
-                          <input type="text" formControlName="origen"
-                            name="origen" id="origenn"
-                            class="form-control form-control-sm pl-3 ml-auto mr-3"
-                            [ngClass]="{'field-invalid': getError('origen'),
-                                        'field-validated': getValid('origen')}"
-                            autocomplete="off" required>
-                            <div [ngClass]="{'d-block': getError('origen')}"
-                                  class="invalid-feedback">
-                                  <span>{{getError('origen')}}</span>
-                            </div>
-                        </div>
-                      </div>
-                      <div class="col d-flex my-1">
-                        <div style="width: 80px;" >
-                          <small class="text-muted" >Destino:</small>
-                        </div>
-                        <div class="flex-grow-1" >
-                          <input type="text" formControlName="destino"
-                            name="destino" id="destinoo"
-                            class="form-control form-control-sm pl-3 ml-auto mr-3"
-                            [ngClass]="{'field-invalid': getError('destino'),
-                                        'field-validated': getValid('destino')}"
-                            autocomplete="off" required>
-                            <div [ngClass]="{'d-block': getError('destino')}"
-                                  class="invalid-feedback">
-                                  <span>{{getError('destino')}}</span>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12 d-flex justify-content-end align-items-center pt-3 pb-2">
-                        <span class="mr-auto " *ngIf="toogleMsg"  >Caso {{insertedId}} creado</span>
-                        <button type="submit" class="btn btn-sm btn-primary"
-                              [disabled]="!objFormC.valid">Crear</button>
-                      </div>
-                    </div>
-                  </form>
-                </div> <!-- #Cierra col -->
-              </div> <!-- #cierra row -->
-
-            </div>
-          </div>  <!-- #cierra body modal -->
-
-          <div class="modal-footer py-2" >
-            <div class="d-flex justify-content-end">
-              <small class="text-muted">elmondoles@gmail.com @2020</small>
+              <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                <button class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
+                <button type="submit" class="btn btn-primary"
+                [disabled]="!objFormC.valid">Crear</button>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </form>
+      </div> <!-- #Cierra col -->
+    </div> <!-- #cierra row -->
 
+  </div>
+</div>  <!-- #cierra body modal -->
+
+<div class="modal-footer py-2" >
+  <div class="d-flex justify-content-end">
+    <small class="text-muted">elmondoles@gmail.com @2020</small>
+  </div>
 </div>

@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class CasosComponent implements OnInit {
 
   numAleatorio: number;
+  public isCollapsed = true;  // Toggle del navbar.
 
   constructor() { }
 

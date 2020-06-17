@@ -25,8 +25,10 @@ export class NovedadesComponent implements OnInit, OnChanges {
   @Input() objModa: any;  // Objeto del modal del padre.
   toggleMsg = false;
 
+  objModUpdate: any;
   insertedId: number;
   objFormNov: FormGroup;
+  objFormNovMod: FormGroup;
   affectedRows: number;
   serverStatus: number;
   datos = [];
@@ -42,6 +44,7 @@ export class NovedadesComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.formNovedades();
+    this.formModNovedades();
     this.loadList();
     this.cargaForm();
   }
@@ -59,6 +62,19 @@ export class NovedadesComponent implements OnInit, OnChanges {
 
   formNovedades() {
     this.objFormNov = this.fb.group({
+      idCaso: [null, { validators: [ Validators.required ] }],
+      motor: [false],
+      llanta: [false],
+      acpm: [false],
+      descripcion: [
+        { value: '', disabled: false },
+        { validators: [Validators.required, Validators.minLength(5), Validators.maxLength(250)]
+      }]
+    });
+  }
+
+  formModNovedades() {
+    this.objFormNovMod = this.fb.group({
       idCaso: [null, { validators: [ Validators.required ] }],
       motor: [false],
       llanta: [false],
@@ -114,6 +130,17 @@ export class NovedadesComponent implements OnInit, OnChanges {
     });
   }
 
+  saveMod() {
+    // console.log(this.objFormNovMod.getRawValue());
+    const obs$ = this.cS.updateNovS(this.objFormNovMod.getRawValue())
+    // .pipe( map(x => x ) )
+    .subscribe({
+      next: (res) => console.log(res),
+      error: (err) => console.error(`Algo anda mal: ${err.error}`),
+      complete: () => { console.log(`completado`); obs$.unsubscribe(); }
+    });
+  }
+
   loadList() {
     console.log(`ID Caso: ${this.idCasoNov}`);
 
@@ -138,12 +165,12 @@ export class NovedadesComponent implements OnInit, OnChanges {
           switch ( e.error.msj ) {
             case 'Forbidden':
               await localStorage.clear();   // Eliminamos todos los datos del local storage.
-              await this.closeModal();      // Cerrar el modal.
+              await this.closeModalNovedades();      // Cerrar el modal.
               await this.rt.navigate(['login', 84]);  // Redireccionamos al login.
               break;
             default:
               await localStorage.clear();   // Eliminamos todos los datos del local storage.
-              await this.closeModal();      // Cerrar el modal.
+              await this.closeModalNovedades();      // Cerrar el modal.
               await this.rt.navigate(['login', 100]);   // redireccionamiento al login.
               break;
           }
@@ -158,15 +185,32 @@ export class NovedadesComponent implements OnInit, OnChanges {
     this.objModa.dismiss(`click en boton X`);
   }
 
-  closeModal() {
-    console.log(`Cierra y despues redirecciona`);
+  closeModalNovedades() {
+    // console.log(`Cierra y despues redirecciona`);
     this.objModa.close(`click en cancelar`);
+  }
+
+  openModUpdate(argModalUpdate: any, argItem: any) {
+    // this.objModUpdate = argItem;
+    this.modalService.open(argModalUpdate, { size: 'lg' } );  // sm, lg, xl
+    this.objFormNovMod.patchValue({
+      idCaso: argItem.id,
+      motor: argItem.motor,
+      llanta: argItem.llanta,
+      acpm: argItem.acpm,
+      descripcion: argItem.descripcion
+    });
+  }
+
+  closeModalUpdate(argModal: any) {
+    argModal.close();
   }
 
   updateNov(arg: any) {
     // console.log(arg);
     this.cS.updateNovS(arg);
   }
+
 
   deleteNov(arg: any) {
     // console.log(arg.id);

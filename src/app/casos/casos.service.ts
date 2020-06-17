@@ -42,6 +42,7 @@ export class CasosService {
   }
 
   updateNovS(arg: any): Observable<any> {
+    console.log(`Desde el service...`);
     console.log(arg);
     return null;
   }
