@@ -7,86 +7,99 @@
 
 <div class="row mb-2">
   <div class="col">
-  <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" > <!-- Abre accordion -->
-    <ngb-panel id="static-1" [disabled]="false" >  <!-- class="d-flex shadow-box header-accordion" -->
-      <!-- {{ miCaso | json }} -->
-      <ng-template ngbPanelTitle>
-        <div *ngFor="let item of miCaso" class="d-flex shadow-box" >
-            <a href="javascript:void(0)">Caso N°: {{ item.id }}</a>
-        </div>
-      </ng-template>
 
-      <ng-template ngbPanelContent>
-        <table class="table table-borderless mb-0">
-          <tbody>
-            <tr *ngFor="let item of miCaso" > <!-- *ngFor de la coleccion -->
-              <td class="px-0 pt-0 pb-1">
-                <div class="card shadow-box">
-                  <div class="d-flex text-muted py-2 pl-3">
-                    Estado: ({{ item.estado }}), Creado el: {{ item.create_at | date: 'dd-MM-yyyy HH:mm:ss' }}
-                  </div>
+    <!-- Contenedor de los templates. -->
+    <ng-container *ngIf="miCaso.length > 0; then cardCaso else nodatos"></ng-container>
 
-                  <div class="col-12 pb-1">
-                    <div class="row">
-                      <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted">Nombre:</span></div>
-                      <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.nombre }}</div>
+    <!-- Template 1 -->
+    <ng-template #cardCaso >
+      <ngb-accordion #acc="ngbAccordion" activeIds="tarjeta-caso" > <!-- Abre accordion -->
+        <ngb-panel id="tarjeta-caso" [disabled]="false" >  <!-- class="d-flex shadow-box header-accordion" -->
+          {{ miCaso | json }}
+          <ng-template ngbPanelTitle>
+            <div *ngFor="let item of miCaso" class="d-flex shadow-box" >
+                <a href="javascript:void(0)">Caso N°: {{ item.id }}</a>
+            </div>
+          </ng-template>
 
-                      <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted">Cedula:</span></div>
-                      <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.cedula }}</div>
+          <ng-template ngbPanelContent>
+            <table class="table table-borderless mb-0">
+              <tbody>
+                <tr *ngFor="let item of miCaso" > <!-- *ngFor de la coleccion -->
+                  <td class="px-0 pt-0 pb-1">
+                    <div class="card shadow-box">
+                      <div class="d-flex text-muted py-2 pl-3">
+                        Estado: ({{ item.estado }}), Creado el: {{ item.create_at | date: 'dd-MM-yyyy HH:mm:ss' }}
+                      </div>
 
-                      <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted">Placa:</span></div>
-                      <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.placa }}</div>
+                      <div class="col-12 pb-1">
+                        <div class="row">
+                          <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted">Nombre:</span></div>
+                          <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.nombre }}</div>
 
-                      <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted">Trailer:</span></div>
-                      <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.trailer }}</div>
+                          <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted">Cedula:</span></div>
+                          <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.cedula }}</div>
 
-                      <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted">Origen:</span></div>
-                      <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.origen }}</div>
+                          <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted">Placa:</span></div>
+                          <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.placa }}</div>
 
-                      <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted mr-3">Destino:</span></div>
-                      <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.destino }}</div>
+                          <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted">Trailer:</span></div>
+                          <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.trailer }}</div>
+
+                          <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted">Origen:</span></div>
+                          <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.origen }}</div>
+
+                          <div class="col-6 col-sm-3 col-lg-2"><span class="text-muted mr-3">Destino:</span></div>
+                          <div class="col-6 col-sm-3 col-lg-2 texto-card d-flex align-items-end">{{ item.destino }}</div>
+                        </div>
+                        <div class="row mt-4 justify-content-sm-end" >
+                          <div class="col-12 col-sm-auto px-0 px-sm-1 pb-1 pb-sm-0">
+                            <button class="btn btn-sm btn-success btn-block" >Excel</button>
+                          </div>
+                          <div class="col-12 col-sm-auto px-0 px-sm-0 pb-1 pb-sm-0">
+                            <button class="btn btn-sm btn-danger btn-block" >PDF</button>
+                          </div>
+                          <div class="col-12 col-sm-auto px-0 px-sm-1 pb-1 pb-sm-0">
+                            <button class="btn btn-sm btn-primary btn-block"
+                                    (click)="openModalSm(contenidoM, item)">Novedad</button>
+                                    <!-- (click)="inputNovedad(item)" -->
+                          </div>
+                          <div class="col-12 col-sm-auto px-0 pl-sm-0 pr-sm-2 pb-sm-0">
+                            <!-- (click)="getSelectedMyCaso(item)" -->
+                            <button class="btn btn-sm btn-secondary btn-block"
+                                    (click)="openModalCompletado(completadoM, item)">
+                                    Completado</button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div class="row mt-4 justify-content-sm-end" >
-                      <div class="col-12 col-sm-auto px-0 px-sm-1 pb-1 pb-sm-0">
-                        <button class="btn btn-sm btn-success btn-block" >Excel</button>
-                      </div>
-                      <div class="col-12 col-sm-auto px-0 px-sm-0 pb-1 pb-sm-0">
-                        <button class="btn btn-sm btn-danger btn-block" >PDF</button>
-                      </div>
-                      <div class="col-12 col-sm-auto px-0 px-sm-1 pb-1 pb-sm-0">
-                        <button class="btn btn-sm btn-primary btn-block"
-                                (click)="openModalSm(contenidoM, item)">Novedad</button>
-                                <!-- (click)="inputNovedad(item)" -->
-                      </div>
-                      <div class="col-12 col-sm-auto px-0 pl-sm-0 pr-sm-2 pb-sm-0">
-                        <button class="btn btn-sm btn-secondary btn-block"
-                                data-toggle="modal" data-target="#modal-llegada"
-                                (click)="getSelectedMyCaso(item)">
-                                Completado</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
+                  </td>
 
-              <td *ngIf="false">No hay casos abiertos</td>
-            </tr> <!-- # Cierre *ngFor -->
-          </tbody>
-        </table>
-      </ng-template>
+                  <td *ngIf="false">No hay casos abiertos</td>
+                </tr> <!-- # Cierre *ngFor -->
+              </tbody>
+            </table>
+          </ng-template>
 
-    </ngb-panel>
-  </ngb-accordion>  <!--# cierra accordion -->
+        </ngb-panel>
+
+      </ngb-accordion>  <!--# cierra accordion -->
+    </ng-template>
+
+    <!-- Template 2 -->
+    <ng-template #nodatos>
+      <div class="no-data py-2 px-3">No hay casos abiertos</div>
+    </ng-template>
+
   </div>
 </div>
 
 <div class="row mb-2">
   <div class="col">
-    <ngb-accordion #acc1="ngbAccordion" activeIds="ngb-panel-0">
-      <ngb-panel>
-        <ng-template ngbPanelTitle>
-          En ruta
-        </ng-template>
+    <!-- [closeOthers]="true" activeIds="tabla-en-ruta" -->
+    <ngb-accordion #acc1="ngbAccordion">
+      <ngb-panel id="tabla-en-ruta">
+        <ng-template ngbPanelTitle>En ruta</ng-template>
         <ng-template ngbPanelContent>
           <!-- Tabla 1 -->
           <div class="">
@@ -162,11 +175,10 @@
 
 <div class="row mb-2">
   <div class="col">
-    <ngb-accordion #acc1="ngbAccordion" activeIds="ngb-panel-0">
-      <ngb-panel>
-        <ng-template ngbPanelTitle>
-          En muelle
-        </ng-template>
+    <!-- [closeOthers]="true" activeIds="tabla-en-muelle" -->
+    <ngb-accordion #acc2="ngbAccordion">
+      <ngb-panel id="tabla-en-muelle">
+        <ng-template ngbPanelTitle>En muelle</ng-template>
         <ng-template ngbPanelContent>
            <!-- Tabla 2 -->
            <div class="">
@@ -253,18 +265,26 @@
 </ng-template>
 
 <!-- Modal save/update (input binding = enlace de entrada) -->
-<app-modal-save-update [numeroRandom]="numRandom1"
-[catchGetSelectedRow]="getSelectedRow">
+<app-modal-save-update
+  [numeroRandom]="numRandom1"
+  [catchGetSelectedRow]="getSelectedRow">
 </app-modal-save-update>
 
 <!-- Modal eliminar -->
-<app-modal-eliminar [numeroRandom]="numRandom2"
-[idDelete]="isDeleted" ></app-modal-eliminar>
+<app-modal-eliminar
+  [numeroRandom]="numRandom2"
+  [idDelete]="isDeleted">
+</app-modal-eliminar>
 
-<!-- Modal reporte llegada -->
-<app-modal-llegada [numeroRandom]="numRandom4"
-[casoClose]="isClose" (eventoActualizaTabla)="getActiveCaso($event)">
-</app-modal-llegada>
+<ng-template #completadoM let-modalCompletado>
+  <!-- Modal reporte llegada -->
+  <app-modal-llegada
+    [numeroRandom]="numRandom4"
+    [idCaso] = "idCasoCompletado"
+    [objModalC]="modalCompletado"
+    (eventoActualizaTabla)="getActiveCaso($event)">
+  </app-modal-llegada>
+</ng-template>
 
 <ng-template #contenidoM let-modal>
   <!-- Modal novedades let-modal = variable con el modal -->

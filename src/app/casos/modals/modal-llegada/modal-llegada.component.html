@@ -1,54 +1,62 @@
-<div class="modal fade" tabindex="-1" role="dialog" id="modal-llegada" style="z-index: 2000;">
-  <div class="modal-dialog">
 
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Reportar Llegada</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+<div class="modal-header">
+  <h5 class="modal-title">Reportar Llegada</h5>
+  <button type="button" class="close" aria-label="Close" (click)="closeModalCompDismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
 
-      <form [formGroup]="formllegada" (ngSubmit)="onSubmit()" novalidate>
+<div class="modal-body" >
+  <div class="container-fluid px-0">
+    <div class="row">
+      <div class="col-12">
+        <form [formGroup]="formllegada" (ngSubmit)="onSubmit()" novalidate>
 
-        <div class="modal-body">
-          <div class="container-fluid">
-            <div class="row row-cols-1" >
-              <div class="col pt-0 pb-2 px-0" >
-                <span>Indicar la hora de llegada.</span>
-              </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row row-cols-1" >
+                <div class="col pt-0 pb-2 px-0" >
+                  <span>Indicar la hora de llegada.</span>
+                </div>
 
-              <div class="col px-0" >
-                <div class="row">
-                  <div class="col" >
-                    Desea cerrar el caso N. {{ casoClose }}?<br>
-                    Horas de gestion: hh:mm:ss <br>
-                    Se puede mostrar una imagen
-                    con el tiempo trancurrido desde que se abrio el caso.
-                    <br>
-                  <input type="text" name="id" id="id"
-                          formControlName="id" required readonly>
-                  <input type="checkbox" name="confirm" id="confirm"
-                          formControlName="confirm" (change)="toggleBtn()"
-                          checked="off" >
-                  <label class="ml-1" for="confirm">Acepto</label>
+                <div class="col px-0" >
+                  <div class="row">
+                    <div class="col" >
+                      Desea cerrar el caso N. {{ idCaso }}?<br>
+                      Horas de gestion: hh:mm:ss <br>
+                      Se puede mostrar una imagen
+                      con el tiempo trancurrido desde que se abrio el caso.
+                      <br>
+                    <input type="text" name="id" id="id"
+                            formControlName="id" required readonly>
+                    <input type="checkbox" name="confirm" id="confirm"
+                            formControlName="confirm" (change)="toggleBtn()"
+                            checked="off" >
+                    <label class="ml-1" for="confirm">Acepto</label>
+                    </div>
                   </div>
                 </div>
               </div>
+
             </div>
 
           </div>
+          <div class="modal-footer">
+            {{ formllegada.valid }}
+            <button class="btn btn-sm btn-secondary"
+                    (click)="closeModalComp()" >Cancelar</button>
+            <button class="btn btn-sm btn-primary mr-1"
+              [disabled]="!toggBtnSubmit">Cerrar Caso</button>
+          </div>
 
-        </div>
-        <div class="modal-footer">
-          {{ formllegada.valid }}
-          <button class="btn btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button class="btn btn-sm btn-primary mr-1"
-            [disabled]="!toggBtnSubmit">Cerrar Caso</button>
-        </div>
-
-      </form>
+        </form>
+      </div>
     </div>
+  </div>
+</div>
 
+<div class="modal-footer py-2" >
+  <div class="d-flex justify-content-end">
+    <small class="text-muted">elmondoles@gmail.com @2020</small>
   </div>
 </div>

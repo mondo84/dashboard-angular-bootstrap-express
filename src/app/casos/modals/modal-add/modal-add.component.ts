@@ -3,6 +3,13 @@ import { CasosService } from '../../casos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserI } from 'src/app/interfaces/user-i';
 
+// Librerias externas.
+import Swal from 'sweetalert2';                   // Alerts.
+
+// ==== modal ng-bootstrap
+import { NgbModal, NgbPopoverConfig } from '@ng-bootstrap/ng-bootstrap';
+
+
 @Component({
   selector: 'app-modal-add',
   templateUrl: './modal-add.component.html',
@@ -16,7 +23,6 @@ export class ModalAddComponent implements OnInit, OnChanges {
   birthday = new Date(); // April 15, 1988
   tituloModal = 'Registrar nuevo caso';
   objFormC: FormGroup;
-  toogleMsg = false;
   insertedId: string;
   affectedRows: string;
 
@@ -68,33 +74,38 @@ export class ModalAddComponent implements OnInit, OnChanges {
       next: (x) => {
         // console.log('servicio caso: ', x[`msg`]);
         if (x[`hasCaso`]) {
-          alert(`${x[`msg`]}`); // temporal.alert-danger.
-          // pendiente colocar sweet alert
-
+          this.switAlertConflicto(x[`msg`]);
           this.resetForm();
           this.closeModal();
+
         } else {
           const obs2$ = this.sC.addCaso(jsonDatos).subscribe({
             next: async (datos) => {
-              this.toogleMsg = true;
-              this.insertedId = await datos[`result`][0].insertId;
-              this.affectedRows = await datos[`result`][0].affectedRows;
+              console.log(datos);
 
-              this.eventoActualizaTablaPadre(); // Actualiza la tabla en el padre.
-              this.resetForm();
-              this.closeModal();
-              // pendiente colocar sweet alert
-              setTimeout( () => {       // Temporal.
-                this.toogleMsg = false; // Oculta mensaje en la plantilla.
-              }, 3000);
+              if ( datos[`status`] === 200 ) {
+                this.insertedId = await datos[`result`][0].insertId;
+                this.affectedRows = await datos[`result`][0].affectedRows;
+
+                await this.eventoActualizaTablaPadre(); // Actualiza la tabla en el padre.
+                await this.resetForm();
+                await this.closeModal();
+
+                setTimeout( async () => {       // Retraza apertura del alert Sweet2.
+                  await this.switAlertAddCaso();
+                }, 1000);
+              } else {
+                this.switAlertError('Pongase en contacto con el admin.');
+              }
+
             },
-            error: (er) => console.log(er.error),
-            complete: () => { console.log(`completado 2`); obs2$.unsubscribe(); }
+            error: async (er) => { await this.switAlertError(er.message); } ,
+            complete: () => { /* console.log(`completado 2`); */ obs2$.unsubscribe(); }
           });
         }
       },
-      error: (er) => { console.log(er.error); },
-      complete: () => { console.log('completado 1'); obs$.unsubscribe(); }
+      error: (er) => { this.switAlertError(er.message); },
+      complete: () => { /* console.log('completado 1'); */ obs$.unsubscribe(); }
     });
   }
 
@@ -157,13 +168,50 @@ export class ModalAddComponent implements OnInit, OnChanges {
   }
 
   closeModal() {
-    console.log(`Cierra y despues redirecciona`);
+    // console.log(`Cierra y despues redirecciona`);
     this.objModal.close(`click en cancelar`);
   }
 
   closeModalX() {
-    console.log(`Cierra y despues redirecciona`);
+    // console.log(`Cierra y despues redirecciona`);
     this.objModal.dismiss(`click en X`);
+  }
+
+  // Modal guardar novedad.
+  switAlertConflicto( arg?: number | string ) {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'Conflicto!',
+      text: `${arg}`,
+      showConfirmButton: false,
+      timer: 2500
+    });
+  }
+
+  // Modal notificador del cierre de caso.
+  switAlertAddCaso( arg?: number | string ) {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Operacion exitosa!',
+      text: `El caso ha sido creado exitosamente!`,
+      showConfirmButton: false,
+      timer: 2500
+    });
+  }
+
+  // Modal guardar novedad.
+  switAlertError( arg?: number | string ) {
+    const data = JSON.stringify(arg);
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'Algo anda mal!',
+      text: `${data}`,
+      showConfirmButton: false,
+      timer: 2500
+    });
   }
 
 }

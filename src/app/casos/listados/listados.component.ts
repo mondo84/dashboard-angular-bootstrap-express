@@ -4,6 +4,9 @@ import { UserI } from 'src/app/interfaces/user-i';
 import { map } from 'rxjs/operators';
 import { CasoI } from 'src/app/interfaces/caso-i';
 
+// Librerias externas.
+import Swal from 'sweetalert2'; // Alerts.
+
 // ==== modal ng-bootstrap
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
@@ -16,7 +19,7 @@ export class ListadosComponent implements OnInit {
 
   getSelectedRow: UserI;
   isDeleted: number;
-  isClose: number;
+  idCasoCompletado: number;
   numRandom1: number;
   numRandom2: number;
   numRandom3: number;
@@ -26,7 +29,7 @@ export class ListadosComponent implements OnInit {
 
   closeResult = ''; // Causa del cierre del modal.
 
-  miCaso: CasoI;
+  miCaso: CasoI [] = [];
   idCaso: number | string;
   objModal: any;
 
@@ -51,11 +54,11 @@ export class ListadosComponent implements OnInit {
     const obs$ = this.argList.getCasoActive()
     .pipe( map((data) => data[`x`][0]) )
     .subscribe({
-      next: (x: CasoI) => {
-        // console.log(x);
-        this.miCaso = x;
+      next: (x: any) => {
+        console.log(x);
+        this.miCaso =  x;
       },
-      error: (e) => { console.log(e.error); },
+      error: (e) => { this.switAlertError(e.message); },
       complete: () => { obs$.unsubscribe(); }
     });
   }
@@ -63,10 +66,15 @@ export class ListadosComponent implements OnInit {
   getAllDatos() {
     const obs$ = this.argList.getCasosRutaS()
     .subscribe({
-      next: (datos$: any) => {
-        this.datos = datos$.datos[0];
+      next: async (datos$: any) => {
+        console.log(datos$[`status`]);
+        if (datos$[`status`] === 200) {
+          this.datos = await datos$.datos[0];
+        } else {
+          this.switAlertError('Pongase en contacto con el admin.');
+        }
       },
-      error: (e) => { console.log(e.error); },
+      error: (e) => { this.switAlertError(e.message); },
       complete: () => { obs$.unsubscribe(); }
     });
   }
@@ -77,7 +85,7 @@ export class ListadosComponent implements OnInit {
       next: (datos$: any) => {
         this.datosMuelle = datos$.datos[0];
       },
-      error: (e) => { console.log(e.error); },
+      error: (e) => { this.switAlertError(e.message); },
       complete: () => { obs$.unsubscribe(); }
     });
   }
@@ -98,13 +106,6 @@ export class ListadosComponent implements OnInit {
   addReg(argContModalAdd: any) {
     this.numRandom3 = this.getNumeroAleatorio();
     this.modalService.open(argContModalAdd, { size: 'lg', scrollable: false } );  // sm, lg, xl
-  }
-
-  getSelectedMyCaso(arg: any) {
-    console.log(arg.id);
-    this.numRandom4 = this.getNumeroAleatorio();
-    this.isClose = arg.id;
-    // this.argList.closeCaso(arg);
   }
 
   inputNovedad(objCaso: CasoI) {
@@ -140,5 +141,24 @@ export class ListadosComponent implements OnInit {
     } else {
       return `con : ${reason}`;
     }
+  }
+
+  openModalCompletado(argModalC: any, argItem: any) {
+    this.numRandom4 = this.getNumeroAleatorio();
+    this.idCasoCompletado = argItem.id;
+    this.modalService.open(argModalC, { size: 'lg', scrollable: false } );
+  }
+
+  // Modal notificacion de error.
+  switAlertError( arg?: number | string ) {
+    const data = JSON.stringify(arg);
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'Algo anda mal!',
+      text: `${data}`,
+      showConfirmButton: false,
+      timer: 2500
+    });
   }
 }

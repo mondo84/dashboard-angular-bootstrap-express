@@ -8,6 +8,7 @@
 
 <div class="modal-body">  <!-- Cuerpo del modal -->
   <div class="container-fluid"> <!-- Contnedor ppal del contenido del modal -->
+    falta completado, PDF y EXCEL
     <!-- {{ idCasoNov }} -->
     <form [formGroup]="objFormNov" (ngSubmit)="onSubmit()" novalidate>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-md-4" >
@@ -81,7 +82,7 @@
                           <small class="d-none " [ngClass]="{'d-block': item.acpm === 1}">(ACPM)</small>
                         </div>
 
-                        <div class="px-2 py-1 bg-section-description" >
+                        <div class="px-2 py-1 bg-section-description">
                           <span class="text-justify p-0 m-0" >
                             {{ item.descripcion }}
                           </span>
@@ -103,6 +104,7 @@
                               <div class="pl-2">
                                 <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                                   <!-- (click)="updateNov(item)" -->
+                                  <!-- {{ item | json}} -->
                                   <button class="btn btn-info"
                                           (click)="openModUpdate(modalUpdate, item)" >Modificar</button>
                                   <button class="btn btn-danger"
@@ -159,11 +161,11 @@
   <div class="text-muted text-center py-3" >Sin novedad</div>
 </ng-template>
 
-
+<!-- Modal de actualizar -->
 <ng-template #modalUpdate let-modalUpdate >
   <!-- Modal modificar -->
   <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Actualizar Novedad</h5>
     <button type="button" class="close"
             aria-label="Close" (click)="modalUpdate.dismiss()">
       <span aria-hidden="true">&times;</span>
@@ -173,7 +175,7 @@
 
     <div class="container-fluid">
       <form [formGroup]="objFormNovMod" (ngSubmit)="saveMod()" novalidate>
-        <input type="hidden" name="idCaso" formControlName="idCaso" required readonly>
+        <input type="hidden" id="idNovedad" name="idNovedad" formControlName="idNovedad" required readonly>
         <div class="row">
           <div class="col-12">
             <input type="checkbox" name="motor" id="motor1" class="form-check-input"

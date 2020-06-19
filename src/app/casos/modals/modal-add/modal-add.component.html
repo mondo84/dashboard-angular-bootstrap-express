@@ -85,13 +85,10 @@
           </div>
           <div class="row">
             <div class="col-12 d-flex justify-content-end align-items-center pt-3 pb-2">
-              <!-- Borrar esta linea para mostrar un sweet alert -->
-              <span class="mr-auto " *ngIf="toogleMsg"  >Caso {{insertedId}} creado</span>
-
               <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                 <button class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
                 <button type="submit" class="btn btn-primary"
-                [disabled]="!objFormC.valid">Crear</button>
+                        [disabled]="!objFormC.valid">Crear</button>
               </div>
             </div>
           </div>

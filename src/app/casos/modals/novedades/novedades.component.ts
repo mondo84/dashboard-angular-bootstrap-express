@@ -12,7 +12,6 @@ import { NgxSpinnerService } from 'ngx-spinner';  // Spinner.
 import { NgbModal, NgbPopoverConfig } from '@ng-bootstrap/ng-bootstrap';
 
 
-
 @Component({
   selector: 'app-novedades',
   templateUrl: './novedades.component.html',
@@ -46,17 +45,12 @@ export class NovedadesComponent implements OnInit, OnChanges {
     this.formNovedades();
     this.formModNovedades();
     this.loadList();
-    this.cargaForm();
+    this.cargaFormNov();
   }
 
   ngOnChanges(): void {
-    console.log(this.objFormNov);
+    // console.log(this.objFormNov);
     this.spinner.show();
-
-    /*
-    if ( this.objFormNov !== undefined ) {
-      this.resetForm();
-    }*/
     this.loadList();
   }
 
@@ -75,7 +69,7 @@ export class NovedadesComponent implements OnInit, OnChanges {
 
   formModNovedades() {
     this.objFormNovMod = this.fb.group({
-      idCaso: [null, { validators: [ Validators.required ] }],
+      idNovedad: [null, { validators: [ Validators.required ] }],
       motor: [false],
       llanta: [false],
       acpm: [false],
@@ -86,7 +80,7 @@ export class NovedadesComponent implements OnInit, OnChanges {
     });
   }
 
-  cargaForm() {
+  cargaFormNov() {
     this.objFormNov.patchValue({
       idCaso: this.idCasoNov,
       motor: false,
@@ -131,18 +125,22 @@ export class NovedadesComponent implements OnInit, OnChanges {
   }
 
   saveMod() {
-    // console.log(this.objFormNovMod.getRawValue());
+    console.log(this.objFormNovMod.getRawValue());
     const obs$ = this.cS.updateNovS(this.objFormNovMod.getRawValue())
     // .pipe( map(x => x ) )
     .subscribe({
-      next: (res) => console.log(res),
-      error: (err) => console.error(`Algo anda mal: ${err.error}`),
+      next: (res) => {
+        // console.log(res);
+        this.loadList();
+        this.switAlertUpdate();
+      },
+      error: (err) => console.error(`Algo anda mal: ${err.message}`),
       complete: () => { console.log(`completado`); obs$.unsubscribe(); }
     });
   }
 
   loadList() {
-    console.log(`ID Caso: ${this.idCasoNov}`);
+    // console.log(`ID Caso: ${this.idCasoNov}`);
 
     if ( this.idCasoNov !== undefined ) {
       // Llamado al service
@@ -191,10 +189,11 @@ export class NovedadesComponent implements OnInit, OnChanges {
   }
 
   openModUpdate(argModalUpdate: any, argItem: any) {
+    // console.log(argItem);
     // this.objModUpdate = argItem;
     this.modalService.open(argModalUpdate, { size: 'lg' } );  // sm, lg, xl
     this.objFormNovMod.patchValue({
-      idCaso: argItem.id,
+      idNovedad: argItem.id,
       motor: argItem.motor,
       llanta: argItem.llanta,
       acpm: argItem.acpm,
@@ -210,7 +209,6 @@ export class NovedadesComponent implements OnInit, OnChanges {
     // console.log(arg);
     this.cS.updateNovS(arg);
   }
-
 
   deleteNov(arg: any) {
     // console.log(arg.id);
@@ -234,6 +232,37 @@ export class NovedadesComponent implements OnInit, OnChanges {
     });
   }
 
+  // Modal guardar novedad.
+  switAlertSave( argId: number | string ) {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Operacion exitosa!',
+      text: `Novedad N°: ${argId}`,
+      showConfirmButton: false,
+      timer: 2500
+    });
+  }
+
+  // Modal confirmacion borrado novedad.
+  sweetAlertConfirm(argItem: any) {
+    Swal.fire({
+      title: 'Estas seguro?',
+      text: `Esta operacion no se podra revertir! ID ${argItem.id}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, borrar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        this.deleteNov(argItem);
+      }
+    });
+  }
+
+  // Notifica borrado exitoso novedad.
   switAlertTimer() {
     const Toast = Swal.mixin({
       toast: true,
@@ -254,33 +283,15 @@ export class NovedadesComponent implements OnInit, OnChanges {
     });
   }
 
-  switAlertSave( argId: number | string ) {
+  // Modal de modificar novedad.
+  switAlertUpdate( argNovedad?: number | string ) {
     Swal.fire({
       position: 'center',
       icon: 'success',
       title: 'Operacion exitosa!',
-      text: `Novedad N°: ${argId}`,
+      text: `Registro modificado exitosamente`,
       showConfirmButton: false,
       timer: 2500
     });
   }
-
-  sweetAlertConfirm(argItem: any) {
-    Swal.fire({
-      title: 'Estas seguro?',
-      text: `Esta operacion no se podra revertir! ID ${argItem.id}`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, borrar!',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.value) {
-        this.deleteNov(argItem);
-      }
-    });
-  }
-
-
 }
