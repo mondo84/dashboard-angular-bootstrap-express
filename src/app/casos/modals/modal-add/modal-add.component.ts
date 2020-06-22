@@ -71,12 +71,14 @@ export class ModalAddComponent implements OnInit, OnChanges {
     const jsonDatos: UserI = this.objFormC.getRawValue();
     const obs$ = this.sC.saveOrUpdateCasos(jsonDatos)
     .subscribe({
-      next: (x) => {
+      next: async (x) => {
         // console.log('servicio caso: ', x[`msg`]);
         if (x[`hasCaso`]) {
-          this.switAlertConflicto(x[`msg`]);
           this.resetForm();
-          this.closeModal();
+          this.switAlertConflicto(x[`msg`]);
+          setTimeout(() => {
+            this.closeModal();
+          }, 2800);
 
         } else {
           const obs2$ = this.sC.addCaso(jsonDatos).subscribe({

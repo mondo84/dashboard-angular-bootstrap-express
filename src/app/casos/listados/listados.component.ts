@@ -63,11 +63,14 @@ export class ListadosComponent implements OnInit {
     });
   }
 
-  getAllDatos() {
+  getAllDatos(event?) {
+    console.log(`evento ....`);
+    console.log(`Evento: ${event}`);
     const obs$ = this.argList.getCasosRutaS()
     .subscribe({
       next: async (datos$: any) => {
-        console.log(datos$[`status`]);
+        console.log(datos$);
+        // console.log(datos$[`status`]);
         if (datos$[`status`] === 200) {
           this.datos = await datos$.datos[0];
         } else {
@@ -91,13 +94,16 @@ export class ListadosComponent implements OnInit {
   }
 
   // Selecciona registro para ver y modificar.
-  getRow(objJson: UserI) {
+  getRow(argModal: any, objJson: UserI) {
     this.numRandom1 = this.getNumeroAleatorio();
     this.getSelectedRow = objJson;
+    this.modalService.open(argModal, { size: 'sm', scrollable: false } );
   }
 
   // Selecciona registro para eliminar.
-  getId(objJson: UserI) {
+  modalDelete(argModal: any, objJson: UserI) {
+    // console.log(`Abre modal`);
+    this.modalService.open(argModal, { size: 'lg', scrollable: false });
     this.numRandom2 = this.getNumeroAleatorio();
     this.isDeleted = objJson.id;
   }

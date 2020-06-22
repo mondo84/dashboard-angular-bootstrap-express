@@ -15,7 +15,7 @@
     <ng-template #cardCaso >
       <ngb-accordion #acc="ngbAccordion" activeIds="tarjeta-caso" > <!-- Abre accordion -->
         <ngb-panel id="tarjeta-caso" [disabled]="false" >  <!-- class="d-flex shadow-box header-accordion" -->
-          {{ miCaso | json }}
+           <!-- {{ miCaso | json }} -->
           <ng-template ngbPanelTitle>
             <div *ngFor="let item of miCaso" class="d-flex shadow-box" >
                 <a href="javascript:void(0)">Caso N°: {{ item.id }}</a>
@@ -29,6 +29,7 @@
                   <td class="px-0 pt-0 pb-1">
                     <div class="card shadow-box">
                       <div class="d-flex text-muted py-2 pl-3">
+                         <!-- {{ miCaso | json }} -->
                         Estado: ({{ item.estado }}), Creado el: {{ item.create_at | date: 'dd-MM-yyyy HH:mm:ss' }}
                       </div>
 
@@ -98,8 +99,9 @@
   <div class="col">
     <!-- [closeOthers]="true" activeIds="tabla-en-ruta" -->
     <ngb-accordion #acc1="ngbAccordion">
+
       <ngb-panel id="tabla-en-ruta">
-        <ng-template ngbPanelTitle>En ruta</ng-template>
+        <ng-template ngbPanelTitle>En ruta (Solo lectura. Admin. todos los permisos)</ng-template>
         <ng-template ngbPanelContent>
           <!-- Tabla 1 -->
           <div class="">
@@ -113,7 +115,7 @@
                 </tr>
                 <tbody>
                   <!-- {{datos | json}} -->
-                  <!-- Iteracion -->
+                  <!-- Iteracion con pipe que pagina los datos -->
                   <tr class=" p-0" *ngFor="let item of datos | paginate: { id: 'ctrltab1',
                                                                             itemsPerPage: 2,
                                                                             currentPage: pag
@@ -136,11 +138,13 @@
                               </div>
                             </div>
                             <div class="d-flex align-items-end px-2 pb-2 align-self-stretch">
-                              <a href="#" class="mr-2" data-toggle="modal" data-target="#modal-delete"
-                                (click)="getId(item)"><small class="text-danger">Eliminar</small></a>
-
-                              <a href="#" data-toggle="modal" data-target="#modalSave"
-                                (click)="getRow(item)"><small>Ver</small></a>
+                              <!-- <a href="javascript:void(0);" class="mr-2"
+                                (click)="modalDelete(modalEli, item)">
+                                <small class="text-danger">[[Eliminar]]</small>
+                              </a> -->
+                              <a href="javascript:void(0);"
+                                  (click)="getRow(modalVer, item)"><small>Ver</small>
+                              </a>
                             </div>
                           </div>
                         </div>
@@ -169,6 +173,7 @@
           </div>
         </ng-template>
       </ngb-panel>
+
     </ngb-accordion>
   </div>
 </div>
@@ -178,7 +183,7 @@
     <!-- [closeOthers]="true" activeIds="tabla-en-muelle" -->
     <ngb-accordion #acc2="ngbAccordion">
       <ngb-panel id="tabla-en-muelle">
-        <ng-template ngbPanelTitle>En muelle</ng-template>
+        <ng-template ngbPanelTitle>En muelle (Solo lectura. Admin. todos los permisos)</ng-template>
         <ng-template ngbPanelContent>
            <!-- Tabla 2 -->
            <div class="">
@@ -202,13 +207,9 @@
                         <div class="card-body py-0">
                           <div class="d-flex align-items-center">
                             <div class="d-flex align-items-end px-2 pb-2 align-self-stretch">
-                              <a href="#" data-toggle="modal" data-target="#modalSave"
-                              (click)="getRow(item2)">
-                                <small>Ver</small></a>
-                              <a href="#" class="ml-2"
-                                data-toggle="modal" data-target="#modal-delete"
-                                (click)="getId(item2)">
-                              <small class="text-danger">Eliminar</small></a>
+                              <a href="javascript:void(0)" (click)="getRow(modalVer, item2)">
+                                <small>Ver</small>
+                              </a>
                             </div>
                             <div class="flex-grow-1 pr-4 py-1 text-right">
                               <div class="d-block" >
@@ -256,6 +257,7 @@
   </div>
 </div>
 
+<!-- Modal para crear caso -->
 <ng-template #contenidoModAdd let-modal2>
   <app-modal-add
     [numRandom]="numRandom3"
@@ -264,17 +266,24 @@
   </app-modal-add>
 </ng-template>
 
-<!-- Modal save/update (input binding = enlace de entrada) -->
-<app-modal-save-update
+<ng-template #modalUpdate let-modalUpdate >
+  <!-- Modal save/update (input binding = enlace de entrada) -->
+  <app-modal-save-update
   [numeroRandom]="numRandom1"
-  [catchGetSelectedRow]="getSelectedRow">
-</app-modal-save-update>
+  [catchGetSelectedRow]="getSelectedRow"
+  [objModal]="modalUpdate">
+  </app-modal-save-update>
+</ng-template>
 
-<!-- Modal eliminar -->
-<app-modal-eliminar
+<ng-template #modalEli let-modalEliminar >
+  <!-- Modal eliminar -->
+  <app-modal-eliminar
   [numeroRandom]="numRandom2"
-  [idDelete]="isDeleted">
-</app-modal-eliminar>
+  [idDelete]="isDeleted"
+  (eventoActualizaTablaPadre)="getAllDatos($event)"
+  [objModal]="modalEliminar">
+  </app-modal-eliminar>
+</ng-template>
 
 <ng-template #completadoM let-modalCompletado>
   <!-- Modal reporte llegada -->
@@ -295,3 +304,11 @@
   </app-novedades>
 </ng-template>
 
+<ng-template #modalVer let-modalV >
+  <app-modal-ver
+    [objModal]="modalV"
+    [catchGetSelectedRow]="getSelectedRow">
+  </app-modal-ver>
+</ng-template>
+
+contadores de gestion de tiempo.

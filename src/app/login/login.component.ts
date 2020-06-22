@@ -29,23 +29,22 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log(this.objFormLogin.value);
+    console.log(this.objFormLogin.value);
     const objJson = this.objFormLogin.getRawValue();  // Devuelve campos disabled y enabled.
 
     const isValidated = this.argSL.validaUser( objJson )
     .subscribe({
       next: (res) => {
-        // console.log(res);
+        console.log(res);
         if (res[`auth`] && res[`cod`] === 200) {
           localStorage.setItem('token', res[`token`]);
           this.objRoute.navigate(['home']);
         } else {
-          console.log(res[`auth`]);
-          console.log(res[`msg`]);
+          // Mostrar sweet alert 2 para notificar de un error.
         }
       },
-      error: (e) => { console.error(e.error); },
-      complete: () => { console.log(`Completado`); isValidated.unsubscribe(); }
+      error: (e) => { console.error(e.message); /* Mostrar sweet alert 2 para notificar de un error. */ },
+      complete: () => { /* console.log(`Completado`); */ isValidated.unsubscribe(); }
     });
   }
 

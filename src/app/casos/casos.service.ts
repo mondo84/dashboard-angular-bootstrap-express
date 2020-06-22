@@ -54,4 +54,8 @@ export class CasosService {
     // console.log(URL);
     return this._HTTP.delete(URL);
   }
+
+  deleteEnRutaEnMuelle(argId: string | number) {
+    console.log(`Casos service: Eliminando... ID: ${argId}`);
+  }
 }

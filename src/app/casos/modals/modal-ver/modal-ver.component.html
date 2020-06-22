@@ -1,0 +1,31 @@
+<div class="modal-header" >
+  <div class="col d-flex justify-content-end p-0">
+    <button class="btn btn-sm btn-light" (click)="dismissModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+
+<div class="modal-body">
+  <div class="container-fluid px-0" >
+    <div class="row">
+      <div class="col-12">ID: {{ catchGetSelectedRow.id }}</div>
+      <div class="col-12">Nombre: {{ catchGetSelectedRow.nombre }}</div>
+      <div class="col-12">Cedula: {{ catchGetSelectedRow.cedula }}</div>
+      <div class="col-12">Placa: {{ catchGetSelectedRow.placa }}</div>
+      <div class="col-12">Trailer: {{ catchGetSelectedRow.trailer }}</div>
+      <div class="col-12">Origen: {{ catchGetSelectedRow.origen }}</div>
+      <div class="col-12">Destino: {{ catchGetSelectedRow.destino }}</div>
+      <div class="col-12">Estado: {{ catchGetSelectedRow.estado }}</div>
+    </div>
+    <div class="d-flex" >
+      <button class="ml-auto btn btn-primary" (click)="closeModal()" >Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer py-2" >
+  <div class="d-flex justify-content-end">
+    <small class="text-muted">elmondoles@gmail.com @2020</small>
+  </div>
+</div>

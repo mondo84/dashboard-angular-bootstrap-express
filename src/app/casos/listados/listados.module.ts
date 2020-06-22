@@ -9,6 +9,7 @@ import { ModalSaveUpdateComponent } from '../modals/modal-save-update/modal-save
 import { ModalEliminarComponent } from './../modals/modal-eliminar/modal-eliminar.component';
 import { ModalAddComponent } from '../modals/modal-add/modal-add.component';
 import { ModalLlegadaComponent } from '../modals/modal-llegada/modal-llegada.component';
+import { ModalVerComponent } from '../modals/modal-ver/modal-ver.component';
 import { NovedadesComponent } from '../modals/novedades/novedades.component';
 
 // Importa el modulo de la libreria spinner.
@@ -27,6 +28,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ModalEliminarComponent,
     ModalAddComponent,
     ModalLlegadaComponent,
+    ModalVerComponent,
     NovedadesComponent
   ],
   imports: [

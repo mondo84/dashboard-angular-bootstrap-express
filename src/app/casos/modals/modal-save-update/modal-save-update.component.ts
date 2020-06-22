@@ -15,20 +15,23 @@ export class ModalSaveUpdateComponent implements OnInit, OnChanges {
   toggleIf: boolean;
   @Input() catchGetSelectedRow: UserI;
   @Input() numeroRandom: number;
+  @Input() objModal: any;
 
   constructor(private fb: FormBuilder, private sC: CasosService) { }
 
   ngOnInit(): void {
     this.formCasos();
+    this.cargaForm();
+    // console.log(`Se crea el componente`);
   }
 
   // Detecta cambios en la propiedad @input. y ejecuta el bloque.
   ngOnChanges(): void {
-    this.cargaForm();
+    // this.cargaForm();
   }
 
   cargaForm() {
-    // console.log('carga el formulario');
+    // console.log(this.catchGetSelectedRow);
 
     try {
       const idUsu = this.catchGetSelectedRow.id;
@@ -37,7 +40,6 @@ export class ModalSaveUpdateComponent implements OnInit, OnChanges {
           id: this.catchGetSelectedRow.id,
           conductor: this.catchGetSelectedRow.nombre,
           cedula: this.catchGetSelectedRow.cedula,
-          celular: this.catchGetSelectedRow.celular,
           placa: this.catchGetSelectedRow.placa,
           trailer: this.catchGetSelectedRow.trailer,
           origen: this.catchGetSelectedRow.origen,
@@ -53,17 +55,14 @@ export class ModalSaveUpdateComponent implements OnInit, OnChanges {
   formCasos() {
     this.objFormC = this.fb.group({
       id: [
-            { value: '', disabled: false }
+            { value: '', disabled: false },
+            { validators: [ Validators.required ] }
           ],
       conductor: [
                   { value: '', disabled: false },
                   { validators: [ Validators.required, Validators.minLength(2) ] }
                 ],
       cedula: [
-                { value: '', disabled: false },
-                { validators: [ Validators.required, Validators.minLength(2) ] }
-              ],
-      celular: [
                 { value: '', disabled: false },
                 { validators: [ Validators.required, Validators.minLength(2) ] }
               ],
@@ -130,15 +129,6 @@ export class ModalSaveUpdateComponent implements OnInit, OnChanges {
           }
         }
         break;
-      case 'celular':
-        if (objControl.invalid && ( objControl.touched || objControl.dirty )) {
-          if (objControl.errors.required) {
-            error = 'El celular es requerido.';
-          } else if (objControl.errors.minlength) {
-            error += 'El celular debe tener minimo 2 caracteres.';
-          }
-        }
-        break;
       case 'placa':
         if (objControl.invalid && ( objControl.touched || objControl.dirty )) {
           if (objControl.errors.required) {
@@ -191,5 +181,13 @@ export class ModalSaveUpdateComponent implements OnInit, OnChanges {
   limpiaInput() {
     console.log('Lipia los campos');
     this.catchGetSelectedRow = null;
+  }
+
+  dismissModal() {
+    this.objModal.dismiss();
+  }
+
+  closeModal() {
+    this.objModal.close();
   }
 }

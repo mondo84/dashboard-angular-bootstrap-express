@@ -1,171 +1,144 @@
-<div #btnClose class="modal fade" id="modalSave" data-backdrop="static"
-      data-keyboard="false" tabindex="-1" role="dialog"
-      aria-labelledby="staticBackdropLabel" aria-hidden="true" style="z-index: 2000;">
-
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <!-- {{ objJson | json }} -->
-          <div class="modal-header py-1 pr-1" >
-            <div class="col d-flex justify-content-end p-0">
-              <button class="btn btn-sm btn-light" data-dismiss="modal">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          </div>
-          <div class="modal-body pt-0 pb-0" >
-            <div class="container-fluid px-0">
-
-              <div class="row">
-                <div class="col-12 col-lg-4 px-0 px-lg-2 pb-2 pb-lg-0">
-                  <img src="../../assets/img/camiones/camion1.jpg" alt="Foto camion"
-                        style="width: 100%; height: 180px; object-fit: cover;">
-                </div>
-                <div class="col-12 col-lg-8">
-                  <form [formGroup]="objFormC" (ngSubmit)="onSubmit()" novalidate>
-                    <div class="row" >
-                      <input type="hidden" formControlName="id" name="id" id="id"
-                              placeholder="ID" autocomplete="off">
-                      <div class="col-12 col-lg-6 d-flex my-1">
-                        <div style="width: 80px;" >
-                          <small class="text-muted mr-2" >Nombre:</small>
-                        </div>
-                        <div class="flex-grow-1" >
-                          <input type="text" formControlName="conductor"
-                            name="conductor" id="conductor"
-                            class="form-control form-control-sm pl-3 ml-auto mr-3"
-                            [ngClass]="{'field-invalid': getError('conductor'),
-                                        'field-validated': getValid('conductor')}"
-                            autocomplete="off" required>
-                            <div [ngClass]="{'d-block': getError('conductor')}"
-                                  class="invalid-feedback">
-                                  {{getError('conductor')}}
-                            </div>
-                        </div>
-                      </div>
-                      <div class="col-12 col-lg-6 d-flex my-1">
-                        <div style="width: 80px;" >
-                          <small class="text-muted mr-2" >Cedula:</small>
-                        </div>
-                        <div class="flex-grow-1" >
-                          <input type="text" formControlName="cedula"
-                            name="cedula" id="cedula"
-                            class="form-control form-control-sm pl-3 ml-auto mr-3"
-                            [ngClass]="{'field-invalid': getError('cedula'),
-                                        'field-validated': getValid('cedula')}"
-                            autocomplete="off" [readOnly]="objCheck" required>
-                            <div [ngClass]="{'d-block': getError('cedula')}"
-                                  class="invalid-feedback">
-                                  <span>{{getError('cedula')}}</span>
-                            </div>
-                        </div>
-                      </div>
-                      <div class="col-12 col-lg-6 d-flex my-1">
-                        <div style="width: 80px;" >
-                          <small class="text-muted mr-2" >Celular:</small>
-                        </div>
-                        <div class="flex-grow-1" >
-                          <input type="text" formControlName="celular"
-                            name="celular" id="celular"
-                            class="form-control form-control-sm pl-3 ml-auto mr-3"
-                            [ngClass]="{'field-invalid': getError('celular'),
-                                        'field-validated': getValid('celular')}"
-                            autocomplete="off" [readOnly]="objCheck" required>
-                          <div [ngClass]="{'d-block': getError('celular')}"
-                                class="invalid-feedback">
-                                <span>{{getError('celular')}}</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-12 col-lg-6 d-flex my-1 ">
-                        <div style="width: 80px;" >
-                          <small class="text-muted mr-2" >Placa:</small>
-                        </div>
-                        <div class="flex-grow-1" >
-                          <input type="text" formControlName="placa"
-                            name="placa" id="placa"
-                            class="form-control form-control-sm pl-3 ml-auto mr-3"
-                            [ngClass]="{'field-invalid': getError('placa'),
-                                        'field-validated': getValid('placa')}"
-                            autocomplete="off" [readOnly]="objCheck" required>
-                            <div [ngClass]="{'d-block': getError('placa')}"
-                                  class="invalid-feedback">
-                                  <span>{{getError('placa')}}</span>
-                            </div>
-                        </div>
-                      </div>
-                      <div class="col-12 col-lg-6 d-flex my-1 ">
-                        <div style="width: 80px;" >
-                          <small class="text-muted mr-2" >Trailer:</small>
-                        </div>
-                        <div class="flex-grow-1" >
-                          <input type="text" formControlName="trailer"
-                            name="trailer" id="trailer"
-                            class="form-control form-control-sm pl-3 ml-auto mr-3"
-                            [ngClass]="{'field-invalid': getError('trailer'),
-                                        'field-validated': getValid('trailer')}"
-                            autocomplete="off" [readOnly]="objCheck" required>
-                            <div [ngClass]="{'d-block': getError('trailer')}"
-                                  class="invalid-feedback">
-                                  <span>{{getError('trailer')}}</span>
-                            </div>
-                        </div>
-                      </div>
-                      <div class="col-12 col-lg-6 d-flex my-1 ">
-                        <div style="width: 80px;" >
-                          <small class="text-muted mr-2" >Origen:</small>
-                        </div>
-                        <div class="flex-grow-1" >
-                          <input type="text" formControlName="origen"
-                            name="origen" id="origen"
-                            class="form-control form-control-sm pl-3 ml-auto mr-3"
-                            [ngClass]="{'field-invalid': getError('origen'),
-                                        'field-validated': getValid('origen')}"
-                            autocomplete="off" [readOnly]="objCheck" required>
-                            <div [ngClass]="{'d-block': getError('origen')}"
-                                  class="invalid-feedback">
-                                  <span>{{getError('origen')}}</span>
-                            </div>
-                        </div>
-                      </div>
-                      <div class="col-12 col-lg-6 d-flex my-1">
-                        <div style="width: 80px;" >
-                          <small class="text-muted" >Destino:</small>
-                        </div>
-                        <div class="flex-grow-1" >
-                          <input type="text" formControlName="destino"
-                            name="destino" id="destino"
-                            class="form-control form-control-sm pl-3 ml-auto mr-3"
-                            [ngClass]="{'field-invalid': getError('destino'),
-                                        'field-validated': getValid('destino')}"
-                            autocomplete="off" [readOnly]="objCheck" required>
-                            <div [ngClass]="{'d-block': getError('destino')}"
-                                  class="invalid-feedback">
-                                  <span>{{getError('destino')}}</span>
-                            </div>
-                        </div>
-                      </div>
-                      <div class="d-flex justify-content-end col-12 d-flex pt-4 pb-2">
-                        <button type="button" class="btn btn-sm btn-success mr-1" (click)="isChecked()" >
-                          <span *ngIf="objCheck" >Editar</span>
-                          <span *ngIf="!objCheck" >Solo lectura</span>
-                        </button>
-                        <button type="submit" class="btn btn-sm btn-primary"
-                              [disabled]="!objFormC.valid">Enviar</button>
-                      </div>
-                    </div>
-                  </form>
-                </div> <!-- #Cierra col -->
-              </div> <!-- #cierra row -->
-
-            </div>
-          </div>  <!-- #cierra body modal -->
-
-          <div class="modal-footer py-2" >
-            <div class="d-flex justify-content-end">
-              <small class="text-muted">elmondoles@gmail.com @2020</small>
-            </div>
-          </div>
-        </div>
-      </div>
-
+<!-- {{ objJson | json }} -->
+<div class="modal-header py-1 pr-1" >
+  <div class="col d-flex justify-content-end p-0">
+    <button class="btn btn-sm btn-light" (click)="dismissModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 </div>
+<div class="modal-body py-0 px-0" >
+  <div class="container-fluid">
+    {{ catchGetSelectedRow | json }}
+    <div class="row">
+      <div class="col-12 col-lg-4 px-lg-2 pb-2 pb-lg-0 px-0">
+        <img src="../../assets/img/camiones/camion1.jpg" alt="Foto camion"
+              style="width: 100%; height: 180px; object-fit: cover;">
+      </div>
+      <div class="col-12 col-lg-8">
+        <form [formGroup]="objFormC" (ngSubmit)="onSubmit()" novalidate>
+          <div class="row" >
+            <input type="text" formControlName="id" name="id" id="id"
+                    placeholder="ID" autocomplete="off" required>
+            <div class="col-12 col-lg-6 d-flex my-1">
+              <div style="width: 80px;" >
+                <small class="text-muted mr-2" >Nombre:</small>
+              </div>
+              <div class="flex-grow-1" >
+                <input type="text" formControlName="conductor"
+                  name="conductor" id="conductor"
+                  class="form-control form-control-sm pl-3 ml-auto mr-3"
+                  [ngClass]="{'field-invalid': getError('conductor'),
+                              'field-validated': getValid('conductor')}"
+                  autocomplete="off" required>
+                  <div [ngClass]="{'d-block': getError('conductor')}"
+                        class="invalid-feedback">
+                        {{getError('conductor')}}
+                  </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6 d-flex my-1">
+              <div style="width: 80px;" >
+                <small class="text-muted mr-2" >Cedula:</small>
+              </div>
+              <div class="flex-grow-1" >
+                <input type="text" formControlName="cedula"
+                  name="cedula" id="cedula"
+                  class="form-control form-control-sm pl-3 ml-auto mr-3"
+                  [ngClass]="{'field-invalid': getError('cedula'),
+                              'field-validated': getValid('cedula')}"
+                  autocomplete="off" [readOnly]="objCheck" required>
+                  <div [ngClass]="{'d-block': getError('cedula')}"
+                        class="invalid-feedback">
+                        <span>{{getError('cedula')}}</span>
+                  </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6 d-flex my-1 ">
+              <div style="width: 80px;" >
+                <small class="text-muted mr-2" >Placa:</small>
+              </div>
+              <div class="flex-grow-1" >
+                <input type="text" formControlName="placa"
+                  name="placa" id="placa"
+                  class="form-control form-control-sm pl-3 ml-auto mr-3"
+                  [ngClass]="{'field-invalid': getError('placa'),
+                              'field-validated': getValid('placa')}"
+                  autocomplete="off" [readOnly]="objCheck" required>
+                  <div [ngClass]="{'d-block': getError('placa')}"
+                        class="invalid-feedback">
+                        <span>{{getError('placa')}}</span>
+                  </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6 d-flex my-1 ">
+              <div style="width: 80px;" >
+                <small class="text-muted mr-2" >Trailer:</small>
+              </div>
+              <div class="flex-grow-1" >
+                <input type="text" formControlName="trailer"
+                  name="trailer" id="trailer"
+                  class="form-control form-control-sm pl-3 ml-auto mr-3"
+                  [ngClass]="{'field-invalid': getError('trailer'),
+                              'field-validated': getValid('trailer')}"
+                  autocomplete="off" [readOnly]="objCheck" required>
+                  <div [ngClass]="{'d-block': getError('trailer')}"
+                        class="invalid-feedback">
+                        <span>{{getError('trailer')}}</span>
+                  </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6 d-flex my-1 ">
+              <div style="width: 80px;" >
+                <small class="text-muted mr-2" >Origen:</small>
+              </div>
+              <div class="flex-grow-1" >
+                <input type="text" formControlName="origen"
+                  name="origen" id="origen"
+                  class="form-control form-control-sm pl-3 ml-auto mr-3"
+                  [ngClass]="{'field-invalid': getError('origen'),
+                              'field-validated': getValid('origen')}"
+                  autocomplete="off" [readOnly]="objCheck" required>
+                  <div [ngClass]="{'d-block': getError('origen')}"
+                        class="invalid-feedback">
+                        <span>{{getError('origen')}}</span>
+                  </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6 d-flex my-1">
+              <div style="width: 80px;" >
+                <small class="text-muted" >Destino:</small>
+              </div>
+              <div class="flex-grow-1" >
+                <input type="text" formControlName="destino"
+                  name="destino" id="destino"
+                  class="form-control form-control-sm pl-3 ml-auto mr-3"
+                  [ngClass]="{'field-invalid': getError('destino'),
+                              'field-validated': getValid('destino')}"
+                  autocomplete="off" [readOnly]="objCheck" required>
+                  <div [ngClass]="{'d-block': getError('destino')}"
+                        class="invalid-feedback">
+                        <span>{{getError('destino')}}</span>
+                  </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end col-12 d-flex pt-4 pb-2">
+              <button type="button" class="btn btn-sm btn-success mr-1" (click)="isChecked()" >
+                <span *ngIf="objCheck" >Editar</span>
+                <span *ngIf="!objCheck" >Solo lectura</span>
+              </button>
+              <button type="submit" class="btn btn-sm btn-primary"
+                    [disabled]="!objFormC.valid">Enviar</button>
+            </div>
+          </div>
+        </form>
+      </div> <!-- #Cierra col -->
+    </div> <!-- #cierra row -->
+
+  </div>
+</div>  <!-- #cierra body modal -->
+<div class="modal-footer py-2" >
+  <div class="d-flex justify-content-end">
+    <small class="text-muted">elmondoles@gmail.com @2020</small>
+  </div>
+</div>
+
